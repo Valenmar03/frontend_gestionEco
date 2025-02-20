@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+@theme {
+    --font-outfit: "Outfit", "Roboto";
+    --font-roboto: "Roboto", "Outfit", "sans-serif";
+}
