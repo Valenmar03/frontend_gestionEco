@@ -10,10 +10,10 @@ export default function Router() {
             <Routes>
                 <Route element={<Layout/>}>
                     <Route path="/" element={<DashboardView/>} index />
-                    <Route path="/control-stock" element={<DashboardView/>} index />
-                    <Route path="/ventas" element={<DashboardView/>} index />
-                    <Route path="/facturas" element={<DashboardView/>} index />
-                    <Route path="/products" element={<ProductsView/>} index />
+                    <Route path="/control-stock" element={<DashboardView/>}  />
+                    <Route path="/ventas" element={<DashboardView/>}  />
+                    <Route path="/facturas" element={<DashboardView/>}  />
+                    <Route path="/products" element={<ProductsView/>}  />
                 </Route>
             </Routes>
         </BrowserRouter>
