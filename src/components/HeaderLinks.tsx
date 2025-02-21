@@ -1,25 +1,33 @@
 import { Link, useLocation } from "react-router-dom";
 
 type HeaderLinksProps = {
-   path: string;
-   title: string;
+   page: {
+      title: string;
+      url: string;
+      description: string;
+      textColor: string;
+      borderColor: string;
+      bgFocusColor: string;
+      bgColor: string;
+      hoverColor: string;
+  }
 };
 
-export default function HeaderLinks({ path, title }: HeaderLinksProps) {
+export default function HeaderLinks({ page }: HeaderLinksProps) {
    const { pathname } = useLocation();
-   const isActive = pathname === path;
+   const isFocus = pathname === page.url;
 
    return (
       <li>
          <Link
-            to={path}
+            to={page.url}
             className={`pt-2 px-7 rounded-t-lg duration-200 ${
-               isActive
-                  ? "pb-5 bg-vida-loca-300 "
-                  : "pb-3 bg-vida-loca-100 hover:bg-vida-loca-200"
+               isFocus
+                  ? `pb-5 ${page.bgFocusColor}`
+                  : `pb-3 ${page.bgColor} ${page.hoverColor}`
             }`}
          >
-            {title}
+            {page.title}
          </Link>
       </li>
    );
