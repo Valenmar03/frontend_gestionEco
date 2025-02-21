@@ -15,8 +15,8 @@ export default function HeaderLinks({ path, title }: HeaderLinksProps) {
             to={path}
             className={`pt-2 px-7 rounded-t-lg duration-200 ${
                isActive
-                  ? "pb-3 bg-vida-loca-300 "
-                  : "pb-2 bg-vida-loca-100 hover:bg-vida-loca-200"
+                  ? "pb-5 bg-vida-loca-300 "
+                  : "pb-3 bg-vida-loca-100 hover:bg-vida-loca-200"
             }`}
          >
             {title}
