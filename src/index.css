@@ -3,4 +3,26 @@
 @theme {
     --font-outfit: "Outfit", "Roboto";
     --font-roboto: "Roboto", "Outfit", "sans-serif";
+    --color-lima-50: #f3faeb;
+    --color-lima-100: #e2f4d3;
+    --color-lima-200: #c7ebab;
+    --color-lima-300: #a2dc7a;
+    --color-lima-400: #7dc94a;
+    --color-lima-500: #62b032;
+    --color-lima-600: #4a8c24;
+    --color-lima-700: #3b6b20;
+    --color-lima-800: #31561e;
+    --color-lima-900: #2c491e;
+    --color-lima-950: #14280b;
+    --color-vida-loca-50: #f3f9ec;
+    --color-vida-loca-100: #e3f2d5;
+    --color-vida-loca-200: #c9e6b0;
+    --color-vida-loca-300: #a6d581;
+    --color-vida-loca-400: #86c259;
+    --color-vida-loca-500: #67a73b;
+    --color-vida-loca-600: #599631;
+    --color-vida-loca-700: #3e6625;
+    --color-vida-loca-800: #345222;
+    --color-vida-loca-900: #2e4621;
+    --color-vida-loca-950: #15260d;
 }
