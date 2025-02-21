@@ -1,20 +1,30 @@
 export const pages = [
     {
+        title: 'Productos',
+        url: '/products',
+        description: 'Gestioná tus productos',
+        textColor: 'text-cyan-500',
+        borderColor: 'border-cyan-500'
+    },
+    {
         title: 'Control de Stock',
         url: '/control-stock',
         description: 'Administra el stock de tu negocio',
-        color: 'sapphire-600'
+        textColor: 'text-orange-300',
+        borderColor: 'border-orange-300'
     },
     {
         title: 'Ventas',
         url: '/ventas',
         description: 'Ingresa las ventas de tus productos',
-        color: 'sapphire-500'
+        textColor: 'text-royal-purple-600',
+        borderColor: 'border-royal-purple-600'
     },
     {
         title: 'Facturas',
         url: '/facturas',
         description: 'Crea facturas para tus clientes',
-        color: 'vida-loca-600'
-    }
+        textColor: 'text-sapphire-600',
+        borderColor: 'border-sapphire-600'
+    },
 ]
