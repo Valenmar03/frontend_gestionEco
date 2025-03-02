@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
+import { CreateProductForm } from "../../types";
 export default function ProductForm() {
-   const initialValues = {
+   const initialValues : CreateProductForm = {
       type: "",
       haveWeight: true,
       weight: 0,
@@ -17,7 +18,7 @@ export default function ProductForm() {
       formState: { errors },
    } = useForm({ defaultValues: initialValues });
 
-   const handleForm = (formData: any) => {
+   const handleForm = (formData: CreateProductForm) => {
       console.log(formData);
    };
 
@@ -70,9 +71,10 @@ export default function ProductForm() {
                <select
                   id=""
                   className="p-3 text-xl bg-gray-100 rounded-r outline-vida-loca-600"
+                  {...register("haveWeight")}
                >
                   <option value="true">Kg.</option>
-                  <option value="">mL.</option>
+                  <option value="false">mL.</option>
                </select>
             </div>
          </div>
