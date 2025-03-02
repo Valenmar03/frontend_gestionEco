@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { CreateProductForm } from "../../types";
+import { createProduct } from "../../api/productAPI";
 export default function ProductForm() {
    const initialValues : CreateProductForm = {
       type: "",
@@ -19,7 +20,7 @@ export default function ProductForm() {
    } = useForm({ defaultValues: initialValues });
 
    const handleForm = (formData: CreateProductForm) => {
-      console.log(formData);
+      createProduct(formData);
    };
 
    return (
