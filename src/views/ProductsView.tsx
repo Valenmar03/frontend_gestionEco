@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ModalComponent from "../components/ModalComponent";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import ProductForm from "../components/Products/ProductForm";
 
 export default function ProductsView() {
    const [isOpen, setIsOpen] = useState(false);
@@ -25,7 +26,7 @@ export default function ProductsView() {
          </div>
          <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
             <h2 className="text-3xl font-bold ">Agregar Producto</h2>
-            <p className="mt-2 text-lg opacity-80">
+            <p className="mt-2 opacity-80">
                Ingrese todos los datos necesarios para poder agregar el producto
             </p>
             <button
@@ -34,6 +35,7 @@ export default function ProductsView() {
             >
                <XMarkIcon className="size-6 cursor-pointer hover:text-red-600 duration-200" />
             </button>
+            <ProductForm/>
          </ModalComponent>
       </main>
    );
