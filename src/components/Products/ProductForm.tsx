@@ -3,7 +3,7 @@ export default function ProductForm() {
    const initialValues = {
       type: "",
       haveWeight: true,
-      weight: 0, 
+      weight: 0,
       cost: 0,
       price: {
          wholesalePrice: 0,
@@ -27,30 +27,30 @@ export default function ProductForm() {
          onSubmit={handleSubmit(handleForm)}
          noValidate
       >
-         {errors && (
-            <p className="text-red-600 text-lg">
-               Todos los campos son obligatorios
-            </p>
-         )}
          <div className="flex flex-col space-y-2">
+            {errors.type && (
+               <p className="text-red-600">{errors.type.message}</p>
+            )}
             <label htmlFor="name" className="text-xl">
                Tipo de Producto
             </label>
             <input
                type="text"
                id="name"
-               className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${errors.type ? "border-l-4 border-red-600" : ""}`}
-
+               className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${
+                  errors.type ? "border-l-4 border-red-600" : ""
+               }`}
                placeholder="Tipo de Producto. Ej.: Insecticida"
-               {
-                  ...register("type", {
-                     required: "Este campo es obligatorio",
-                  })
-               }
+               {...register("type", {
+                  required: "Este campo es obligatorio",
+               })}
             />
          </div>
 
          <div className="flex flex-col  space-y-2">
+            {errors.weight && (
+               <p className="text-red-600">{errors.weight.message}</p>
+            )}
             <label htmlFor="cost" className="text-xl">
                Peso/Volumen
             </label>
@@ -58,13 +58,14 @@ export default function ProductForm() {
                <input
                   type="number"
                   id="cost"
-                  className={`p-3 text-xl w-full bg-gray-100 rounded outline-vida-loca-600 ${errors.weight ? "border-l-4 border-red-600" : ""}`}
+                  className={`p-3 text-xl w-full bg-gray-100 rounded outline-vida-loca-600 ${
+                     errors.weight ? "border-l-4 border-red-600" : ""
+                  }`}
                   placeholder="Peso o Volumen"
-                  {
-                     ...register("weight", {
-                        validate: (value) => value > 0 || "El valor debe ser mayor a 0",
-                     })
-                  }
+                  {...register("weight", {
+                     validate: (value) =>
+                        value > 0 || "El valor debe ser mayor a 0",
+                  })}
                />
                <select
                   id=""
@@ -77,56 +78,71 @@ export default function ProductForm() {
          </div>
 
          <div className="flex flex-col space-y-2">
+            {errors.cost && (
+               <p className="text-red-600">{errors.cost.message}</p>
+            )}
             <label htmlFor="cost" className="text-xl">
                Costo
             </label>
             <input
                type="number"
                id="cost"
-               className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${errors.cost ? "border-l-4 border-red-600" : ""}`}
-
+               className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${
+                  errors.cost ? "border-l-4 border-red-600" : ""
+               }`}
                placeholder="Costo del Producto"
-               {
-                  ...register("cost", {
-                     validate: (value) => value > 0 || "El valor debe ser mayor a 0",
-                  })
-               }
+               {...register("cost", {
+                  validate: (value) =>
+                     value > 0 || "El valor debe ser mayor a 0",
+               })}
             />
-            
          </div>
 
          <div className="flex flex-col  space-y-2">
+            {errors.price?.wholesalePrice && (
+               <p className="text-red-600">
+                  {errors.price.wholesalePrice.message}
+               </p>
+            )}
             <label htmlFor="wholesalePrice" className="text-xl">
                Precio Mayorista
             </label>
             <input
                type="number"
                id="wholesalePrice"
-               className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${errors.price?.wholesalePrice ? "border-l-4 border-red-600" : ""}`}
-
+               className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${
+                  errors.price?.wholesalePrice
+                     ? "border-l-4 border-red-600"
+                     : ""
+               }`}
                placeholder="Precio de Venta Mayorista"
-               {
-                  ...register("price.wholesalePrice", {
-                     validate: (value) => value > 0 || "El valor debe ser mayor a 0",
-                  })
-               }
+               {...register("price.wholesalePrice", {
+                  validate: (value) =>
+                     value > 0 || "El valor debe ser mayor a 0",
+               })}
             />
          </div>
 
-         <div className="flex flex-col  space-y-2">
+         <div className="flex flex-col space-y-2">
+            {errors.price?.retailPrice && (
+               <p className="text-red-600">
+                  {errors.price.retailPrice.message}
+               </p>
+            )}
             <label htmlFor="retailPrice" className="text-xl">
                Precio Minorista
             </label>
             <input
                type="number"
                id="retailPrice"
-               className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${errors.price?.retailPrice ? "border-l-4 border-red-600" : ""}`}
+               className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${
+                  errors.price?.retailPrice ? "border-l-4 border-red-600" : ""
+               }`}
                placeholder="Precio de Venta Minorista"
-               {
-                  ...register("price.retailPrice", {
-                     validate: (value) => value > 0 || "El valor debe ser mayor a 0",
-                  })
-               }
+               {...register("price.retailPrice", {
+                  validate: (value) =>
+                     value > 0 || "El valor debe ser mayor a 0",
+               })}
             />
          </div>
          <input
