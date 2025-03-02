@@ -1,34 +1,15 @@
-import { useForm } from "react-hook-form";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
 import { CreateProductForm } from "../../types";
-import { createProduct } from "../../api/productAPI";
-export default function ProductForm() {
-   const initialValues : CreateProductForm = {
-      type: "",
-      haveWeight: true,
-      weight: 0,
-      cost: 0,
-      price: {
-         wholesalePrice: 0,
-         retailPrice: 0,
-      },
-   };
 
-   const {
-      register,
-      handleSubmit,
-      formState: { errors },
-   } = useForm({ defaultValues: initialValues });
 
-   const handleForm = (formData: CreateProductForm) => {
-      createProduct(formData);
-   };
+type ProductFormProps = {
+   errors: FieldErrors<CreateProductForm>
+   register: UseFormRegister<CreateProductForm>
+}
+export default function ProductForm({ errors, register } : ProductFormProps) {
 
    return (
-      <form
-         className="space-y-5 mt-5"
-         onSubmit={handleSubmit(handleForm)}
-         noValidate
-      >
+      <>
          <div className="flex flex-col space-y-2">
             {errors.type && (
                <p className="text-red-600">{errors.type.message}</p>
@@ -153,6 +134,6 @@ export default function ProductForm() {
             value="Crear Producto"
             className="bg-vida-loca-600 hover:bg-vida-loca-600  text-white w-full rounded-md p-2 text-2xl font-bold cursor-pointer duration-200"
          />
-      </form>
+      </>
    );
 }

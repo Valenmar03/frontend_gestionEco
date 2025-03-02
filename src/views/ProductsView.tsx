@@ -1,10 +1,34 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { createProduct } from "../api/productAPI";
 import ModalComponent from "../components/ModalComponent";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import ProductForm from "../components/Products/ProductForm";
+import { CreateProductForm } from "../types";
 
 export default function ProductsView() {
    const [isOpen, setIsOpen] = useState(false);
+
+   const initialValues: CreateProductForm = {
+      type: "",
+      haveWeight: true,
+      weight: 0,
+      cost: 0,
+      price: {
+         wholesalePrice: 0,
+         retailPrice: 0,
+      },
+   };
+
+   const {
+      register,
+      handleSubmit,
+      formState: { errors },
+   } = useForm({ defaultValues: initialValues });
+
+   const handleForm = (formData: CreateProductForm) => {
+      createProduct(formData);
+   };
 
    return (
       <main className="bg-gray-50 mx-10 p-10 shadow rounded">
@@ -35,7 +59,14 @@ export default function ProductsView() {
             >
                <XMarkIcon className="size-6 cursor-pointer hover:text-red-600 duration-200" />
             </button>
-            <ProductForm/>
+
+            <form
+               className="space-y-5 mt-5"
+               onSubmit={handleSubmit(handleForm)}
+               noValidate
+            >
+               <ProductForm register={register} errors={errors} />
+            </form>
          </ModalComponent>
       </main>
    );
