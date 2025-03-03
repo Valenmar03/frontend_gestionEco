@@ -1,4 +1,6 @@
 import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import HeaderLinks from "../components/HeaderLinks";
 import { pages } from "../data";
 
@@ -31,6 +33,11 @@ export default function Layout() {
             </nav>
          </header>
          <Outlet />
+
+         <ToastContainer
+            pauseOnHover
+            pauseOnFocusLoss
+         />
       </>
    );
 }

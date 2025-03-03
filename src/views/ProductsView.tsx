@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { createProduct } from "../api/productAPI";
 import ModalComponent from "../components/ModalComponent";
-import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import ProductForm from "../components/Products/ProductForm";
 import { CreateProductForm } from "../types";
 
@@ -24,10 +25,14 @@ export default function ProductsView() {
       register,
       handleSubmit,
       formState: { errors },
+      reset,
    } = useForm({ defaultValues: initialValues });
 
-   const handleForm = (formData: CreateProductForm) => {
-      createProduct(formData);
+   const handleForm = async (formData: CreateProductForm) => {
+      const data = await createProduct(formData);
+      toast.success(data);
+      setIsOpen(false)
+      reset()
    };
 
    return (
