@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { createProduct } from "../api/productAPI";
 import ModalComponent from "../components/ModalComponent";
 import ProductForm from "../components/Products/ProductForm";
 import { CreateProductForm } from "../types";
+import ProductList from "../components/Products/ProductList";
 
 export default function ProductsView() {
    const [isOpen, setIsOpen] = useState(false);
@@ -29,20 +30,22 @@ export default function ProductsView() {
       reset,
    } = useForm({ defaultValues: initialValues });
 
+   const queryClient = useQueryClient();
+
    const { mutate } = useMutation({
       mutationFn: createProduct,
       onSuccess: (data) => {
          toast.success(data);
          setIsOpen(false);
+         queryClient.invalidateQueries({ queryKey: ["products"] });
          reset();
       },
       onError: (error) => {
-         toast.error(error.message); 
+         toast.error(error.message);
       },
    });
 
    const handleForm = (formData: CreateProductForm) => mutate(formData);
-
    return (
       <main className="bg-gray-50 mx-10 p-10 shadow rounded">
          <div className="flex justify-between items-center">
@@ -61,6 +64,7 @@ export default function ProductsView() {
                <PlusIcon className="size-12" />
             </button>
          </div>
+         <ProductList />
          <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
             <h2 className="text-3xl font-bold ">Agregar Producto</h2>
             <p className="mt-2 opacity-80">
