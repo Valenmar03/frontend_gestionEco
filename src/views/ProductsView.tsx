@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { createProduct } from "../api/productAPI";
@@ -28,12 +29,19 @@ export default function ProductsView() {
       reset,
    } = useForm({ defaultValues: initialValues });
 
-   const handleForm = async (formData: CreateProductForm) => {
-      const data = await createProduct(formData);
-      toast.success(data);
-      setIsOpen(false)
-      reset()
-   };
+   const { mutate } = useMutation({
+      mutationFn: createProduct,
+      onSuccess: (data) => {
+         toast.success(data);
+         setIsOpen(false);
+         reset();
+      },
+      onError: () => {
+         toast.error("Error al crear el producto");
+      },
+   });
+
+   const handleForm = (formData: CreateProductForm) => mutate(formData);
 
    return (
       <main className="bg-gray-50 mx-10 p-10 shadow rounded">
