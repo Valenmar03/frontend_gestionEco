@@ -1,3 +1,4 @@
+import { isAxiosError } from "axios";
 import api from "../lib/axios";
 import { CreateProductForm } from "../types";
 
@@ -6,6 +7,8 @@ export async function createProduct(formData: CreateProductForm){
         const { data } = await api.post("/products", formData)
         return data
     } catch (error) {
-        console.log(error)
+        if(isAxiosError(error) && error.response){
+            throw new Error(error.response.data.error)
+        }
     }
 }

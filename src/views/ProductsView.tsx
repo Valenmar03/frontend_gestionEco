@@ -36,8 +36,8 @@ export default function ProductsView() {
          setIsOpen(false);
          reset();
       },
-      onError: () => {
-         toast.error("Error al crear el producto");
+      onError: (error) => {
+         toast.error(error.message); 
       },
    });
 
