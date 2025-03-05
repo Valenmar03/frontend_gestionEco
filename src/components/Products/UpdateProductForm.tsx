@@ -1,138 +1,178 @@
-import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { Product } from "../../types";
-
+import { useForm } from "react-hook-form";
+import { CreateProductForm, Product } from "../../types";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { updateProduct } from "../../api/productAPI";
+import { toast } from "react-toastify";
 
 type UpdateProductFormProps = {
-   errors: FieldErrors<Product>
-   register: UseFormRegister<Product>
-}
-export default function UpdateProductForm({ errors, register } : UpdateProductFormProps) {
-    return (
-        <>
-           <div className="flex flex-col space-y-2">
-              {errors.type && (
-                 <p className="text-red-600">{errors.type.message}</p>
-              )}
-              <label htmlFor="name" className="text-xl">
-                 Tipo de Producto
-              </label>
-              <input
-                 type="text"
-                 id="name"
-                 className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${
-                    errors.type ? "border-l-4 border-red-600" : ""
-                 }`}
-                 placeholder="Tipo de Producto. Ej.: Insecticida"
-                 {...register("type", {
-                    required: "Este campo es obligatorio",
-                 })}
-              />
-           </div>
-  
-           <div className="flex flex-col  space-y-2">
-              {errors.weight && (
-                 <p className="text-red-600">{errors.weight.message}</p>
-              )}
-              <label htmlFor="cost" className="text-xl">
-                 Peso/Volumen
-              </label>
-              <div className="flex w-full">
-                 <input
-                    type="number"
-                    id="cost"
-                    className={`p-3 text-xl w-full bg-gray-100 rounded outline-vida-loca-600 ${
-                       errors.weight ? "border-l-4 border-red-600" : ""
-                    }`}
-                    placeholder="Peso o Volumen"
-                    {...register("weight", {
-                       validate: (value) =>
-                          value > 0 || "El valor debe ser mayor a 0",
-                    })}
-                 />
-                 <select
-                    id=""
-                    className="p-3 text-xl bg-gray-100 rounded-r outline-vida-loca-600"
-                    {...register("haveWeight")}
-                 >
-                    <option value="true">Kg.</option>
-                    <option value="false">mL.</option>
-                 </select>
-              </div>
-           </div>
-  
-           <div className="flex flex-col space-y-2">
-              {errors.cost && (
-                 <p className="text-red-600">{errors.cost.message}</p>
-              )}
-              <label htmlFor="cost" className="text-xl">
-                 Costo
-              </label>
-              <input
-                 type="number"
-                 id="cost"
-                 className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${
-                    errors.cost ? "border-l-4 border-red-600" : ""
-                 }`}
-                 placeholder="Costo del Producto"
-                 {...register("cost", {
-                    validate: (value) =>
-                       value > 0 || "El valor debe ser mayor a 0",
-                 })}
-              />
-           </div>
-  
-           <div className="flex flex-col  space-y-2">
-              {errors.price?.wholesalePrice && (
-                 <p className="text-red-600">
-                    {errors.price.wholesalePrice.message}
-                 </p>
-              )}
-              <label htmlFor="wholesalePrice" className="text-xl">
-                 Precio Mayorista
-              </label>
-              <input
-                 type="number"
-                 id="wholesalePrice"
-                 className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${
-                    errors.price?.wholesalePrice
-                       ? "border-l-4 border-red-600"
-                       : ""
-                 }`}
-                 placeholder="Precio de Venta Mayorista"
-                 {...register("price.wholesalePrice", {
-                    validate: (value) =>
-                       value > 0 || "El valor debe ser mayor a 0",
-                 })}
-              />
-           </div>
-  
-           <div className="flex flex-col space-y-2">
-              {errors.price?.retailPrice && (
-                 <p className="text-red-600">
-                    {errors.price.retailPrice.message}
-                 </p>
-              )}
-              <label htmlFor="retailPrice" className="text-xl">
-                 Precio Minorista
-              </label>
-              <input
-                 type="number"
-                 id="retailPrice"
-                 className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${
-                    errors.price?.retailPrice ? "border-l-4 border-red-600" : ""
-                 }`}
-                 placeholder="Precio de Venta Minorista"
-                 {...register("price.retailPrice", {
-                    validate: (value) =>
-                       value > 0 || "El valor debe ser mayor a 0",
-                 })}
-              />
-           </div>
-           <input
-              type="submit"
-              value="Crear Producto"
-              className="bg-vida-loca-600 hover:bg-vida-loca-600  text-white w-full rounded-md p-2 text-2xl font-bold cursor-pointer duration-200"
-           />
-        </>
-     );
+    product: Product;
+   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+export default function UpdateProductForm({
+   product,
+   setIsOpen,
+}: UpdateProductFormProps) {
+   const {
+      register,
+      handleSubmit,
+      formState: { errors },
+      reset,
+   } = useForm({ defaultValues: product });
+
+   const queryClient = useQueryClient();
+   const { mutate } = useMutation({
+      mutationFn: updateProduct,
+      onSuccess: (data) => {
+         toast.success(data);
+         setIsOpen(false);
+         queryClient.invalidateQueries({ queryKey: ["products"] });
+         reset();
+      },
+      onError: (error) => {
+         toast.error(error.message);
+      },
+   });
+
+   const handleForm = (formData: CreateProductForm) => {
+      mutate({
+         id: product._id,
+         formData,
+      });
+   };
+   return (
+      <>
+         <form
+            className="space-y-5 mt-5"
+            onSubmit={handleSubmit(handleForm)}
+            noValidate
+         >
+            <div className="flex flex-col space-y-2">
+               {errors.type && (
+                  <p className="text-red-600">{errors.type.message}</p>
+               )}
+               <label htmlFor="name" className="text-xl">
+                  Tipo de Producto
+               </label>
+               <input
+                  type="text"
+                  id="name"
+                  className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${
+                     errors.type ? "border-l-4 border-red-600" : ""
+                  }`}
+                  placeholder="Tipo de Producto. Ej.: Insecticida"
+                  {...register("type", {
+                     required: "Este campo es obligatorio",
+                  })}
+               />
+            </div>
+
+            <div className="flex flex-col  space-y-2">
+               {errors.weight && (
+                  <p className="text-red-600">{errors.weight.message}</p>
+               )}
+               <label htmlFor="cost" className="text-xl">
+                  Peso/Volumen
+               </label>
+               <div className="flex w-full">
+                  <input
+                     type="number"
+                     id="cost"
+                     className={`p-3 text-xl w-full bg-gray-100 rounded outline-vida-loca-600 ${
+                        errors.weight ? "border-l-4 border-red-600" : ""
+                     }`}
+                     placeholder="Peso o Volumen"
+                     {...register("weight", {
+                        validate: (value) =>
+                           value > 0 || "El valor debe ser mayor a 0",
+                     })}
+                  />
+                  <select
+                     id=""
+                     className="p-3 text-xl bg-gray-100 rounded-r outline-vida-loca-600"
+                     {...register("haveWeight")}
+                  >
+                     <option value="true">Kg.</option>
+                     <option value="false">mL.</option>
+                  </select>
+               </div>
+            </div>
+
+            <div className="flex flex-col space-y-2">
+               {errors.cost && (
+                  <p className="text-red-600">{errors.cost.message}</p>
+               )}
+               <label htmlFor="cost" className="text-xl">
+                  Costo
+               </label>
+               <input
+                  type="number"
+                  id="cost"
+                  className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${
+                     errors.cost ? "border-l-4 border-red-600" : ""
+                  }`}
+                  placeholder="Costo del Producto"
+                  {...register("cost", {
+                     validate: (value) =>
+                        value > 0 || "El valor debe ser mayor a 0",
+                  })}
+               />
+            </div>
+
+            <div className="flex flex-col  space-y-2">
+               {errors.price?.wholesalePrice && (
+                  <p className="text-red-600">
+                     {errors.price.wholesalePrice.message}
+                  </p>
+               )}
+               <label htmlFor="wholesalePrice" className="text-xl">
+                  Precio Mayorista
+               </label>
+               <input
+                  type="number"
+                  id="wholesalePrice"
+                  className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${
+                     errors.price?.wholesalePrice
+                        ? "border-l-4 border-red-600"
+                        : ""
+                  }`}
+                  placeholder="Precio de Venta Mayorista"
+                  {...register("price.wholesalePrice", {
+                     validate: (value) =>
+                        value > 0 || "El valor debe ser mayor a 0",
+                  })}
+               />
+            </div>
+
+            <div className="flex flex-col space-y-2">
+               {errors.price?.retailPrice && (
+                  <p className="text-red-600">
+                     {errors.price.retailPrice.message}
+                  </p>
+               )}
+               <label htmlFor="retailPrice" className="text-xl">
+                  Precio Minorista
+               </label>
+               <input
+                  type="number"
+                  id="retailPrice"
+                  className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${
+                     errors.price?.retailPrice
+                        ? "border-l-4 border-red-600"
+                        : ""
+                  }`}
+                  placeholder="Precio de Venta Minorista"
+                  {...register("price.retailPrice", {
+                     validate: (value) =>
+                        value > 0 || "El valor debe ser mayor a 0",
+                  })}
+               />
+            </div>
+            <input
+               type="submit"
+               value="Crear Producto"
+               className="bg-vida-loca-600 hover:bg-vida-loca-600  text-white w-full rounded-md p-2 text-2xl font-bold cursor-pointer duration-200"
+            />
+         </form>
+      </>
+   );
 }

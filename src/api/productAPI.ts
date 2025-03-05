@@ -2,6 +2,7 @@ import { isAxiosError } from "axios";
 import api from "../lib/axios";
 import { CreateProductForm, Product } from "../types";
 
+
 export async function createProduct(formData: CreateProductForm){
     try {
         const { data } = await api.post("/products", formData)
@@ -24,7 +25,11 @@ export async function getProducts(){
     }
 }
 
-export async function updateProduct(id: Product['_id'], formData: CreateProductForm){
+type UpdateProductType = {
+    id: string;
+    formData: CreateProductForm;
+}
+export async function updateProduct({id, formData}: UpdateProductType){
     try {
         const { data } = await api.put(`/products/${id}`, formData)
         return data
