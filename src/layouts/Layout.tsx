@@ -22,7 +22,7 @@ export default function Layout() {
          <header className="pt-5 px-5 bg-white mb-3 pb-1">
             <img src="/LogoTexto.png" alt="Logo Ecorganico" className="w-72 mx-2" />
             <nav>
-               <ul className="flex mt-10 mx-5 text-xl">
+               <ul className="flex mt-10 mx-auto max-w-4/5 text-xl">
                   <HeaderLinks page={homePage} />
                   {
                      pages.map((page) => (
@@ -32,11 +32,13 @@ export default function Layout() {
                </ul>
             </nav>
          </header>
-         <Outlet />
+         <main className="bg-gray-50 p-10 shadow rounded max-w-4/5 mx-auto">
+            <Outlet />
+         </main>
 
          <ToastContainer
-            pauseOnHover
-            pauseOnFocusLoss
+            pauseOnHover={false}
+            pauseOnFocusLoss={false}
          />
       </>
    );

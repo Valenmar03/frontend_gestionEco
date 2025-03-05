@@ -13,8 +13,8 @@ export const pages = [
         title: 'Control de Stock',
         url: '/control-stock',
         description: 'Administra el stock de tu negocio',
-        textColor: 'text-orange-300',
-        borderColor: 'border-orange-300',
+        textColor: 'text-orange-400',
+        borderColor: 'border-orange-400',
         bgFocusColor: 'bg-orange-400/80',
         bgColor: 'bg-orange-200',
         hoverColor: 'hover:bg-orange-300'

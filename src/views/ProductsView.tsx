@@ -47,13 +47,13 @@ export default function ProductsView() {
 
    const handleForm = (formData: CreateProductForm) => mutate(formData);
    return (
-      <main className="bg-gray-50 mx-10 p-10 shadow rounded">
+      <>
          <div className="flex justify-between items-center">
             <div className="mx-auto">
-               <h1 className="text-center text-5xl font-bold text-vida-loca-600">
+               <h1 className="text-center text-6xl font-bold text-vida-loca-600">
                   Productos
                </h1>
-               <h2 className="text-center text-xl mt-2 text-vida-loca-600/90">
+               <h2 className="text-center text-2xl mt-2 text-vida-loca-600/80">
                   Administrá tus productos
                </h2>
             </div>
@@ -85,6 +85,6 @@ export default function ProductsView() {
                <ProductForm register={register} errors={errors} />
             </form>
          </ModalComponent>
-      </main>
+      </>
    );
 }

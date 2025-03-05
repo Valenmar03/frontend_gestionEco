@@ -3,7 +3,7 @@ import { pages } from "../data";
 
 export default function DashboardView() {
    return (
-      <main className="bg-gray-50 mx-10 p-10 shadow rounded">
+      <>
          <h1 className="text-center text-5xl font-semibold">
             Gestión Ecorganico
          </h1>
@@ -26,6 +26,6 @@ export default function DashboardView() {
                </Link>
             ))}
          </div>
-      </main>
+      </>
    );
 }

@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./layouts/Layout";
 import DashboardView from "./views/DashboardView";
 import ProductsView from "./views/ProductsView";
+import StockManagmentView from "./views/StockManagmentView";
 
 export default function Router() {
 
@@ -10,7 +11,7 @@ export default function Router() {
             <Routes>
                 <Route element={<Layout/>}>
                     <Route path="/" element={<DashboardView/>} index />
-                    <Route path="/control-stock" element={<DashboardView/>}  />
+                    <Route path="/control-stock" element={<StockManagmentView/>}  />
                     <Route path="/ventas" element={<DashboardView/>}  />
                     <Route path="/facturas" element={<DashboardView/>}  />
                     <Route path="/products" element={<ProductsView/>}  />
