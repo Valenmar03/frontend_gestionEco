@@ -23,7 +23,7 @@ export default function UpdateProductForm({
    const { mutate } = useMutation({
       mutationFn: updateProduct,
       onSuccess: (data) => {
-         toast.success(data);
+         toast.success(data.message);
          setIsOpen(false);
          queryClient.invalidateQueries({ queryKey: ["products"] });
          reset();
