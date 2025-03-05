@@ -5,6 +5,7 @@ export const productSchema = z.object({
     type: z.string(),
     haveWeight: z.boolean(),
     weight: z.number(),
+    stock: z.number(),
     cost: z.number(),
     price: z.object({
         wholesalePrice: z.number(),
