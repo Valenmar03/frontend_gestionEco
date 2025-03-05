@@ -43,7 +43,7 @@ export default function ProductList() {
                <div className="grid grid-cols-4 w-full border-b-4 border-gray-300 pb-4">
                   <p className="text-2xl font-bold  text-center">Producto</p>
                   <p className="text-2xl font-bold  text-center">Peso/Volumen</p>
-                  <p className="text-2xl font-bold  text-center">Precio</p>
+                  <p className="text-2xl font-bold  text-center">Costo</p>
                   <p className="text-2xl font-bold  text-center">Editar</p>
                </div>
                {data.map((product) => (
