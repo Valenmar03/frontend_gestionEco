@@ -13,10 +13,20 @@ export async function createProduct(formData: CreateProductForm){
     }
 }
 
-
 export async function getProducts(){
     try {
         const { data } = await api<Product[]>("/products")
+        return data
+    } catch (error) {
+        if(isAxiosError(error) && error.response){
+            throw new Error(error.response.data.error)
+        }
+    }
+}
+
+export async function updateProduct(id: Product['_id'], formData: CreateProductForm){
+    try {
+        const { data } = await api.put(`/products/${id}`, formData)
         return data
     } catch (error) {
         if(isAxiosError(error) && error.response){
