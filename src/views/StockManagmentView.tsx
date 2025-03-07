@@ -19,6 +19,7 @@ export default function StockManagmentView() {
    const {
          register,
          handleSubmit,
+         formState: { errors },
          reset,
       } = useForm();
 
@@ -76,12 +77,12 @@ export default function StockManagmentView() {
                Ingrese que cantidad (en unidades) de cada producto pidió
             </p>
             <form 
-               className="space-y-3 mt-3"
+               className=" mt-3"
                onSubmit={handleSubmit(handleForm)}
                noValidate
             >
                {data &&
-                  <MasiveStockForm register={register} data={data} />
+                  <MasiveStockForm register={register} data={data} errors={errors} />
                }
             </form>
          </ModalComponent>
