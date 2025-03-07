@@ -28,7 +28,7 @@ export default function StockCard(product: Product) {
             )}
 
             <button
-               className=" text-white mx-auto bg-blue-500 p-2 rounded-md w-1/2 cursor-pointer hover:scale-105 duration-200"
+               className=" text-white text-lg mx-auto bg-orange-500/80 p-2 rounded-md w-1/2 cursor-pointer hover:scale-105 duration-200"
                onClick={() => {
                   navigate(location.pathname + `?productId=${_id}`);
                }}

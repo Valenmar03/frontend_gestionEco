@@ -16,11 +16,14 @@ export default function MasiveStockForm({
                key={product._id}
                className="grid grid-cols-8 bg-gray-200 p-2 rounded"
             >
-               <p className="text-lg col-span-6 border-b-2 border-gray-200">
+               <label 
+                  htmlFor="stock"
+                  className="text-lg col-span-6 border-b-2 border-gray-200">
                   {product.type} x {product.weight}{" "}
                   {product.haveWeight ? "Kg." : "mL."}
-               </p>
+               </label>
                <input
+                  id="stock"
                   type="number"
                   defaultValue={0}
                   className="text-lg outline-0 col-span-2"
