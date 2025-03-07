@@ -6,6 +6,7 @@ import { addStock, getProducts } from "../api/productAPI";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { AddStockForm } from "../types";
+import MasiveStockForm from "../components/Stock/MasiveStockForm";
 
 export default function StockManagmentView() {
    const [isOpen, setIsOpen] = useState(false);
@@ -58,19 +59,13 @@ export default function StockManagmentView() {
             <div className="col-span-1 col-start-3 my-auto ml-auto">
                <button
                   onClick={() => setIsOpen(true)}
-                  className="px-6 py-2 text-2xl bg-orange-400 text-white font-semibold rounded-lg hover:bg-orange-400/80 cursor-pointer duration-200"
+                  className={`px-6 py-2 text-2xl bg-orange-400 text-white font-semibold rounded-lg hover:bg-orange-400/80 cursor-pointer duration-200 ${isLoading || isError && 'disabled disabled:opacity-55'}`}
                >
                   Realicé un pedido
                </button>
             </div>
          </div>
          <div>
-            {
-               isLoading && <p>Cargando...</p>
-            }
-            {
-               isError && <p>Error al cargar los productos</p>
-            }
             {
                data && <StockList data={data} />
             }
@@ -85,26 +80,9 @@ export default function StockManagmentView() {
                onSubmit={handleSubmit(handleForm)}
                noValidate
             >
-               {
-                  data && 
-                  data.map((product) => (
-                     <div key={product._id} className="grid grid-cols-8 bg-gray-200 p-2 rounded">
-                        <p className="text-lg col-span-6 border-b-2 border-gray-200">{product.type} x {product.weight} {product.haveWeight ? "Kg." : "mL."}</p>
-                        <input 
-                           type="number" 
-                           defaultValue={0} 
-                           className="text-lg outline-0 col-span-2" 
-                           {...register(product._id)}
-                        />
-                     </div>
-                  ))
+               {data &&
+                  <MasiveStockForm register={register} data={data} />
                }
-               
-               <input
-                  type="submit"
-                  value="Agregar Pedido"
-                  className="bg-orange-500 hover:bg-orange-600  text-white w-full rounded-md p-2 text-2xl font-bold cursor-pointer duration-200"
-               />
             </form>
          </ModalComponent>
       </>
