@@ -39,3 +39,18 @@ export async function updateProduct({id, formData}: UpdateProductType){
         }
     }
 }
+
+type AddStockType = {
+    id: string;
+    stock: number;
+}
+export async function addStock(products: AddStockType[]){
+    try {
+        const { data } = await api.patch(`/products/addStock`, products)
+        return data
+    } catch (error) {
+        if(isAxiosError(error) && error.response){
+            throw new Error(error.response.data.error)
+        }
+    }
+}

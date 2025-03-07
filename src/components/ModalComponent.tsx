@@ -18,7 +18,7 @@ export default function ModalComponent({
          {isOpen && (
             <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
                <div
-                  className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full transform scale-95 opacity-100 animate-fade-in relative"
+                  className="bg-white p-6 rounded-lg shadow-xl max-w-3xl w-full transform scale-95 opacity-100 animate-fade-in relative"
                   onClick={(e) => e.stopPropagation()}
                >
                   {children}

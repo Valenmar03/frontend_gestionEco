@@ -1,15 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
-import { getProducts } from "../../api/productAPI";
+
+import { Product } from "../../types";
 import StockCard from "./StockCard";
 
-export default function StockList() {
-   const { data, isError, isLoading } = useQuery({
-      queryKey: ["products"],
-      queryFn: getProducts,
-   });
-
-   if (isLoading) return <p>Cargando...</p>;
-   if (isError) return <p>Error al cargar los productos</p>;
+export default function StockList({data} : {data: Product[]}) {
+   
    return (
       <>
          <div className="mt-10">

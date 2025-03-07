@@ -14,3 +14,6 @@ export const productSchema = z.object({
 })
 export type Product = z.infer<typeof productSchema>
 export type CreateProductForm = Pick<Product, "type" | "haveWeight" | "weight" | "cost" | "price">
+export type AddStockForm = {
+    [key: string]: number
+}
