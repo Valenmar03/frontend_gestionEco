@@ -9,7 +9,7 @@ export async function createProduct(formData: CreateProductForm){
         return data
     } catch (error) {
         if(isAxiosError(error) && error.response){
-            throw new Error(error.response.data.error)
+            throw new Error(error.response.data)
         }
     }
 }
@@ -20,7 +20,7 @@ export async function getProducts(){
         return data
     } catch (error) {
         if(isAxiosError(error) && error.response){
-            throw new Error(error.response.data.error)
+            throw new Error(error.response.data)
         }
     }
 }
@@ -35,7 +35,7 @@ export async function updateProduct({id, formData}: UpdateProductType){
         return data
     } catch (error) {
         if(isAxiosError(error) && error.response){
-            throw new Error(error.response.data.error)
+            throw new Error(error.response.data)
         }
     }
 }
@@ -50,7 +50,7 @@ export async function addStock(products: AddStockType[]){
         return data
     } catch (error) {
         if(isAxiosError(error) && error.response){
-            throw new Error(error.response.data.error)
+            throw new Error(error.response.data)
         }
     }
 }
