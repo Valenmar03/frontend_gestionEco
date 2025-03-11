@@ -1,12 +1,12 @@
 import { useState } from "react";
-import ModalComponent from "../components/ModalComponent";
-import StockList from "../components/Stock/StockList";
+import ModalComponent from "../../components/ModalComponent";
+import StockList from "../../components/Stock/StockList";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { addStock, getProducts } from "../api/productAPI";
+import { addStock, getProducts } from "../../api/productAPI";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { AddStockForm } from "../types";
-import MasiveStockForm from "../components/Stock/MasiveStockForm";
+import { AddStockForm } from "../../types";
+import MasiveStockForm from "../../components/Stock/MasiveStockForm";
 
 export default function StockManagmentView() {
    const [isOpen, setIsOpen] = useState(false);

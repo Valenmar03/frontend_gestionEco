@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { pages } from "../data";
+import { pages } from "../../data";
 
 export default function DashboardView() {
    return (
