@@ -1,9 +1,18 @@
 import { Outlet } from "react-router-dom";
 
 export default function AuthLayout() {
-  return (
-    <div>
-      <Outlet/>
-    </div>
-  )
+   return (
+      <>
+         <header className="p-5 bg-white mb-3">
+            <div className="max-w-4/5 mx-auto">
+               <img
+                  src="/LogoTexto.png"
+                  alt="Logo Ecorganico"
+                  className="w-72 mx-2"
+               />
+            </div>
+         </header>
+         <Outlet />
+      </>
+   );
 }
