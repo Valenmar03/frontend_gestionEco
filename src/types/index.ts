@@ -1,5 +1,16 @@
 import { z } from 'zod'
 
+//AUTH
+export const authSchema = z.object({
+    userName: z.string(),
+    password: z.string(),
+    confirmPassword: z.string()
+})
+
+type Auth = z.infer<typeof authSchema>
+export type UserLoginForm = Pick<Auth, 'userName' | 'password'>
+
+// PRODUCTS
 export const productSchema = z.object({
     _id: z.string(),
     type: z.string(),
