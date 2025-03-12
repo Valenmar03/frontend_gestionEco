@@ -4,7 +4,7 @@ import DashboardView from "./views/products/DashboardView";
 import ProductsView from "./views/products/ProductsView";
 import StockManagmentView from "./views/products/StockManagmentView";
 import AuthLayout from "./layouts/AuthLayout";
-import Login from "./views/auth/Login";
+import LoginView from "./views/auth/LoginView";
 
 export default function Router() {
 
@@ -19,8 +19,7 @@ export default function Router() {
                     <Route path="/products" element={<ProductsView/>}  />
                 </Route>
                 <Route element={<AuthLayout/>}>
-                    <Route path="/auth/login" element={<Login/>}/>
-
+                    <Route path="/auth/login" element={<LoginView/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>

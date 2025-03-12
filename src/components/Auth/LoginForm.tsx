@@ -1,7 +1,11 @@
 import { useForm } from "react-hook-form";
 import { UserLoginForm } from "../../types";
+import { useMutation } from "@tanstack/react-query";
+import { authenticateUser } from "../../api/authAPI";
+import { toast } from "react-toastify";
 
 export default function LoginForm() {
+
    const initialValues: UserLoginForm = {
       userName: "",
       password: "",
@@ -13,7 +17,17 @@ export default function LoginForm() {
       formState: { errors },
    } = useForm({ defaultValues: initialValues });
 
-   const handleForm = () => {};
+   const { mutate } = useMutation({
+      mutationFn: authenticateUser,
+      onSuccess: (data) => {
+         toast.success(data.message);
+      },
+      onError: (error) => {
+         toast.error(error.message);
+      },
+   });
+
+   const handleForm = (formData: UserLoginForm) => mutate(formData);
 
    return (
       <form className="space-y-8" onSubmit={handleSubmit(handleForm)}>
@@ -26,7 +40,7 @@ export default function LoginForm() {
                   type="text"
                   id="name"
                   className={`p-3 text-xl bg-gray-100 w-full rounded outline-vida-loca-600
-                    ${errors.userName ? "border-l-4 border-red-600" : ""}`}
+                     ${errors.userName ? "border-l-4 border-red-600" : ""}`}
                   placeholder="Nombre de Usuario"
                   {...register("userName", {
                      required: "Ingrese su nombre de usuario",
@@ -48,7 +62,7 @@ export default function LoginForm() {
                   type="password"
                   id="password"
                   className={`p-3 text-xl bg-gray-100 w-full rounded outline-vida-loca-600
-                    ${errors.password ? "border-l-4 border-red-600" : ""}`}
+                     ${errors.password ? "border-l-4 border-red-600" : ""}`}
                   placeholder="Password"
                   {...register("password", {
                      required: "Ingrese su contraseña",
@@ -61,11 +75,11 @@ export default function LoginForm() {
                )}
             </div>
          </div>
-         <div className="w-2/3 mx-auto">
+         <div className="w-2/3 mx-auto mt-3">
             <input
                type="submit"
                value="Iniciar Sesión"
-               className="bg-vida-loca-600 hover:bg-vida-loca-600  text-white w-full  rounded-md p-3 mt-3 mb-5 text-2xl font-bold cursor-pointer duration-200"
+               className="bg-vida-loca-600 hover:bg-vida-loca-600  text-white w-full  rounded-md p-3 mb-5 text-2xl font-bold cursor-pointer duration-200"
             />
          </div>
       </form>
