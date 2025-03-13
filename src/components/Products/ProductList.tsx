@@ -7,6 +7,7 @@ import { getProducts } from "../../api/productAPI";
 import ProductCard from "./ProductCard";
 import UpdateProductForm from "./UpdateProductForm";
 import { Product } from "../../types";
+import Spinner from "../Spinner";
 
 export default function ProductList() {
    const [isOpen, setIsOpen] = useState(false);
@@ -34,7 +35,12 @@ export default function ProductList() {
       }
    }, [isOpen]);
 
-   if (isLoading) return <p>Cargando...</p>;
+   if (isLoading)
+      return (
+         <div className="w-full mx-auto flex items-center justify-center">
+            <Spinner />
+         </div>
+      );
    if (isError) return <p>Error al cargar los productos</p>;
    return (
       <>
@@ -42,8 +48,12 @@ export default function ProductList() {
             <div className="grid grid-cols-5 w-full border-b-4 border-gray-300 pb-4">
                <p className="text-2xl font-bold  text-center">Producto</p>
                <p className="text-2xl font-bold  text-center">Costo</p>
-               <p className="text-2xl font-bold  text-center">Precio Mayorista</p>
-               <p className="text-2xl font-bold  text-center">Precio Minorista</p>
+               <p className="text-2xl font-bold  text-center">
+                  Precio Mayorista
+               </p>
+               <p className="text-2xl font-bold  text-center">
+                  Precio Minorista
+               </p>
             </div>
             {data ? (
                data.map((product) => (
