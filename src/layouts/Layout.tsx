@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, Navigate, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import HeaderLinks from "../components/HeaderLinks";
@@ -21,7 +21,7 @@ export default function Layout() {
 
    const { data, isError, isLoading } = useAuth();
 
-   const navigate = useNavigate();
+   const navigate = useNavigate()
    const logOut = () => {
       localStorage.removeItem("AUTH_TOKEN");
       navigate("/auth/login");
@@ -33,7 +33,7 @@ export default function Layout() {
             <Spinner />
          </div>
       );
-   if (isError) return navigate("/auth/login");
+   if (isError) return <Navigate to={"/auth/login"}></Navigate>;
    if(data) return (
       <>
          <header className="pt-5 px-5 bg-white mb-3 pb-1">

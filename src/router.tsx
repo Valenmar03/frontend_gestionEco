@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./layouts/Layout";
-import DashboardView from "./views/products/DashboardView";
-import ProductsView from "./views/products/ProductsView";
-import StockManagmentView from "./views/products/StockManagmentView";
+import DashboardView from "./views/DashboardView";
+import ProductsView from "./views/ProductsView";
+import StockManagmentView from "./views/StockManagmentView";
 import AuthLayout from "./layouts/AuthLayout";
 import LoginView from "./views/auth/LoginView";
 

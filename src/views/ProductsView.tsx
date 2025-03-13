@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
-import { createProduct } from "../../api/productAPI";
-import ModalComponent from "../../components/ModalComponent";
-import ProductForm from "../../components/Products/ProductForm";
-import { CreateProductForm } from "../../types";
-import ProductList from "../../components/Products/ProductList";
+import { createProduct } from "../api/productAPI";
+import ModalComponent from "../components/ModalComponent";
+import ProductForm from "../components/Products/ProductForm";
+import { CreateProductForm } from "../types";
+import ProductList from "../components/Products/ProductList";
 
 export default function ProductsView() {
    const [isOpen, setIsOpen] = useState(false);
