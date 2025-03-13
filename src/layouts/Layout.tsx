@@ -58,7 +58,7 @@ export default function Layout() {
                </ul>
             </nav>
          </header>
-         <main className="bg-gray-50 p-10 shadow rounded max-w-4/5 mx-auto">
+         <main className="bg-gray-50 p-10 shadow rounded max-w-4/5 mx-auto max-h-screen">
             <Outlet />
          </main>
 
