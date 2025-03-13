@@ -35,12 +35,7 @@ export default function ProductList() {
       }
    }, [isOpen]);
 
-   if (isLoading)
-      return (
-         <div className="w-full mx-auto flex items-center justify-center">
-            <Spinner />
-         </div>
-      );
+   if (isLoading) return <Spinner />;
    if (isError) return <p>Error al cargar los productos</p>;
    return (
       <>

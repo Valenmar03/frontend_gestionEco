@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { AddStockForm } from "../../types";
 import MasiveStockForm from "../../components/Stock/MasiveStockForm";
+import Spinner from "../../components/Spinner";
 
 export default function StockManagmentView() {
    const [isOpen, setIsOpen] = useState(false);
@@ -68,7 +69,7 @@ export default function StockManagmentView() {
                </button>
             </div>
          </div>
-         <div>{data && <StockList data={data} />}</div>
+         <div>{isLoading ? <Spinner/> : (isError ? <p>Error al cargar los productos</p> : (data && <StockList data={data} />))}</div>
          <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
             <h2 className="text-3xl font-bold ">Realicé un pedido</h2>
             <p className="mt-2 opacity-80 text-lg">
