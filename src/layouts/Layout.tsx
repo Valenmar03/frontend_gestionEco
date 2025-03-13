@@ -1,8 +1,9 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import HeaderLinks from "../components/HeaderLinks";
 import { pages } from "../data";
+import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/20/solid";
 
 export default function Layout() {
    const homePage = {
@@ -15,14 +16,25 @@ export default function Layout() {
       bgColor: "bg-slate-200",
       hoverColor: "hover:bg-slate-300",
    };
+   const navigate = useNavigate()
+
+   const logOut = () => {
+      localStorage.removeItem('AUTH_TOKEN')
+      navigate("/auth/login")
+   }
+
    return (
       <>
          <header className="pt-5 px-5 bg-white mb-3 pb-1">
-            <div className="max-w-4/5 mx-auto">
+            <div className="max-w-4/5 mx-auto flex justify-between items-end">
                <img
                   src="/LogoTexto.png"
                   alt="Logo Ecorganico"
                   className="w-72 mx-2"
+               />
+               <ArrowRightStartOnRectangleIcon 
+                  className="size-10 text-red-500 cursor-pointer" 
+                  onClick={logOut}   
                />
             </div>
             <nav>
