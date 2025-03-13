@@ -20,7 +20,6 @@ export default function Layout() {
    };
 
    const { data, isError, isLoading } = useAuth();
-   console.log(data, isError, isLoading);
 
    const navigate = useNavigate();
    const logOut = () => {
@@ -35,7 +34,7 @@ export default function Layout() {
          </div>
       );
    if (isError) return navigate("/auth/login");
-   return (
+   if(data) return (
       <>
          <header className="pt-5 px-5 bg-white mb-3 pb-1">
             <div className="max-w-4/5 mx-auto flex justify-between items-end">
