@@ -3,9 +3,11 @@ import { UserLoginForm } from "../../types";
 import { useMutation } from "@tanstack/react-query";
 import { authenticateUser } from "../../api/authAPI";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import { useEffect } from "react";
 
 export default function LoginForm() {
-
    const initialValues: UserLoginForm = {
       userName: "",
       password: "",
@@ -17,17 +19,21 @@ export default function LoginForm() {
       formState: { errors },
    } = useForm({ defaultValues: initialValues });
 
+   const navigate = useNavigate();
+
    const { mutate } = useMutation({
       mutationFn: authenticateUser,
       onSuccess: (data) => {
          toast.success(data.message);
+         navigate("/");
       },
       onError: (error) => {
          toast.error(error.message);
       },
    });
-
    const handleForm = (formData: UserLoginForm) => mutate(formData);
+
+   
 
    return (
       <form className="space-y-8" onSubmit={handleSubmit(handleForm)}>

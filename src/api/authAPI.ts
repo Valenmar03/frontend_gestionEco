@@ -19,7 +19,6 @@ export async function getUser() {
    try {
       const { data } = await api<User>("/auth/user");
       const response = userSchema.safeParse(data);
-      console.log(response);
       if (response.success) return response.data;
    } catch (error) {
       if (isAxiosError(error) && error.response) {
