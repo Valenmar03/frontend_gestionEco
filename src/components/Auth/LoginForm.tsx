@@ -4,8 +4,6 @@ import { useMutation } from "@tanstack/react-query";
 import { authenticateUser } from "../../api/authAPI";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
-import { useEffect } from "react";
 
 export default function LoginForm() {
    const initialValues: UserLoginForm = {
