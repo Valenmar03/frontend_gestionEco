@@ -8,7 +8,7 @@ export default function ProductCard(product: Product) {
 
    return (
       <>
-         <div className="grid grid-cols-5 w-full p-4 border-b-1 border-gray-200">
+         <div className="grid grid-cols-5 w-full p-4 border-b-1 border-gray-200 items-center">
             <p className="text-lg  text-center">
                {product.type} x {product.weight}{" "}
                {product.haveWeight ? "Kg." : "mL."}
@@ -23,7 +23,7 @@ export default function ProductCard(product: Product) {
                {formatCurrency(product.price.retailPrice)}
             </p>
             <button
-               className=" text-white mx-auto bg-blue-500 p-2 rounded-md w-1/2 cursor-pointer hover:scale-105 duration-200"
+               className=" text-vida-loca-800 text-lg font-semibold mx-auto bg-vida-loca-400 p-2 rounded-md w-1/2 cursor-pointer hover:scale-105 duration-200"
                onClick={() => {
                   navigate(location.pathname + `?productId=${product._id}`);
                }}

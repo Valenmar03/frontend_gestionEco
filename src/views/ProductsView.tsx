@@ -62,9 +62,9 @@ export default function ProductsView() {
             </div>
             <button
                onClick={() => setIsOpen(true)}
-               className="px-6 py-1 bg-vida-loca-500 text-white font-semibold rounded-lg hover:bg-vida-loca-400 transition cursor-pointer"
+               className="px-6 py-1 bg-vida-loca-500 font-semibold rounded-lg hover:bg-vida-loca-500/80 duration-200 transition cursor-pointer"
             >
-               <PlusIcon className="size-12" />
+               <PlusIcon className="size-12 text-white" />
             </button>
          </div>
          <ProductList />
