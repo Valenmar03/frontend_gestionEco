@@ -39,4 +39,14 @@ export const pages = [
         bgColor: 'bg-sapphire-200',
         hoverColor: 'hover:bg-sapphire-300'
     },
+    {
+        title: 'Clientes',
+        url:"/clients",
+        description: "Administra tus clientes", 
+        textColor: 'text-flirt-600',
+        borderColor: 'border-flirt-600',
+        bgFocusColor: 'bg-flirt-400',
+        bgColor: 'bg-flirt-200',
+        hoverColor: 'hover:bg-flirt-300'
+    }
 ]

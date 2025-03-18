@@ -8,8 +8,10 @@ import ModalComponent from "../components/ModalComponent";
 import ProductForm from "../components/Products/ProductForm";
 import { CreateProductForm } from "../types";
 import ProductList from "../components/Products/ProductList";
+import { pages } from "../data";
 
 export default function ProductsView() {
+   const page = pages.filter((page) => page.title === "Productos")[0];
    const [isOpen, setIsOpen] = useState(false);
 
    const initialValues: CreateProductForm = {
@@ -45,16 +47,17 @@ export default function ProductsView() {
       },
    });
 
+
    const handleForm = (formData: CreateProductForm) => mutate(formData);
    return (
       <>
          <div className="flex justify-between items-center">
             <div className="mx-auto">
                <h1 className="text-center text-6xl font-bold text-vida-loca-600">
-                  Productos
+                  {page.title}
                </h1>
                <h2 className="text-center text-2xl mt-2 text-vida-loca-600/80">
-                  Administrá tus productos
+                  {page.description}
                </h2>
             </div>
             <button

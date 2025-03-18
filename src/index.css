@@ -47,6 +47,17 @@
    --color-royal-purple-800: #653d8c;
    --color-royal-purple-900: #533271;
    --color-royal-purple-950: #371a51;
+   --color-flirt-50: #fef5fd;
+   --color-flirt-100: #fdeafa;
+   --color-flirt-200: #fad4f4;
+   --color-flirt-300: #f6b1e9;
+   --color-flirt-400: #ef83d8;
+   --color-flirt-500: #e154c1;
+   --color-flirt-600: #c534a2;
+   --color-flirt-700: #a02780;
+   --color-flirt-800: #86226b;
+   --color-flirt-900: #6e2157;
+   --color-flirt-950: #480a35;
 }
 @keyframes coin-flip {
    0%,

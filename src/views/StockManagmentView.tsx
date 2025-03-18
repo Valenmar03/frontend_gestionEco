@@ -8,8 +8,10 @@ import { toast } from "react-toastify";
 import { AddStockForm } from "../types";
 import MasiveStockForm from "../components/Stock/MasiveStockForm";
 import Spinner from "../components/Spinner";
+import { pages } from "../data";
 
 export default function StockManagmentView() {
+   const page = pages.filter((page) => page.title === "Control de Stock")[0];
    const [isOpen, setIsOpen] = useState(false);
 
    const { data, isError, isLoading } = useQuery({
@@ -51,11 +53,11 @@ export default function StockManagmentView() {
       <>
          <div className="grid grid-cols-3">
             <div className=" col-span-1 col-start-2">
-               <h1 className="text-center text-6xl font-bold text-orange-400">
-                  Control de Stock
+            <h1 className="text-center text-6xl font-bold text-orange-400">
+                  {page.title}
                </h1>
                <h2 className="text-center text-2xl mt-2 text-orange-400/80">
-                  Maneja el stock de tus productos
+                  {page.description}
                </h2>
             </div>
             <div className="col-span-1 col-start-3 my-auto ml-auto">
