@@ -10,6 +10,7 @@ type HeaderLinksProps = {
       bgFocusColor: string;
       bgColor: string;
       hoverColor: string;
+      headerTextColor: string
   }
 };
 
@@ -21,7 +22,7 @@ export default function HeaderLinks({ page }: HeaderLinksProps) {
       <li>
          <Link
             to={page.url}
-            className={`pt-2 px-7 rounded-t-lg duration-200 ${
+            className={`pt-2 px-7 rounded-t-lg duration-200  ${page.headerTextColor} ${
                isFocus
                   ? `pb-5 ${page.bgFocusColor}`
                   : `pb-3 ${page.bgColor} ${page.hoverColor}`
