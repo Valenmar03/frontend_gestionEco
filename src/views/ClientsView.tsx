@@ -3,6 +3,7 @@ import { pages } from "../data";
 import ModalComponent from "../components/ModalComponent";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import ClientForm from "../components/Clients/ClientForm";
+import ClientList from "../components/Clients/ClientList";
 
 export default function ClientsView() {
    const page = pages.filter((page) => page.title === "Clientes")[0];
@@ -28,7 +29,7 @@ export default function ClientsView() {
                </button>
             </div>
          </div>
-
+         <ClientList />
          <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
             <h2 className="text-3xl font-bold text-flirt-700">Añadir Cliente</h2>
             <p className="opacity-80 text-flirt-700/80">

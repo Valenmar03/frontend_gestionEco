@@ -1,0 +1,26 @@
+import { useNavigate } from "react-router-dom";
+import { Client } from "../../types";
+
+type ClientCardProps = {
+    client: Client;
+}
+export default function ClientCard({client} : ClientCardProps) {
+   const navigate = useNavigate();
+
+   return (
+      <div className="grid grid-cols-5 w-full p-4 border-b-1 border-gray-200 items-center">
+         <p className="text-lg  text-center">{client.name}</p>
+         <p className="text-lg text-center">{client.phoneNumber}</p>
+         <p className="text-lg  text-center">{client.address}</p>
+         <p className="text-lg  text-center">{client.cuil}</p>
+         <button
+            className=" text-flirt-950 text-lg font-semibold mx-auto bg-flirt-500 p-2 rounded-md w-1/2 cursor-pointer hover:scale-105 duration-200"
+            onClick={() => {
+               navigate(location.pathname + `?clientId=${client._id}`);
+            }}
+         >
+            Editar
+         </button>
+      </div>
+   );
+}
