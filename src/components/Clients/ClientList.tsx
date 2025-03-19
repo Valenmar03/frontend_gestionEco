@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getClients } from "../../api/client";
+import { getClients } from "../../api/clientAPI";
 import { useEffect, useState } from "react";
 import { Client } from "../../types";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import Spinner from "../Spinner";
 import ClientCard from "./ClientCard";
 import ModalComponent from "../ModalComponent";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import UpdateClientForm from "./UpdateClientForm";
 
 export default function ClientList() {
    const [isOpen, setIsOpen] = useState(false);
@@ -64,7 +65,7 @@ export default function ClientList() {
             >
                <XMarkIcon className="size-6 cursor-pointer hover:text-red-600 duration-200" />
             </button>
-            {/* <UpdateProductForm product={client!} setIsOpen={setIsOpen} /> */}
+            <UpdateClientForm client={client!} setIsOpen={setIsOpen} />
          </ModalComponent>
       </>
    );

@@ -2,7 +2,8 @@ import { useForm } from "react-hook-form";
 import { CreateClientForm } from "../../types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { createClient } from "../../api/client";
+import { createClient } from "../../api/clientAPI";
+import ClientFormsFields from "./ClientFormsFields";
 
 type ClientFormProps = {
    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,10 +20,10 @@ export default function ClientForm({ setIsOpen }: ClientFormProps) {
       register,
       handleSubmit,
       formState: { errors },
-      reset
+      reset,
    } = useForm({ defaultValues: initalValues });
 
-   const queryClient = useQueryClient()
+   const queryClient = useQueryClient();
 
    const { mutate } = useMutation({
       mutationFn: createClient,
@@ -33,12 +34,12 @@ export default function ClientForm({ setIsOpen }: ClientFormProps) {
          reset();
       },
       onError: (error) => {
-        toast.error(error.message);
-      }
+         toast.error(error.message);
+      },
    });
 
    const handleForm = (formData: CreateClientForm) => {
-    mutate(formData)
+      mutate(formData);
    };
 
    return (
@@ -47,82 +48,7 @@ export default function ClientForm({ setIsOpen }: ClientFormProps) {
          onSubmit={handleSubmit(handleForm)}
          noValidate
       >
-         <div className="flex flex-col space-y-2">
-            {errors.name && (
-               <p className="text-red-600">{errors.name.message}</p>
-            )}
-            <label htmlFor="name" className="text-xl">
-               Nombre
-            </label>
-            <input
-               type="text"
-               id="name"
-               className={`p-3 text-xl bg-gray-100 rounded outline-flirt-600 ${
-                  errors.name ? "border-l-4 border-red-600" : ""
-               }`}
-               placeholder="Nombre del Cliente"
-               {...register("name", {
-                  required: "Este campo es obligatorio",
-               })}
-            />
-         </div>
-         <div className="flex flex-col space-y-2">
-            {errors.cuil && (
-               <p className="text-red-600">{errors.cuil.message}</p>
-            )}
-            <label htmlFor="cuil" className="text-xl">
-               CUIL / CUIT
-            </label>
-            <input
-               type="text"
-               id="name"
-               className={`p-3 text-xl bg-gray-100 rounded outline-flirt-600 ${
-                  errors.cuil ? "border-l-4 border-red-600" : ""
-               }`}
-               placeholder="Numero de CUIL / CUIT del Cliente"
-               {...register("cuil", {
-                  required: "Este campo es obligatorio",
-               })}
-            />
-         </div>
-         <div className="flex flex-col space-y-2">
-            {errors.phoneNumber && (
-               <p className="text-red-600">{errors.phoneNumber.message}</p>
-            )}
-            <label htmlFor="phoneNumber" className="text-xl">
-               Telefono
-            </label>
-            <input
-               type="text"
-               id="name"
-               className={`p-3 text-xl bg-gray-100 rounded outline-flirt-600 ${
-                  errors.phoneNumber ? "border-l-4 border-red-600" : ""
-               }`}
-               placeholder="Numero de Telefono del Cliente"
-               {...register("phoneNumber", {
-                  required: "Este campo es obligatorio",
-               })}
-            />
-         </div>
-         <div className="flex flex-col space-y-2">
-            {errors.address && (
-               <p className="text-red-600">{errors.address.message}</p>
-            )}
-            <label htmlFor="address" className="text-xl">
-               Dirección
-            </label>
-            <input
-               type="text"
-               id="name"
-               className={`p-3 text-xl bg-gray-100 rounded outline-flirt-600 ${
-                  errors.address ? "border-l-4 border-red-600" : ""
-               }`}
-               placeholder="Dirección del Cliente"
-               {...register("address", {
-                  required: "Este campo es obligatorio",
-               })}
-            />
-         </div>
+         <ClientFormsFields register={register} errors={errors} />
          <input
             type="submit"
             value="Añadir Cliente"
