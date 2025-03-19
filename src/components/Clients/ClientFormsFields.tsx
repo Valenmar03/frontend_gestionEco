@@ -25,6 +25,10 @@ export default function ClientFormsFields({ register, errors } : ClientFormsFiel
                placeholder="Nombre del Cliente"
                {...register("name", {
                   required: "Este campo es obligatorio",
+                  minLength: {
+                     value: 4,
+                     message: "El nombre debe tener al menos 4 caracteres",
+                   }
                })}
             />
          </div>
@@ -44,6 +48,10 @@ export default function ClientFormsFields({ register, errors } : ClientFormsFiel
                placeholder="Numero de CUIL / CUIT del Cliente"
                {...register("cuil", {
                   required: "Este campo es obligatorio",
+                  minLength: {
+                     value: 10,
+                     message: "El CUIL/CUIT debe tener al menos 10 caracteres",
+                   }
                })}
             />
          </div>
