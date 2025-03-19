@@ -37,3 +37,15 @@ export type CreateProductForm = Pick<Product, "type" | "haveWeight" | "weight" |
 export type AddStockForm = {
     [key: string]: number
 }
+
+
+// CLIENTS
+export const clientSchema = z.object({
+    _id: z.string(),
+    name: z.string(),
+    phoneNumber: z.string(),
+    address: z.string(),
+    cuil: z.string()
+})
+export type Client = z.infer<typeof clientSchema>
+export type CreateClientForm = Pick<Client, "name" | "phoneNumber" | "address" | "cuil">

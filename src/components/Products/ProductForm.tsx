@@ -132,7 +132,7 @@ export default function ProductForm({ errors, register } : ProductFormProps) {
          <input
             type="submit"
             value="Crear Producto"
-            className="bg-vida-loca-600 hover:bg-vida-loca-600  text-white w-full rounded-md p-2 text-2xl font-bold cursor-pointer duration-200"
+            className="bg-vida-loca-600 hover:bg-vida-loca-600/80  text-white w-full rounded-md p-2 text-2xl font-bold cursor-pointer duration-200"
          />
       </>
    );
