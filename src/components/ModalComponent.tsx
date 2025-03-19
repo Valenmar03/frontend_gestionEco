@@ -12,7 +12,7 @@ export default function ModalComponent({
 }: ModalComponentProps) {
    return (
       <div
-         className="flex justify-center items-center min-h-screen"
+         className={`${isOpen ? "flex justify-center items-center min-h-screen" : "hidden"}`}
          onClick={() => setIsOpen(false)}
       >
          {isOpen && (

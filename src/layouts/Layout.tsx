@@ -17,6 +17,7 @@ export default function Layout() {
       bgFocusColor: "bg-slate-400",
       bgColor: "bg-slate-200",
       hoverColor: "hover:bg-slate-300",
+      headerTextColor: "text-slate-800",
    };
 
    const { data, isError, isLoading } = useAuth();

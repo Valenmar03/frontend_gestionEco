@@ -1,7 +1,11 @@
+import { useState } from "react";
 import { pages } from "../data";
+import ModalComponent from "../components/ModalComponent";
 
 export default function ClientsView() {
    const page = pages.filter((page) => page.title === "Clientes")[0];
+      const [isOpen, setIsOpen] = useState(false);
+   
 
    return (
       <>
@@ -15,6 +19,11 @@ export default function ClientsView() {
                </h2>
             </div>
          </div>
+
+         <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
+            <>
+            </>
+         </ModalComponent>
       </>
    );
 }
