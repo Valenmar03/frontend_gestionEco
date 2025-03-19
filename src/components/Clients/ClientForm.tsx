@@ -1,8 +1,13 @@
 import { useForm } from "react-hook-form";
 import { CreateClientForm } from "../../types";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import { createClient } from "../../api/client";
 
-type ClientFormProps = {};
-export default function ClientForm({}: ClientFormProps) {
+type ClientFormProps = {
+   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+export default function ClientForm({ setIsOpen }: ClientFormProps) {
    const initalValues: CreateClientForm = {
       name: "",
       phoneNumber: "",
@@ -14,9 +19,27 @@ export default function ClientForm({}: ClientFormProps) {
       register,
       handleSubmit,
       formState: { errors },
+      reset
    } = useForm({ defaultValues: initalValues });
 
-   const handleForm = (formData: CreateClientForm) => {}
+   const queryClient = useQueryClient()
+
+   const { mutate } = useMutation({
+      mutationFn: createClient,
+      onSuccess: (data) => {
+         toast.success(data);
+         setIsOpen(false);
+         queryClient.invalidateQueries({ queryKey: ["clients"] });
+         reset();
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      }
+   });
+
+   const handleForm = (formData: CreateClientForm) => {
+    mutate(formData)
+   };
 
    return (
       <form

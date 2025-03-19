@@ -40,7 +40,7 @@ export default function ClientsView() {
             >
                <XMarkIcon className="size-6 cursor-pointer hover:text-red-600 duration-200" />
             </button>
-            <ClientForm />
+            <ClientForm setIsOpen={setIsOpen}/>
          </ModalComponent>
       </>
    );
