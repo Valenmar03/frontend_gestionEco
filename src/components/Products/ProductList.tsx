@@ -8,6 +8,7 @@ import ProductCard from "./ProductCard";
 import UpdateProductForm from "./UpdateProductForm";
 import { Product } from "../../types";
 import Spinner from "../Spinner";
+import DeleteProductModal from "./DeleteProductModal";
 
 export default function ProductList() {
    const [isOpen, setIsOpen] = useState(false);
@@ -22,13 +23,22 @@ export default function ProductList() {
    });
 
    const queryParams = new URLSearchParams(location.search);
-   const taskId = queryParams.get("productId");
+   const productId = queryParams.get("productId");
+   const confirmDelete = queryParams.get("confirmDelete");
    useEffect(() => {
-      if (taskId) {
+      if (productId || confirmDelete) {
          setIsOpen(true);
-         setProductData(data?.find((product) => product._id === taskId));
+         if (productId) {
+            setProductData(data?.find((product) => product._id === productId));
+         }
+         if (confirmDelete) {
+            setProductData(
+               data?.find((product) => product._id === confirmDelete)
+            );
+         }
       }
-   }, [taskId]);
+   }, [productId, confirmDelete]);
+
    useEffect(() => {
       if (!isOpen) {
          navigate("", { replace: true });
@@ -60,17 +70,32 @@ export default function ProductList() {
          </div>
 
          <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
-            <h2 className="text-3xl font-bold ">Editar Producto</h2>
-            <p className="mt-2 opacity-80">
-               Ingrese todos los datos necesarios para editar el producto
-            </p>
-            <button
-               onClick={() => setIsOpen(false)}
-               className="absolute top-2 right-2"
-            >
-               <XMarkIcon className="size-6 cursor-pointer hover:text-red-600 duration-200" />
-            </button>
-            <UpdateProductForm product={productData!} setIsOpen={setIsOpen} />
+            {productId && (
+               <>
+                  <h2 className="text-3xl font-bold ">Editar Producto</h2>
+                  <p className="mt-2 opacity-80">
+                     Ingrese todos los datos necesarios para editar el producto
+                  </p>
+                  <button
+                     onClick={() => setIsOpen(false)}
+                     className="absolute top-2 right-2"
+                  >
+                     <XMarkIcon className="size-6 cursor-pointer hover:text-red-600 duration-200" />
+                  </button>
+                  <UpdateProductForm
+                     product={productData!}
+                     setIsOpen={setIsOpen}
+                  />
+               </>
+            )}
+            {confirmDelete && (
+               <>
+                  <DeleteProductModal
+                     product={productData!}
+                     setIsOpen={setIsOpen}
+                  />
+               </>
+            )}
          </ModalComponent>
       </>
    );

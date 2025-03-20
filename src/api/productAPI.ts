@@ -40,6 +40,17 @@ export async function updateProduct({id, formData}: UpdateProductType){
     }
 }
 
+export async function deleteProduct({id} : {id: string}){
+    try {
+        const { data } = await api.delete(`/products/${id}`)
+        return data
+    } catch (error) {
+        if(isAxiosError(error) && error.response){
+            throw new Error(error.response.data)
+        }
+    }
+}
+
 type AddStockType = {
     id: string;
     stock: number;
