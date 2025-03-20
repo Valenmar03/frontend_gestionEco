@@ -8,6 +8,7 @@ import ClientCard from "./ClientCard";
 import ModalComponent from "../ModalComponent";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import UpdateClientForm from "./UpdateClientForm";
+import DeleteClientModal from "./DeleteClientModal";
 
 export default function ClientList() {
    const [isOpen, setIsOpen] = useState(false);
@@ -23,12 +24,18 @@ export default function ClientList() {
 
    const queryParams = new URLSearchParams(location.search);
    const clientId = queryParams.get("clientId");
+   const confirmDelete = queryParams.get("confirmDelete");
    useEffect(() => {
-      if (clientId) {
+      if (clientId || confirmDelete) {
          setIsOpen(true);
-         setClient(data?.find((client) => client._id === clientId));
+         if (clientId) {
+            setClient(data?.find((client) => client._id === clientId));
+         }
+         if (confirmDelete) {
+            setClient(data?.find((client) => client._id === confirmDelete));
+         }
       }
-   }, [clientId]);
+   }, [clientId, confirmDelete]);
    useEffect(() => {
       if (!isOpen) {
          navigate("", { replace: true });
@@ -48,24 +55,36 @@ export default function ClientList() {
             </div>
             {data ? (
                data.map((client) => (
-                  <ClientCard key={client._id} client={client}/>
+                  <ClientCard key={client._id} client={client} />
                ))
             ) : (
                <p>No hay clientes</p>
             )}
          </div>
          <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
-            <h2 className="text-3xl font-bold text-flirt-700">Editar Cliente</h2>
-            <p className="mt-2 text-lg opacity-80 text-flirt-700/80">
-               Esta por editar a <span className="font-semibold">{client?.name}</span>
-            </p>
-            <button
-               onClick={() => setIsOpen(false)}
-               className="absolute top-2 right-2"
-            >
-               <XMarkIcon className="size-6 cursor-pointer hover:text-red-600 duration-200" />
-            </button>
-            <UpdateClientForm client={client!} setIsOpen={setIsOpen} />
+            {clientId && (
+               <>
+                  <h2 className="text-3xl font-bold text-flirt-700">
+                     Editar Cliente
+                  </h2>
+                  <p className="mt-2 text-lg opacity-80 text-flirt-700/80">
+                     Esta por editar a{" "}
+                     <span className="font-semibold">{client?.name}</span>
+                  </p>
+                  <button
+                     onClick={() => setIsOpen(false)}
+                     className="absolute top-2 right-2"
+                  >
+                     <XMarkIcon className="size-6 cursor-pointer hover:text-red-600 duration-200" />
+                  </button>
+                  <UpdateClientForm client={client!} setIsOpen={setIsOpen} />
+               </>
+            )}
+            {
+               confirmDelete && (
+                  <DeleteClientModal client={client!} setIsOpen={setIsOpen} />
+               )
+            }
          </ModalComponent>
       </>
    );

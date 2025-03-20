@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { Client } from "../../types";
+import { TrashIcon } from "@heroicons/react/20/solid";
 
 type ClientCardProps = {
-    client: Client;
-}
-export default function ClientCard({client} : ClientCardProps) {
+   client: Client;
+};
+export default function ClientCard({ client }: ClientCardProps) {
    const navigate = useNavigate();
 
    return (
@@ -13,14 +14,22 @@ export default function ClientCard({client} : ClientCardProps) {
          <p className="text-lg text-center">{client.phoneNumber}</p>
          <p className="text-lg  text-center">{client.address}</p>
          <p className="text-lg  text-center">{client.cuil}</p>
-         <button
-            className=" text-flirt-950 text-lg font-semibold mx-auto bg-flirt-500 p-2 rounded-md w-1/2 cursor-pointer hover:scale-105 duration-200"
-            onClick={() => {
-               navigate(location.pathname + `?clientId=${client._id}`);
-            }}
-         >
-            Editar
-         </button>
+         <div className="flex gap-2 items-center">
+            <button
+               className=" text-flirt-950 text-lg font-semibold mx-auto bg-flirt-500 p-2 rounded-md w-1/2 cursor-pointer hover:scale-105 duration-200"
+               onClick={() => {
+                  navigate(location.pathname + `?clientId=${client._id}`);
+               }}
+            >
+               Editar
+            </button>
+            <TrashIcon
+               className="size-9 text-red-500 cursor-pointer hover:scale-110 duration-200"
+               onClick={() => {
+                  navigate(location.pathname + `?confirmDelete=${client._id}`);
+               }}
+            />
+         </div>
       </div>
    );
 }

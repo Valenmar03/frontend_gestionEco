@@ -38,3 +38,14 @@ export async function updateClient({id, formData} : UpdateClientType){
         }
     }
 }
+
+export async function deleteClient({id} : {id: string}){
+    try {
+        const { data } = await api.delete(`/client/${id}`)
+        return data
+    } catch (error) {
+        if(isAxiosError(error) && error.response){
+            throw new Error(error.response.data)
+        }
+    }
+}
