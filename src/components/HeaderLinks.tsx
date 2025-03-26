@@ -16,7 +16,7 @@ type HeaderLinksProps = {
 
 export default function HeaderLinks({ page }: HeaderLinksProps) {
    const { pathname } = useLocation();
-   const isFocus = pathname === page.url;
+   const isFocus = pathname.startsWith(page.url)
 
    return (
       <li>
