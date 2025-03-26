@@ -17,11 +17,11 @@ export default function MasiveStockForm({
             <>
                <div
                   key={product._id}
-                  className="grid grid-cols-8 bg-gray-200 p-2 rounded mt-3"
+                  className="bg-gray-200 p-2 rounded mt-3 grid grid-cols-4"
                >
                   <label
                      htmlFor="stock"
-                     className="text-lg col-span-6 border-b-2 border-gray-200"
+                     className="text-lg border-b-2 border-gray-200 col-span-3"
                   >
                      {product.type} x {product.weight}{" "}
                      {product.haveWeight ? "Kg." : "mL."}
@@ -30,7 +30,7 @@ export default function MasiveStockForm({
                      id="stock"
                      type="number"
                      defaultValue={0}
-                     className="text-lg outline-0 col-span-2"
+                     className="text-lg outline-0"
                      {...register(product._id, {
                         validate: (value) =>
                            value >= 0 || "El valor debe ser mayor a 0",
@@ -42,12 +42,6 @@ export default function MasiveStockForm({
                )}
             </>
          ))}
-
-         <input
-            type="submit"
-            value="Agregar Pedido"
-            className="bg-orange-500 hover:bg-orange-600 mt-3  text-white w-full rounded-md p-2 text-2xl font-bold cursor-pointer duration-200"
-         />
       </>
    );
 }

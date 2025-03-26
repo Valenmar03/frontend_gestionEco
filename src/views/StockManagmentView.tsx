@@ -53,7 +53,7 @@ export default function StockManagmentView() {
       <>
          <div className="grid grid-cols-3">
             <div className=" col-span-1 col-start-2">
-            <h1 className="text-center text-6xl font-bold text-orange-400">
+               <h1 className="text-center text-6xl font-bold text-orange-400">
                   {page.title}
                </h1>
                <h2 className="text-center text-2xl mt-2 text-orange-400/80">
@@ -71,14 +71,24 @@ export default function StockManagmentView() {
                </button>
             </div>
          </div>
-         <div>{isLoading ? <Spinner/> : (isError ? <p>Error al cargar los productos</p> : (data && <StockList data={data} />))}</div>
+         <div>
+            {isLoading ? (
+               <Spinner />
+            ) : isError ? (
+               <p>Error al cargar los productos</p>
+            ) : (
+               data && <StockList data={data} />
+            )}
+         </div>
          <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
-            <h2 className="text-3xl font-bold text-orange-500">Realicé un pedido</h2>
+            <h2 className="text-3xl font-bold text-orange-500">
+               Realicé un pedido
+            </h2>
             <p className="text-orange-500/80">
                Ingrese que cantidad (en unidades) de cada producto pidió
             </p>
             <form
-               className=" mt-3"
+               className=" mt-3 grid grid-cols-2 gap-3"
                onSubmit={handleSubmit(handleForm)}
                noValidate
             >
@@ -89,6 +99,11 @@ export default function StockManagmentView() {
                      errors={errors}
                   />
                )}
+               <input
+                  type="submit"
+                  value="Agregar Pedido"
+                  className="bg-orange-500 hover:bg-orange-600 mt-3 col-span-2 text-white w-4/5 mx-auto rounded-md p-2 text-2xl font-bold cursor-pointer duration-200"
+               />
             </form>
          </ModalComponent>
       </>
