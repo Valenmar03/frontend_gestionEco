@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { pages } from "../data";
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 
 export default function SalesView() {
    const page = pages.filter((page) => page.title === "Ventas")[0];
-   const [isOpen, setIsOpen] = useState(false);
 
    return (
       <>
@@ -18,12 +16,12 @@ export default function SalesView() {
                </h2>
             </div>
             <div className="col-span-1 col-start-3 my-auto ml-auto">
-               <button
-                  onClick={() => setIsOpen(true)}
+               <Link
+                  to="/sales/add-sale"
                   className={`px-6 py-2 text-2xl bg-royal-purple-600 text-white font-semibold rounded-lg hover:bg-royal-purple-600/80 cursor-pointer duration-200 `}
                >
                   Agregar Venta
-               </button>
+               </Link>
             </div>
          </div>
          <Outlet />
