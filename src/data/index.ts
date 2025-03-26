@@ -12,7 +12,7 @@ export const pages = [
     },
     {
         title: 'Control de Stock',
-        url: '/control-stock',
+        url: '/stock-management',
         description: 'Administra el stock de tu negocio',
         textColor: 'text-orange-400',
         borderColor: 'border-orange-400',
@@ -23,7 +23,7 @@ export const pages = [
     },
     {
         title: 'Ventas',
-        url: '/ventas',
+        url: '/sales',
         description: 'Maneja las ventas de tus productos',
         textColor: 'text-royal-purple-600',
         borderColor: 'border-royal-purple-600',
@@ -34,7 +34,7 @@ export const pages = [
     },
     {
         title: 'Facturas',
-        url: '/facturas',
+        url: '/bills',
         description: 'Crea facturas para tus clientes',
         textColor: 'text-sapphire-600',
         borderColor: 'border-sapphire-600',
