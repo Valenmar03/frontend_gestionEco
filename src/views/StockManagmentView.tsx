@@ -73,8 +73,8 @@ export default function StockManagmentView() {
          </div>
          <div>{isLoading ? <Spinner/> : (isError ? <p>Error al cargar los productos</p> : (data && <StockList data={data} />))}</div>
          <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
-            <h2 className="text-3xl font-bold ">Realicé un pedido</h2>
-            <p className="mt-2 opacity-80 text-lg">
+            <h2 className="text-3xl font-bold text-orange-500">Realicé un pedido</h2>
+            <p className="text-orange-500/80">
                Ingrese que cantidad (en unidades) de cada producto pidió
             </p>
             <form

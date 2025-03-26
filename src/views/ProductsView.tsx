@@ -69,8 +69,8 @@ export default function ProductsView() {
          </div>
          <ProductList />
          <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
-            <h2 className="text-3xl font-bold ">Agregar Producto</h2>
-            <p className="mt-2 opacity-80">
+            <h2 className="text-3xl font-bold text-vida-loca-500">Agregar Producto</h2>
+            <p className="text-vida-loca-500/80">
                Ingrese todos los datos necesarios para poder agregar el producto
             </p>
             <button

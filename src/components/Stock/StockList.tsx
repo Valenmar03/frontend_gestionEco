@@ -47,8 +47,8 @@ export default function StockList({data} : {data: Product[]}) {
             )}
          </div>
          <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
-            <h2 className="text-3xl font-bold ">Editar Producto</h2>
-            <p className="mt-2 opacity-80">
+            <h2 className="text-3xl font-bold text-orange-500">Editar Producto</h2>
+            <p className="text-orange-500/80">
                Ingrese el stock que quedará del producto
             </p>
             <button

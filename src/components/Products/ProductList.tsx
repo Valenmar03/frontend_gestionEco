@@ -72,8 +72,8 @@ export default function ProductList() {
          <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
             {productId && (
                <>
-                  <h2 className="text-3xl font-bold ">Editar Producto</h2>
-                  <p className="mt-2 opacity-80">
+                  <h2 className="text-3xl font-bold text-vida-loca-500">Editar Producto</h2>
+                  <p className="text-vida-loca-500/80">
                      Ingrese todos los datos necesarios para editar el producto
                   </p>
                   <button
