@@ -30,27 +30,24 @@ export default function SalesForm() {
       ]);
    };
 
-   const handleAddQty = (add: boolean, id: Product["_id"]) => {
-      if (add) {
+   const handleAddQty = (id: Product["_id"]) => {
+      const updatedProdArray = prodArray.map((prod) => {
+         prod.product._id === id && prod.quantity++;
+         return prod;
+      });
+      setProdArray(updatedProdArray);
+   };
+
+   const handleSubtractQty = (id: Product["_id"]) => {
+      const product = prodArray.find((prod) => prod.product._id === id);
+      if (product?.quantity === 1) {
+         setProdArray(prodArray.filter((prod) => prod.product._id !== id));
+      } else {
          const updatedProdArray = prodArray.map((prod) => {
-            prod.product._id === id && prod.quantity++;
+            prod.product._id === id && prod.quantity--;
             return prod;
          });
          setProdArray(updatedProdArray);
-         return;
-      }
-      if (!add) {
-         const product = prodArray.find((prod) => prod.product._id === id);
-         if (product?.quantity === 1) {
-            setProdArray(prodArray.filter((prod) => prod.product._id !== id));
-         } else {
-            const updatedProdArray = prodArray.map((prod) => {
-               prod.product._id === id && prod.quantity--;
-               return prod;
-            });
-            setProdArray(updatedProdArray);
-         }
-         return;
       }
    };
 
@@ -60,8 +57,8 @@ export default function SalesForm() {
             <h2 className="text-5xl col-span-6 mx-auto font-bold text-royal-purple-500">
                Agregar Venta
             </h2>
-            
-            <SalesFormFields/>
+
+            <SalesFormFields />
 
             <div className=" flex flex-col col-span-3 space-y-2">
                <div className="flex justify-between">
@@ -92,14 +89,14 @@ export default function SalesForm() {
                                  <PlusIcon
                                     className="size-5 cursor-pointer"
                                     onClick={() =>
-                                       handleAddQty(true, product._id)
+                                       handleAddQty(product._id)
                                     }
                                  />
                                  {quantity}
                                  <MinusIcon
                                     className="size-5 cursor-pointer"
                                     onClick={() =>
-                                       handleAddQty(false, product._id)
+                                       handleSubtractQty(product._id)
                                     }
                                  />
                               </p>
