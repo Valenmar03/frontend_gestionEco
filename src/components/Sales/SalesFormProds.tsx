@@ -9,8 +9,12 @@ type prodArrayType = {
    quantity: number;
 };
 
-export default function SalesFormProds() {
-   const [prodArray, setProdArray] = useState<prodArrayType[]>([]);
+type SalesFormProdsProps = {
+   prodArray: prodArrayType[]
+   setProdArray: React.Dispatch<React.SetStateAction<prodArrayType[]>>
+};
+
+export default function SalesFormProds({ prodArray, setProdArray } : SalesFormProdsProps) {
    const [error, setError] = useState("");
 
    const { data: products } = useQuery({

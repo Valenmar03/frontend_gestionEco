@@ -1,7 +1,12 @@
 import { useState } from "react";
 import SalesFormFields from "./SalesFormFields";
 import SalesFormProds from "./SalesFormProds";
-import { Client } from "../../types";
+import { Client, Product } from "../../types";
+
+type prodArrayType = {
+   product: Product;
+   quantity: number;
+};
 
 export default function SalesForm() {
    const [ cliente, setCliente ] = useState<Client>({
@@ -14,10 +19,12 @@ export default function SalesForm() {
    const [ iva, setIva ] = useState(false)
    const [ dto, setDto ] = useState(0)
    const [ type, setType ] = useState("")
+   const [prodArray, setProdArray] = useState<prodArrayType[]>([]);
+
 
    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
-      console.log(cliente, iva, dto, type)
+      console.log(cliente, iva, dto, type, prodArray)
    };
 
    return (
@@ -30,7 +37,7 @@ export default function SalesForm() {
                Agregar Venta
             </h2>
             <SalesFormFields setCliente={setCliente} setIva={setIva} setDto={setDto} setType={setType} />
-            <SalesFormProds />
+            <SalesFormProds  prodArray={prodArray} setProdArray={setProdArray} /> 
             <input
                type="submit"
                value="Crear Venta"
