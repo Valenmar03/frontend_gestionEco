@@ -5,17 +5,23 @@ import { getClients } from "../../api/clientAPI";
 import { Client } from "../../types";
 
 type SalesFormFieldsProps = {
-   setCliente: React.Dispatch<React.SetStateAction<Client>>;
+   setClient: React.Dispatch<React.SetStateAction<Client>>;
    setIva: React.Dispatch<React.SetStateAction<boolean>>;
    setDto: React.Dispatch<React.SetStateAction<number>>;
    setType: React.Dispatch<React.SetStateAction<string>>;
+   errors: {
+      client: string;
+      dto: string;
+      type: string;
+   };
 };
 
 export default function SalesFormFields({
-   setCliente,
+   setClient,
    setIva,
    setDto,
    setType,
+   errors,
 }: SalesFormFieldsProps) {
    const { data: clients } = useQuery({
       queryKey: ["clients"],
@@ -23,8 +29,18 @@ export default function SalesFormFields({
    });
 
    const handleChangeClient = (id: string) => {
+      if (id === "0") {
+         setClient({
+            _id: "",
+            name: "",
+            phoneNumber: "",
+            address: "",
+            cuil: "",
+         });
+         return;
+      }
       if (clients) {
-         setCliente(clients.find((client) => client._id === id)!);
+         setClient(clients.find((client) => client._id === id)!);
       }
    };
 
@@ -45,14 +61,11 @@ export default function SalesFormFields({
             <select
                name="client"
                id="client"
-               className="bg-gray-200/50 p-2 rounded-lg text-lg"
+               className={`bg-gray-200/50 p-2 rounded-lg text-lg ${errors.client && 'border-l-4 border-red-500'}`}
                onChange={(e) => handleChangeClient(e.target.value)}
             >
                <option value="0" className="text-gray-500 bg-white">
                   --Seleccione un cliente--
-               </option>
-               <option value="0" className=" bg-white">
-                  Mercado Libre
                </option>
                {clients?.map((client) => (
                   <option
@@ -64,9 +77,12 @@ export default function SalesFormFields({
                   </option>
                ))}
             </select>
+            {errors.client && (
+               <p className="text-base text-red-500">{errors.client}</p>
+            )}
          </div>
-         <div className="flex gap-4 col-span-2">
-            <div className="flex flex-col space-y-2 w-1/2">
+         <div className="flex gap-4 col-span-3">
+            <div className="flex flex-col space-y-2 w-1/4">
                <label htmlFor="iva" className="text-xl">
                   Iva
                </label>
@@ -84,39 +100,45 @@ export default function SalesFormFields({
                   </option>
                </select>
             </div>
-            <div className="flex flex-col space-y-2 w-1/2">
+            <div className="flex flex-col space-y-2 w-1/4">
                <label htmlFor="dto" className="text-xl">
                   Descuento
                </label>
                <input
                   type="number"
                   id="dto"
-                  className="bg-gray-200/50 p-2 rounded-lg text-lg"
+                  className={`bg-gray-200/50 p-2 rounded-lg text-lg ${errors.dto && 'border-l-4 border-red-500'}`}
                   placeholder="% de Dto."
-                  onChange={e => setDto(+e.target.value)}
+                  onChange={(e) => setDto(+e.target.value)}
                />
+               {errors.dto && (
+                  <p className="text-base text-red-500">{errors.dto}</p>
+               )}
             </div>
-         </div>
-         <div className="flex flex-col space-y-2 col-span-1">
-            <label htmlFor="type" className="text-xl">
-               Tipo de Venta
-            </label>
-            <select
-               name="type"
-               id="type"
-               className="bg-gray-200/50 p-2 rounded-lg text-lg"
-               onChange={(e) => setType(e.target.value)}
-            >
-               <option value="wholesalePrice" className="bg-white">
-                  Mayorista
-               </option>
-               <option value="retailPrice" className="bg-white">
-                  Minorista
-               </option>
-               <option value="MercadoLibrePrice" className="bg-white">
-                  Mercado Libre
-               </option>
-            </select>
+            <div className="flex flex-col space-y-2 w-full">
+               <label htmlFor="type" className="text-xl">
+                  Tipo de Venta
+               </label>
+               <select
+                  name="type"
+                  id="type"
+                  className={`bg-gray-200/50 p-2 rounded-lg text-lg ${errors.type && 'border-l-4 border-red-500'}`}
+                  onChange={(e) => setType(e.target.value)}
+               >
+                  <option value="wholesalePrice" className="bg-white">
+                     Mayorista
+                  </option>
+                  <option value="retailPrice" className="bg-white">
+                     Minorista
+                  </option>
+                  <option value="MercadoLibrePrice" className="bg-white">
+                     Mercado Libre
+                  </option>
+               </select>
+               {errors.type && (
+                  <p className="text-base text-red-500">{errors.type}</p>
+               )}
+            </div>
          </div>
       </>
    );

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Product } from "../../types";
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../../api/productAPI";
@@ -10,13 +9,18 @@ type prodArrayType = {
 };
 
 type SalesFormProdsProps = {
-   prodArray: prodArrayType[]
-   setProdArray: React.Dispatch<React.SetStateAction<prodArrayType[]>>
+   prodArray: prodArrayType[];
+   setProdArray: React.Dispatch<React.SetStateAction<prodArrayType[]>>;
+   errors: {
+      product: string;
+   };
 };
 
-export default function SalesFormProds({ prodArray, setProdArray } : SalesFormProdsProps) {
-   const [error, setError] = useState("");
-
+export default function SalesFormProds({
+   prodArray,
+   setProdArray,
+   errors,
+}: SalesFormProdsProps) {
    const { data: products } = useQuery({
       queryKey: ["products"],
       queryFn: getProducts,
@@ -37,7 +41,6 @@ export default function SalesFormProds({ prodArray, setProdArray } : SalesFormPr
 
    const handleChangeQty = (id: Product["_id"], qty: number) => {
       if (qty < 0) {
-         setError("La cantidad debe ser mayor a 0 (cero)");
          return;
       }
       const updatedProdArray = prodArray.map((prod) => {
@@ -58,23 +61,30 @@ export default function SalesFormProds({ prodArray, setProdArray } : SalesFormPr
                   className="text-xl flex gap-3 items-center"
                >
                   Productos
-                  {error && (
-                     <span className="text-base text-red-500">{error}</span>
-                  )}
                </label>
             </div>
 
             <div className="bg-gray-200/50 rounded-lg text-lg max-h-[200px] overflow-y-scroll">
                {prodArray.length === 0 ? (
                   <>
-                     <p className="text-center p-2">Aún no hay productos.</p>
+                     <p
+                        className={`text-center p-2 ${
+                           errors.product && "border-l-4 border-red-500"
+                        }`}
+                     >
+                        Aún no hay productos.
+                     </p>
                   </>
                ) : (
                   prodArray.map((prod) => {
                      const { product, quantity } = prod;
                      return (
                         <div
-                           className="grid grid-cols-6 items-center first-of-type:border-t-0 border-t-2 border-gray-300 py-2 duration-200 p-3"
+                           className={`grid grid-cols-6 items-center first-of-type:border-t-0 border-t-2 border-gray-300 py-2 duration-200 p-3 ${
+                              errors.product &&
+                              quantity === 0 &&
+                              "border-l-4 border-l-red-500"
+                           }`}
                            key={product._id}
                         >
                            <p className="text-center col-span-4">
@@ -103,6 +113,9 @@ export default function SalesFormProds({ prodArray, setProdArray } : SalesFormPr
                   })
                )}
             </div>
+            {errors.product && (
+               <p className="text-base text-red-500">{errors.product}</p>
+            )}
          </div>
          <div className=" flex flex-col col-span-3 space-y-2 ">
             <div className="flex justify-between">
