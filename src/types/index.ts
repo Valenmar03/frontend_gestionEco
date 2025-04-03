@@ -63,7 +63,7 @@ export const saleProductSchema = z.object({
 export const saleTypeSchema = z.enum([
     "wholesalePrice",
     "retailPrice",
-    "MercadoLibrePrice"
+    "mercadoLibrePrice"
  ]);
 
 export const saleSchema = z.object({

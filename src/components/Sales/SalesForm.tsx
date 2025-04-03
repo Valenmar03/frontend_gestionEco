@@ -37,9 +37,9 @@ export default function SalesForm() {
          newErrors.client = "Debe ingresar un cliente"
       if (dto >= 100 || dto < 0)
          newErrors.dto = "Revise el descuento";
-      if (client.name === "Mercado Libre" && type !== "MercadoLibrePrice")
+      if (client.name === "Mercado Libre" && type !== "mercadoLibrePrice")
          newErrors.type = "El cliente es ML";
-      if (client.name !== "Mercado Libre" && type === "MercadoLibrePrice")
+      if (client.name !== "Mercado Libre" && type === "mercadoLibrePrice")
          newErrors. type = "El cliente NO es ML";
       if(prodArray.find(prod => prod.quantity <= 0))
          newErrors.product = "Los productos deben tener mas de 0 (cero) unidades"
@@ -49,7 +49,7 @@ export default function SalesForm() {
 
       const areErrors = Object.values(newErrors).find(err => err !== '')
       if(!areErrors){
-         
+
       }
    };
 

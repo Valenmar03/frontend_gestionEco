@@ -131,7 +131,7 @@ export default function SalesFormFields({
                   <option value="retailPrice" className="bg-white">
                      Minorista
                   </option>
-                  <option value="MercadoLibrePrice" className="bg-white">
+                  <option value="mercadoLibrePrice" className="bg-white">
                      Mercado Libre
                   </option>
                </select>
