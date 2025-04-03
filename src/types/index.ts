@@ -49,3 +49,32 @@ export const clientSchema = z.object({
 })
 export type Client = z.infer<typeof clientSchema>
 export type CreateClientForm = Pick<Client, "name" | "phoneNumber" | "address" | "cuil">
+
+
+
+// SALES
+
+export const saleProductSchema = z.object({
+    product: z.string(productSchema.pick({_id: true})),
+    quantity: z.number(),
+    unitPrice: z.number()
+})
+
+export const saleTypeSchema = z.enum([
+    "wholesalePrice",
+    "retailPrice",
+    "MercadoLibrePrice"
+ ]);
+
+export const saleSchema = z.object({
+    _id: z.string(),
+    client: z.string(clientSchema.pick({_id: true})),
+    products: z.array(saleProductSchema),
+    iva: z.boolean(),
+    discount: z.number(),
+    subtotal: z.number(),
+    total: z.number(),
+    type: saleTypeSchema
+})
+export type Sale = z.infer<typeof saleSchema>
+export type CreateSaleForm = Pick<Sale, 'client' | 'discount' | 'iva' | 'products' | 'type' >

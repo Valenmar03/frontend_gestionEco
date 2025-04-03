@@ -45,8 +45,12 @@ export default function SalesForm() {
          newErrors.product = "Los productos deben tener mas de 0 (cero) unidades"
       if(prodArray.length === 0)
          newErrors.product = "Debe ingresar al menos un producto"
-
       setErrors(newErrors);
+
+      const areErrors = Object.values(newErrors).find(err => err !== '')
+      if(!areErrors){
+         
+      }
    };
 
    return (
