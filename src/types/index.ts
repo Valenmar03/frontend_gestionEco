@@ -30,6 +30,7 @@ export const productSchema = z.object({
     price: z.object({
         wholesalePrice: z.number(),
         retailPrice: z.number(),
+        mercadoLibrePrice: z.number()
     }),
 })
 export type Product = z.infer<typeof productSchema>
@@ -53,19 +54,16 @@ export type CreateClientForm = Pick<Client, "name" | "phoneNumber" | "address" |
 
 
 // SALES
-
 export const saleProductSchema = z.object({
     product: z.string(productSchema.pick({_id: true})),
     quantity: z.number(),
     unitPrice: z.number()
 })
-
 export const saleTypeSchema = z.enum([
     "wholesalePrice",
     "retailPrice",
     "mercadoLibrePrice"
- ]);
-
+]);
 export const saleSchema = z.object({
     _id: z.string(),
     client: z.string(clientSchema.pick({_id: true})),

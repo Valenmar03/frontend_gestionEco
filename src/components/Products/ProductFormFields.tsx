@@ -12,9 +12,7 @@ export default function ProductFormFields({
    return (
       <>
          <div className="flex flex-col space-y-2">
-            {errors.type && (
-               <p className="text-red-600">{errors.type.message}</p>
-            )}
+            
             <label htmlFor="name" className="text-xl">
                Tipo de Producto
             </label>
@@ -29,12 +27,13 @@ export default function ProductFormFields({
                   required: "Este campo es obligatorio",
                })}
             />
+            {errors.type && (
+               <p className="text-red-600">{errors.type.message}</p>
+            )}
          </div>
          <div className="flex space-x-2">
             <div className="flex flex-col space-y-2 w-1/2">
-               {errors.weight && (
-                  <p className="text-red-600">{errors.weight.message}</p>
-               )}
+               
                <label htmlFor="cost" className="text-xl">
                   Peso/Volumen
                </label>
@@ -60,12 +59,13 @@ export default function ProductFormFields({
                      <option value="false">mL.</option>
                   </select>
                </div>
+               {errors.weight && (
+                  <p className="text-red-600">{errors.weight.message}</p>
+               )}
             </div>
 
             <div className="flex flex-col space-y-2 w-1/2">
-               {errors.cost && (
-                  <p className="text-red-600">{errors.cost.message}</p>
-               )}
+               
                <label htmlFor="cost" className="text-xl">
                   Costo
                </label>
@@ -81,16 +81,15 @@ export default function ProductFormFields({
                         value > 0 || "El valor debe ser mayor a 0",
                   })}
                />
+               {errors.cost && (
+                  <p className="text-red-600">{errors.cost.message}</p>
+               )}
             </div>
          </div>
 
          <div className="flex space-x-2">
-            <div className="flex flex-col  space-y-2 w-1/2">
-               {errors.price?.wholesalePrice && (
-                  <p className="text-red-600">
-                     {errors.price.wholesalePrice.message}
-                  </p>
-               )}
+            <div className="flex flex-col  space-y-2 w-1/3">
+               
                <label htmlFor="wholesalePrice" className="text-xl">
                   Precio Mayorista
                </label>
@@ -108,14 +107,15 @@ export default function ProductFormFields({
                         value > 0 || "El valor debe ser mayor a 0",
                   })}
                />
-            </div>
-
-            <div className="flex flex-col space-y-2 w-1/2">
-               {errors.price?.retailPrice && (
+               {errors.price?.wholesalePrice && (
                   <p className="text-red-600">
-                     {errors.price.retailPrice.message}
+                     {errors.price.wholesalePrice.message}
                   </p>
                )}
+            </div>
+
+            <div className="flex flex-col space-y-2 w-1/3">
+               
                <label htmlFor="retailPrice" className="text-xl">
                   Precio Minorista
                </label>
@@ -133,6 +133,35 @@ export default function ProductFormFields({
                         value > 0 || "El valor debe ser mayor a 0",
                   })}
                />
+               {errors.price?.retailPrice && (
+                  <p className="text-red-600">
+                     {errors.price.retailPrice.message}
+                  </p>
+               )}
+            </div>
+            <div className="flex flex-col space-y-2 w-1/3">
+               <label htmlFor="retailPrice" className="text-xl">
+                  Precio MercadoLibre
+               </label>
+               <input
+                  type="number"
+                  id="retailPrice"
+                  className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${
+                     errors.price?.mercadoLibrePrice
+                        ? "border-l-4 border-red-600"
+                        : ""
+                  }`}
+                  placeholder="Precio de Venta ML"
+                  {...register("price.mercadoLibrePrice", {
+                     validate: (value) =>
+                        value > 0 || "El valor debe ser mayor a 0",
+                  })}
+               />
+               {errors.price?.mercadoLibrePrice && (
+                  <p className="text-red-600">
+                     {errors.price.mercadoLibrePrice.message}
+                  </p>
+               )}
             </div>
          </div>
       </>

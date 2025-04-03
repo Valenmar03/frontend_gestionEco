@@ -9,7 +9,7 @@ export default function ProductCard(product: Product) {
 
    return (
       <>
-         <div className="grid grid-cols-5 w-full p-4 border-b-1 border-gray-200 items-center">
+         <div className="grid grid-cols-6 w-full p-4 border-b-1 border-gray-200 items-center">
             <p className="text-lg  text-center">
                {product.type} x {product.weight}{" "}
                {product.haveWeight ? "Kg." : "mL."}
@@ -22,6 +22,9 @@ export default function ProductCard(product: Product) {
             </p>
             <p className="text-lg  text-center">
                {formatCurrency(product.price.retailPrice)}
+            </p>
+            <p className="text-lg  text-center">
+               {formatCurrency(product.price.mercadoLibrePrice)}
             </p>
             <div className="flex gap-2 items-center">
                <button

@@ -22,6 +22,7 @@ export default function ProductsView() {
       price: {
          wholesalePrice: 0,
          retailPrice: 0,
+         mercadoLibrePrice: 0,
       },
    };
 
