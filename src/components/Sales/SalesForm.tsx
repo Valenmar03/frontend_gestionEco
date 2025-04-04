@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SalesFormFields from "./SalesFormFields";
 import SalesFormProds from "./SalesFormProds";
-import { Client, Product, Sale, SaleType } from "../../types";
+import { Client, Product, SaleType } from "../../types";
 import { createSale } from "../../api/SalesAPI";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -100,8 +100,8 @@ export default function SalesForm() {
             />
             <div className="col-span-6 flex justify-between items-center gap-10 ">
                <div className="bg-gray-100 p-4 rounded-lg w-2/3">
-                  <p className="text-xl">Subtotal: <span className="font-semibold">$0.00</span></p>
-                  <p className="text-xl">Total: <span className="font-semibold">$0.00</span></p>
+                  <p className="text-xl">Subtotal: <span className="font-semibold">{formatCurrency(subTotal)}</span></p>
+                  <p className="text-xl">Total: <span className="font-semibold">{formatCurrency(total)}</span></p>
                </div>
                <input
                   type="submit"
