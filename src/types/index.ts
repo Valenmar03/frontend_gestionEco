@@ -76,3 +76,4 @@ export const saleSchema = z.object({
 })
 export type Sale = z.infer<typeof saleSchema>
 export type CreateSaleForm = Pick<Sale, 'client' | 'discount' | 'iva' | 'products' | 'type' >
+export type SaleType = z.infer<typeof saleTypeSchema>

@@ -2,13 +2,13 @@ import { PlusIcon } from "@heroicons/react/20/solid";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { getClients } from "../../api/clientAPI";
-import { Client } from "../../types";
+import { Client, SaleType } from "../../types";
 
 type SalesFormFieldsProps = {
    setClient: React.Dispatch<React.SetStateAction<Client>>;
    setIva: React.Dispatch<React.SetStateAction<boolean>>;
    setDto: React.Dispatch<React.SetStateAction<number>>;
-   setType: React.Dispatch<React.SetStateAction<string>>;
+  setType: React.Dispatch<React.SetStateAction<SaleType>>
    errors: {
       client: string;
       dto: string;
@@ -123,7 +123,7 @@ export default function SalesFormFields({
                   name="type"
                   id="type"
                   className={`bg-gray-200/50 p-2 rounded-lg text-lg ${errors.type && 'border-l-4 border-red-500'}`}
-                  onChange={(e) => setType(e.target.value)}
+                  onChange={(e) => setType(e.target.value as SaleType)}
                >
                   <option value="wholesalePrice" className="bg-white">
                      Mayorista
