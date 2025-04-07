@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getSales } from "../../api/SalesAPI";
 import Spinner from "../Spinner";
-import { formatCurrency, translateType } from "../../helpers";
+import { formatCurrency, formatDate, translateType } from "../../helpers";
 
 export default function SalesList() {
    const { data, isError, isLoading } = useQuery({
@@ -22,7 +22,8 @@ export default function SalesList() {
                   key={sale._id}
                >
                   <div>
-                     <h2 className="text-xl font-bold text-royal-purple-600 gap-3 flex items-end">
+                     <p className="text-sm text-right text-royal-purple-700">{formatDate(sale.createdAt)}</p>
+                     <h2 className="text-2xl font-bold text-royal-purple-600 gap-3 flex items-end">
                         {sale.client.name}
                         <span className="text-base opacity-70">
                            {translateType(sale.type)}
@@ -30,12 +31,11 @@ export default function SalesList() {
                      </h2>
                      {sale.products.map((prod) => (
                         <div
-                           key={prod.product._id}
+                           key={prod.product}
                            className="flex justify-between items-center mt-2 first-of-type:border-t-0 border-t-2 border-gray-300"
                         >
                            <p className="text">
-                              {prod.product.type} x {prod.product.weight}
-                              {prod.product.haveWeight ? "Kg." : "mL."}
+                              {prod.product}
                            </p>
                            <p>{prod.quantity}</p>
                         </div>

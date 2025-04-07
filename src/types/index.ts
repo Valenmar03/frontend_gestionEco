@@ -55,7 +55,7 @@ export type CreateClientForm = Pick<Client, "name" | "phoneNumber" | "address" |
 
 // SALES
 export const saleProductSchema = z.object({
-    product: productSchema,
+    product: z.string(),
     quantity: z.number(),
     unitPrice: z.number()
 })
@@ -80,7 +80,9 @@ export const saleSchema = z.object({
     discount: z.number(),
     subtotal: z.number(),
     total: z.number(),
-    type: saleTypeSchema
+    type: saleTypeSchema,
+    createdAt: z.string(),
+    updatedAt: z.string(),
 })
 export type Sale = z.infer<typeof saleSchema>
 export type CreateSaleForm = Pick<Sale, 'client' | 'discount' | 'iva' | 'products' | 'type' >
