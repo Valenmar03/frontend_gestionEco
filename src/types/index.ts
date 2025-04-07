@@ -55,9 +55,17 @@ export type CreateClientForm = Pick<Client, "name" | "phoneNumber" | "address" |
 
 // SALES
 export const saleProductSchema = z.object({
-    product: z.string(productSchema.pick({_id: true})),
+    product: productSchema,
     quantity: z.number(),
     unitPrice: z.number()
+})
+export const saleClientSchema = z.object({
+    _id: z.string(),
+    name: z.string(),
+    phoneNumber: z.string(),
+    address: z.string(),
+    cuil: z.string(),
+    _v: z.number().optional()
 })
 export const saleTypeSchema = z.enum([
     "wholesalePrice",
@@ -66,7 +74,7 @@ export const saleTypeSchema = z.enum([
 ]);
 export const saleSchema = z.object({
     _id: z.string(),
-    client: z.string(clientSchema.pick({_id: true})),
+    client: saleClientSchema,
     products: z.array(saleProductSchema),
     iva: z.boolean(),
     discount: z.number(),

@@ -92,11 +92,11 @@ export default function SalesFormFields({
                   className="bg-gray-200/50 p-2 rounded-lg text-lg"
                   onChange={(e) => setIva(e.target.value == "true")}
                >
-                  <option value="true" className="bg-white">
-                     Sí
-                  </option>
                   <option value="false" className="bg-white">
                      No
+                  </option>
+                  <option value="true" className="bg-white">
+                     Sí
                   </option>
                </select>
             </div>

@@ -9,6 +9,7 @@ import SalesView from "./views/SalesView";
 import BillsViews from "./views/BillsViews";
 import ClientsView from "./views/ClientsView";
 import SalesForm from "./components/Sales/SalesForm";
+import SalesList from "./components/Sales/SalesList";
 
 export default function Router() {
 
@@ -20,6 +21,7 @@ export default function Router() {
                     <Route path="/stock-management" element={<StockManagmentView/>}  />
                     <Route path="/sales" element={<SalesView/>} >
                         <Route path="/sales/add-sale" element={<SalesForm/>}/>
+                        <Route path="/sales/" element={<SalesList/>}/>
                     </Route>
                     <Route path="/bills" element={<BillsViews/>}  />
                     <Route path="/products" element={<ProductsView/>}  />
