@@ -1,7 +1,8 @@
-import { Product } from "../../types";
+import { Product, SaleType } from "../../types";
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../../api/productAPI";
 import { TrashIcon } from "@heroicons/react/20/solid";
+import { formatCurrency } from "../../helpers";
 
 type prodArrayType = {
    product: Product;
@@ -14,12 +15,14 @@ type SalesFormProdsProps = {
    errors: {
       product: string;
    };
+   type: SaleType
 };
 
 export default function SalesFormProds({
    prodArray,
    setProdArray,
    errors,
+   type
 }: SalesFormProdsProps) {
    const { data: products } = useQuery({
       queryKey: ["products"],
@@ -80,17 +83,20 @@ export default function SalesFormProds({
                      const { product, quantity } = prod;
                      return (
                         <div
-                           className={`grid grid-cols-6 items-center first-of-type:border-t-0 border-t-2 border-gray-300 py-2 duration-200 p-3 ${
+                           className={`grid grid-cols-8 items-center first-of-type:border-t-0 border-t-2 border-gray-300 py-2 duration-200 p-3 ${
                               errors.product &&
                               quantity === 0 &&
                               "border-l-4 border-l-red-500"
                            }`}
                            key={product._id}
                         >
-                           <p className="text-center col-span-4">
+                           <p className="text-center col-span-3">
                               {`${product.type} x  ${product.weight}${
                                  product.haveWeight ? "Kg." : "mL."
                               } `}
+                           </p>
+                           <p className="text-center col-span-2">
+                              {formatCurrency(product.price[type])}
                            </p>
                            <input
                               type="number"
@@ -101,7 +107,7 @@ export default function SalesFormProds({
                                     Number(e.target.value)
                                  )
                               }
-                              className="col-span-1 text-center bg-white rounded-md"
+                              className="col-span-2 text-center bg-white rounded-md"
                            />
 
                            <TrashIcon

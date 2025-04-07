@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SalesFormFields from "./SalesFormFields";
 import SalesFormProds from "./SalesFormProds";
 import { Client, Product, SaleType } from "../../types";
@@ -35,6 +35,16 @@ export default function SalesForm() {
    const [ total, setTotal ] = useState(0)
 
    const navigate = useNavigate()
+
+   useEffect(() => {
+      const subtotal = prodArray.reduce((acc, prod) => {
+         return acc + prod.product.price[type] * prod.quantity;
+      }, 0);
+      setSubTotal(subtotal);
+      const discount = (subtotal * dto) / 100;
+      const total = subtotal - discount;
+      setTotal(iva ? total * 1.21 : total);
+   }, [iva, dto, type, prodArray]);
 
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -97,6 +107,7 @@ export default function SalesForm() {
                prodArray={prodArray}
                setProdArray={setProdArray}
                errors={errors}
+               type={type}
             />
             <div className="col-span-6 flex justify-between items-center gap-10 ">
                <div className="bg-gray-100 p-4 rounded-lg w-2/3">
