@@ -9,8 +9,6 @@ export default function SalesList() {
       queryFn: getSales,
    });
 
-   console.log(data);
-
    if (isLoading) return <Spinner />;
    if (isError) return <p>Error al cargar los productos</p>;
    if (data)
