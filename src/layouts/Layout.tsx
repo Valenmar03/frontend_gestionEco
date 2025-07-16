@@ -38,8 +38,8 @@ export default function Layout() {
    if (data)
       return (
          <>
-            <header className="pt-5 px-5 bg-white mb-3 pb-1">
-               <div className="max-w-4/5 mx-auto flex justify-between items-end">
+            <header className="p-5 bg-vida-loca-200">
+               <div className="max-w-4/5 mx-auto flex justify-between items-center">
                   <img
                      src="/LogoTexto.png"
                      alt="Logo Ecorganico"
@@ -50,18 +50,20 @@ export default function Layout() {
                      onClick={logOut}
                   />
                </div>
-               <nav>
-                  <ul className="flex mt-10 mx-auto max-w-4/5 text-xl">
-                     <HeaderLinks page={homePage} />
-                     {pages.map((page) => (
-                        <HeaderLinks key={page.title} page={page} />
-                     ))}
-                  </ul>
-               </nav>
             </header>
-            <main className="bg-gray-50 p-10 shadow rounded max-w-4/5 mx-auto max-h-screen">
-               <Outlet />
-            </main>
+            <div className="flex">
+               <aside className="bg-vida-loca-700/90 w-1/7 mr-10 h-[90vh]">
+                  <nav className="flex flex-col w-full">
+                        <HeaderLinks page={homePage} />
+                        {pages.map((page) => (
+                           <HeaderLinks key={page.title} page={page} />
+                        ))}
+                  </nav>
+               </aside>
+               <main className="bg-gray-50 p-10 shadow rounded w-5/7 mx-auto h-fit max-h-[80vh] overflow-y-scroll mt-10">
+                  <Outlet />
+               </main>
+            </div>
 
             <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} />
          </>

@@ -20,19 +20,13 @@ export default function HeaderLinks({ page }: HeaderLinksProps) {
       page.url === "/" ? pathname === "/" : pathname.startsWith(page.url);
 
    return (
-      <li>
-         <Link
-            to={page.url}
-            className={`pt-2 px-7 rounded-t-lg duration-200  ${
-               page.headerTextColor
-            } ${
-               isFocus
-                  ? `pb-5 ${page.bgFocusColor}`
-                  : `pb-3 ${page.bgColor} ${page.hoverColor}`
-            }`}
-         >
-            {page.title}
-         </Link>
-      </li>
+      <Link
+         to={page.url}
+         className={`w-full text-xl text-white hover:bg-vida-loca-500 py-4 px-7 cursor-pointer duration-200
+               ${isFocus ? "bg-vida-loca-500" : ""}
+         `}
+      >
+         {page.title}
+      </Link>
    );
 }

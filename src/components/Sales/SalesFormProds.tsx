@@ -144,7 +144,7 @@ export default function SalesFormProds({
                   >
                      {`${product.type} x  ${product.weight}${
                         product.haveWeight ? "Kg." : "mL."
-                     } `}
+                     } (${product.stock}) `}
                   </p>
                ))}
             </div>
