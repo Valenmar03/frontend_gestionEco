@@ -1,10 +1,11 @@
 import { pages } from "../data";
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation, useParams } from "react-router-dom";
 
 export default function SalesView() {
    const page = pages.filter((page) => page.title === "Ventas")[0];
    const { pathname } = useLocation();
    const isAddSale = pathname === "/sales/add-sale";
+   const { id } = useParams()
 
    return (
       <>
@@ -19,10 +20,10 @@ export default function SalesView() {
             </div>
             <div className="col-span-1 col-start-3 my-auto ml-auto">
                <Link
-                  to={isAddSale ? "/sales" : "/sales/add-sale"}
+                  to={isAddSale || id ? "/sales" : "/sales/add-sale"}
                   className={`px-6 py-2 text-2xl bg-royal-purple-600 text-white font-semibold rounded-lg hover:bg-royal-purple-600/80 cursor-pointer duration-200 `}
                >
-                  {isAddSale ? "Volver a Ventas" : "Agregar Venta"}
+                  {isAddSale || id ? "Volver a Ventas" : "Agregar Venta"}
                </Link>
             </div>
          </div>

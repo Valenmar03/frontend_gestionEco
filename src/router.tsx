@@ -10,6 +10,7 @@ import BillsViews from "./views/BillsViews";
 import ClientsView from "./views/ClientsView";
 import SalesForm from "./components/Sales/SalesForm";
 import SalesList from "./components/Sales/SalesList";
+import SaleDetail from "./components/Sales/SaleDetail";
 
 export default function Router() {
 
@@ -22,6 +23,7 @@ export default function Router() {
                     <Route path="/sales" element={<SalesView/>} >
                         <Route path="/sales/add-sale" element={<SalesForm/>}/>
                         <Route path="/sales/" element={<SalesList/>}/>
+                        <Route path="/sales/:id" element={<SaleDetail />} />
                     </Route>
                     <Route path="/bills" element={<BillsViews/>}  />
                     <Route path="/products" element={<ProductsView/>}  />

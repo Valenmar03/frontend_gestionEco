@@ -52,7 +52,7 @@ export default function Layout() {
                </div>
             </header>
             <div className="flex">
-               <aside className="bg-vida-loca-700/90 w-1/7 mr-10 h-[90vh]">
+               <aside className="bg-vida-loca-700/90 w-1/7 mr-10 h-screen">
                   <nav className="flex flex-col w-full">
                         <HeaderLinks page={homePage} />
                         {pages.map((page) => (
@@ -60,7 +60,7 @@ export default function Layout() {
                         ))}
                   </nav>
                </aside>
-               <main className="bg-gray-50 p-10 shadow rounded w-5/7 mx-auto h-fit max-h-[80vh] overflow-y-scroll mt-10">
+               <main className="bg-gray-50 p-10 shadow rounded w-5/7 mx-auto mt-10">
                   <Outlet />
                </main>
             </div>

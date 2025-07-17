@@ -24,3 +24,14 @@ export async function getSales(){
         }
     }
 }
+
+export async function getSaleById(id : string){
+    try {
+        const { data } = await api<Sale>(`/sales/${id}`)
+        return data
+    } catch (error) {
+        if(isAxiosError(error) && error.response){
+            throw new Error(error.response.data)
+        }
+    }
+}
