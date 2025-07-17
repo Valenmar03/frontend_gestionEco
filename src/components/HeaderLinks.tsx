@@ -22,7 +22,7 @@ export default function HeaderLinks({ page }: HeaderLinksProps) {
    return (
       <Link
          to={page.url}
-         className={`w-full text-xl text-white hover:bg-vida-loca-500 py-4 px-7 cursor-pointer duration-200
+         className={`w-full text-xl text-white hover:bg-vida-loca-500 py-4 px-7 cursor-pointer duration-200 shadow-sm
                ${isFocus ? "bg-vida-loca-500" : ""}
          `}
       >

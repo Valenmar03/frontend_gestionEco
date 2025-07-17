@@ -52,17 +52,24 @@ export default function Layout() {
                </div>
             </header>
             <div className="flex">
-               <aside className="bg-vida-loca-700/90 w-1/7 mr-10 h-screen">
-                  <nav className="flex flex-col w-full">
-                        <HeaderLinks page={homePage} />
-                        {pages.map((page) => (
-                           <HeaderLinks key={page.title} page={page} />
-                        ))}
+               <aside className="bg-vida-loca-700/90 w-2/8 mr-10 min-h-screen">
+                  <nav className="flex flex-col w-full divide-y divide-vida-loca-700/80">
+                     <HeaderLinks page={homePage} />
+                     {pages.map((page) => (
+                        <HeaderLinks key={page.title} page={page} />
+                     ))}
                   </nav>
                </aside>
-               <main className="bg-gray-50 p-10 shadow rounded w-5/7 mx-auto mt-10">
-                  <Outlet />
-               </main>
+               <div className="flex flex-col w-full">
+                  <main className="bg-gray-50 p-10 shadow rounded  mx-auto mt-10">
+                     <Outlet />
+                  </main>
+                  <footer className="mt-10 border-t-2 w-full mx-auto border-gray-300 py-5">
+                     <p className="text-center text-lg">
+                        Valentín Martinez | 2024 ©
+                     </p>
+                  </footer>
+               </div>
             </div>
 
             <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} />
