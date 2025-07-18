@@ -60,8 +60,8 @@ export default function Layout() {
                      ))}
                   </nav>
                </aside>
-               <div className="flex flex-col w-full">
-                  <main className="bg-gray-50 p-10 shadow rounded  mx-auto mt-10">
+               <div className="flex flex-col w-7/8">
+                  <main className="bg-gray-50 p-10 shadow rounded mx-auto mt-10">
                      <Outlet />
                   </main>
                   <footer className="mt-10 border-t-2 w-full mx-auto border-gray-300 py-5">
