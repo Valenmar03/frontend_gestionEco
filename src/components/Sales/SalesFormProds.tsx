@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../../api/productAPI";
 import { TrashIcon } from "@heroicons/react/20/solid";
 import { formatCurrency } from "../../helpers";
+import { useState } from "react";
 
 type prodArrayType = {
    product: Product;
@@ -15,138 +16,147 @@ type SalesFormProdsProps = {
    errors: {
       product: string;
    };
-   type: SaleType
+   type: SaleType;
 };
 
 export default function SalesFormProds({
    prodArray,
    setProdArray,
    errors,
-   type
+   type,
 }: SalesFormProdsProps) {
    const { data: products } = useQuery({
       queryKey: ["products"],
       queryFn: getProducts,
    });
 
+   const [search, setSearch] = useState("");
+
    const handleAddProduct = (id: Product["_id"]) => {
-      const product = prodArray.find((prod) => prod.product._id === id);
-      if (product) {
+      const isAlready = prodArray.find((prod) => prod.product._id === id);
+      if (isAlready) {
          setProdArray(prodArray.filter((prod) => prod.product._id !== id));
          return;
       }
 
-      setProdArray([
-         ...prodArray,
-         { product: products?.find((prod) => prod._id === id)!, quantity: 0 },
-      ]);
+      const found = products?.find((prod) => prod._id === id);
+      if (found) {
+         setProdArray([...prodArray, { product: found, quantity: 0 }]);
+      }
    };
 
    const handleChangeQty = (id: Product["_id"], qty: number) => {
-      if (qty < 0) {
-         return;
-      }
-      const updatedProdArray = prodArray.map((prod) => {
-         return prod.product._id === id ? { ...prod, quantity: qty } : prod;
-      });
-      setProdArray(updatedProdArray);
+      if (qty < 0) return;
+      const updated = prodArray.map((prod) =>
+         prod.product._id === id ? { ...prod, quantity: qty } : prod
+      );
+      setProdArray(updated);
    };
 
    const handleDelete = (id: Product["_id"]) => {
       setProdArray(prodArray.filter((prod) => prod.product._id !== id));
    };
+
+   const filteredProducts = products?.filter((product) =>
+      `${product.type} ${product.weight}`
+         .toLowerCase()
+         .includes(search.toLowerCase())
+   );
+
    return (
       <>
-         <div className=" flex flex-col col-span-3 space-y-2">
-            <div className="flex justify-between">
-               <label
-                  htmlFor="products"
-                  className="text-xl flex gap-3 items-center"
-               >
-                  Productos
-               </label>
-            </div>
+         {/* Productos seleccionados */}
+         <div className="flex flex-col col-span-3 space-y-3">
+            <h3 className="text-xl font-semibold">Productos Seleccionados</h3>
 
-            <div className="bg-gray-200/50 rounded-lg text-lg max-h-[200px] overflow-y-scroll">
+            <div className="bg-gray-200/50 rounded-lg text-lg max-h-[250px] overflow-y-auto shadow-inner">
                {prodArray.length === 0 ? (
-                  <>
-                     <p
-                        className={`text-center p-2 ${
-                           errors.product && "border-l-4 border-red-500"
+                  <p
+                     className={`text-center p-4 text-gray-500 ${
+                        errors.product && "border-l-4 border-red-500"
+                     }`}
+                  >
+                     Aún no hay productos agregados.
+                  </p>
+               ) : (
+                  prodArray.map(({ product, quantity }) => (
+                     <div
+                        key={product._id}
+                        className={`grid grid-cols-8 items-center border-t border-gray-300 py-2 px-3 ${
+                           errors.product && quantity === 0
+                              ? "border-l-4 border-red-500"
+                              : ""
                         }`}
                      >
-                        Aún no hay productos.
-                     </p>
-                  </>
-               ) : (
-                  prodArray.map((prod) => {
-                     const { product, quantity } = prod;
-                     return (
-                        <div
-                           className={`grid grid-cols-8 items-center first-of-type:border-t-0 border-t-2 border-gray-300 py-2 duration-200 p-3 ${
-                              errors.product &&
-                              quantity === 0 &&
-                              "border-l-4 border-l-red-500"
+                        <p className="col-span-3 text-center">
+                           {`${product.type} x ${product.weight}${
+                              product.haveWeight ? "Kg." : "mL."
                            }`}
-                           key={product._id}
-                        >
-                           <p className="text-center col-span-3">
-                              {`${product.type} x  ${product.weight}${
-                                 product.haveWeight ? "Kg." : "mL."
-                              } `}
-                           </p>
-                           <p className="text-center col-span-2">
-                              {formatCurrency(product.price[type])}
-                           </p>
-                           <input
-                              type="number"
-                              value={quantity}
-                              onChange={(e) =>
-                                 handleChangeQty(
-                                    prod.product._id,
-                                    Number(e.target.value)
-                                 )
-                              }
-                              className="col-span-2 text-center bg-white rounded-md"
-                           />
-
-                           <TrashIcon
-                              className="size-5 cursor-pointer col-span-1 mx-auto text-red-500 hover:scale-110 duration-150"
-                              onClick={() => handleDelete(product._id)}
-                           />
-                        </div>
-                     );
-                  })
+                        </p>
+                        <p className="col-span-2 text-center">
+                           {formatCurrency(product.price[type])}
+                        </p>
+                        <input
+                           type="number"
+                           value={quantity}
+                           onChange={(e) =>
+                              handleChangeQty(
+                                 product._id,
+                                 Number(e.target.value)
+                              )
+                           }
+                           className="col-span-2 text-center bg-white rounded-md p-1 border border-gray-300"
+                        />
+                        <TrashIcon
+                           className="col-span-1 size-5 mx-auto text-red-500 hover:scale-110 transition cursor-pointer"
+                           onClick={() => handleDelete(product._id)}
+                        />
+                     </div>
+                  ))
                )}
             </div>
+
             {errors.product && (
                <p className="text-base text-red-500">{errors.product}</p>
             )}
          </div>
-         <div className=" flex flex-col col-span-3 space-y-2 ">
-            <div className="flex justify-between">
-               <label htmlFor="products" className="text-xl">
-                  Agregar Productos
-               </label>
-            </div>
-            <div className="bg-gray-200/50  rounded-lg text-lg max-h-[200px] overflow-y-auto">
-               {products?.map((product) => (
-                  <p
-                     className={`text-center first-of-type:border-t-0 border-t-2 border-gray-300 py-2 hover:bg-gray-200 cursor-pointer duration-200 ${
-                        prodArray.find(
-                           (prod) => prod.product._id === product._id
-                        )
-                           ? "bg-vida-loca-500/60 hover:bg-vida-loca-500/80"
-                           : "hover:bg-gray-200"
-                     }`}
-                     key={product._id}
-                     onClick={() => handleAddProduct(product._id)}
-                  >
-                     {`${product.type} x  ${product.weight}${
-                        product.haveWeight ? "Kg." : "mL."
-                     } (${product.stock}) `}
-                  </p>
-               ))}
+
+         {/* Productos disponibles */}
+         <div className="flex flex-col col-span-3 space-y-3">
+            <h3 className="text-xl font-semibold">Agregar Productos</h3>
+
+            {/* Buscador */}
+            <input
+               type="text"
+               placeholder="Buscar por tipo o peso..."
+               className="p-2 rounded-md border border-gray-300 bg-white text-lg"
+               value={search}
+               onChange={(e) => setSearch(e.target.value)}
+            />
+
+            {/* Lista de productos */}
+            <div className="bg-gray-200/50 rounded-lg text-lg max-h-[250px] overflow-y-auto shadow-inner">
+               {filteredProducts?.map((product) => {
+                  const isSelected = prodArray.some(
+                     (p) => p.product._id === product._id
+                  );
+
+                  return (
+                     <p
+                        key={product._id}
+                        onClick={() => handleAddProduct(product._id)}
+                        className={`text-center py-2 px-3 border-t border-gray-300 cursor-pointer transition duration-200 ${
+                           isSelected
+                              ? "bg-vida-loca-500/60 hover:bg-vida-loca-500/80 font-medium"
+                              : "hover:bg-gray-300"
+                        }`}
+                     >
+                        {`${product.type} x ${product.weight}${
+                           product.haveWeight ? "Kg." : "mL."
+                        } (${product.stock})`}
+                     </p>
+                  );
+               })}
             </div>
          </div>
       </>
