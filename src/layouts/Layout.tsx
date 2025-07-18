@@ -8,6 +8,14 @@ import { useAuth } from "../hooks/useAuth";
 import Spinner from "../components/Spinner";
 
 export default function Layout() {
+   const navigate = useNavigate();
+   const { data, isError, isLoading } = useAuth();
+
+   const logOut = () => {
+      localStorage.removeItem("AUTH_TOKEN");
+      navigate("/auth/login");
+   };
+
    const homePage = {
       title: "Inicio",
       url: "/",
@@ -20,59 +28,58 @@ export default function Layout() {
       headerTextColor: "text-slate-800",
    };
 
-   const { data, isError, isLoading } = useAuth();
-
-   const navigate = useNavigate();
-   const logOut = () => {
-      localStorage.removeItem("AUTH_TOKEN");
-      navigate("/auth/login");
-   };
-
-   if (isError) return <Navigate to={"/auth/login"}></Navigate>;
+   if (isError) return <Navigate to="/auth/login" />;
    if (isLoading)
       return (
-         <div className="w-full h-screen mx-auto flex items-center justify-center">
+         <div className="flex items-center justify-center h-screen w-full">
             <Spinner />
          </div>
       );
-   if (data)
-      return (
-         <>
-            <header className="p-5 bg-vida-loca-200">
-               <div className="max-w-4/5 mx-auto flex justify-between items-center">
-                  <img
-                     src="/LogoTexto.png"
-                     alt="Logo Ecorganico"
-                     className="w-72 mx-2"
-                  />
-                  <ArrowRightStartOnRectangleIcon
-                     className="size-10 text-red-500 cursor-pointer"
-                     onClick={logOut}
-                  />
-               </div>
-            </header>
-            <div className="flex">
-               <aside className="bg-vida-loca-700/90 w-2/8 mr-10 min-h-screen">
-                  <nav className="flex flex-col w-full divide-y divide-vida-loca-700/80">
-                     <HeaderLinks page={homePage} />
-                     {pages.map((page) => (
-                        <HeaderLinks key={page.title} page={page} />
-                     ))}
-                  </nav>
-               </aside>
-               <div className="flex flex-col w-7/8">
-                  <main className="bg-gray-50 p-10 shadow rounded mx-auto mt-10">
-                     <Outlet />
-                  </main>
-                  <footer className="mt-10 border-t-2 w-full mx-auto border-gray-300 py-5">
-                     <p className="text-center text-lg">
-                        Valentín Martinez | 2024 ©
-                     </p>
-                  </footer>
-               </div>
-            </div>
 
-            <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} />
-         </>
-      );
+   return (
+      <>
+         {/* Header */}
+         <header className="bg-vida-loca-200 p-4 shadow">
+            <div className="max-w-screen-xl mx-auto flex justify-between items-center">
+               <img
+                  src="/LogoTexto.png"
+                  alt="Logo Ecorgánico"
+                  className="w-64 sm:w-72"
+               />
+               <ArrowRightStartOnRectangleIcon
+                  className="w-10 h-10 text-red-500 cursor-pointer"
+                  onClick={logOut}
+                  title="Cerrar sesión"
+               />
+            </div>
+         </header>
+
+         {/* Layout principal */}
+         <div className="flex min-h-screen bg-gray-100">
+            {/* Sidebar */}
+            <aside className="w-64 bg-vida-loca-700/90 text-white">
+               <nav className="flex flex-col">
+                  <HeaderLinks page={homePage} />
+                  {pages.map((page) => (
+                     <HeaderLinks key={page.title} page={page} />
+                  ))}
+               </nav>
+            </aside>
+
+            {/* Contenido principal */}
+            <div className="flex-1 flex flex-col px-6 py-8">
+               <main className="flex-grow bg-white p-6 rounded shadow">
+                  <Outlet />
+               </main>
+
+               <footer className="mt-10 border-t pt-4 text-center text-gray-600 text-sm">
+                  © 2024 Valentín Martinez – Todos los derechos reservados
+               </footer>
+            </div>
+         </div>
+
+         {/* Toasts */}
+         <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} />
+      </>
+   );
 }
