@@ -9,7 +9,7 @@ import Spinner from "../components/Spinner";
 
 export default function Layout() {
    const navigate = useNavigate();
-   const { data, isError, isLoading } = useAuth();
+   const { isError, isLoading } = useAuth();
 
    const logOut = () => {
       localStorage.removeItem("AUTH_TOKEN");
