@@ -65,7 +65,6 @@ export default function SalesFormProds({
 
    return (
       <>
-         {/* Productos seleccionados */}
          <div className="flex flex-col col-span-3 space-y-3">
             <h3 className="text-xl font-semibold">Productos Seleccionados</h3>
 
@@ -121,11 +120,9 @@ export default function SalesFormProds({
             )}
          </div>
 
-         {/* Productos disponibles */}
          <div className="flex flex-col col-span-3 space-y-3">
             <h3 className="text-xl font-semibold">Agregar Productos</h3>
 
-            {/* Buscador */}
             <input
                type="text"
                placeholder="Buscar por tipo o peso..."
@@ -134,7 +131,6 @@ export default function SalesFormProds({
                onChange={(e) => setSearch(e.target.value)}
             />
 
-            {/* Lista de productos */}
             <div className="bg-gray-200/50 rounded-lg text-lg max-h-[250px] overflow-y-auto shadow-inner">
                {filteredProducts?.map((product) => {
                   const isSelected = prodArray.some(

@@ -97,7 +97,6 @@ export default function SalesForm() {
          autoComplete="off"
          className="grid grid-cols-6 gap-10 bg-white px-10 pt-5 pb-10 rounded-lg shadow-md w-11/12 mx-auto mt-10"
       >
-         {/* Sección: Datos de la venta */}
          <SalesFormFields
             setClient={setClient}
             setIva={setIva}
@@ -106,7 +105,6 @@ export default function SalesForm() {
             errors={errors}
          />
 
-         {/* Sección: Productos */}
          <SalesFormProds
             prodArray={prodArray}
             setProdArray={setProdArray}
@@ -114,7 +112,6 @@ export default function SalesForm() {
             type={type}
          />
 
-         {/* Sección: Resumen + Enviar */}
          <div className="col-span-6 flex flex-col md:flex-row justify-between items-center gap-6 mt-4">
             <aside className="bg-gray-100 p-4 rounded-lg w-full md:w-1/2">
                <p className="text-xl">

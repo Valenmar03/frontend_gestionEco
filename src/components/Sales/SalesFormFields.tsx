@@ -46,7 +46,6 @@ export default function SalesFormFields({
 
    return (
       <>
-         {/* Cliente */}
          <div className="flex flex-col space-y-2 col-span-3">
             <div className="flex justify-between items-center">
                <label htmlFor="client" className="text-xl font-medium">
@@ -84,7 +83,6 @@ export default function SalesFormFields({
             )}
          </div>
 
-         {/* IVA / Dto / Tipo de venta */}
          <fieldset className="flex gap-4 col-span-3">
             {/* IVA */}
             <div className="flex flex-col space-y-2 w-1/4">
@@ -102,7 +100,6 @@ export default function SalesFormFields({
                </select>
             </div>
 
-            {/* Descuento */}
             <div className="flex flex-col space-y-2 w-1/4">
                <label htmlFor="dto" className="text-xl font-medium">
                   Descuento
@@ -124,7 +121,6 @@ export default function SalesFormFields({
                )}
             </div>
 
-            {/* Tipo de venta */}
             <div className="flex flex-col space-y-2 w-full">
                <label htmlFor="type" className="text-xl font-medium">
                   Tipo de Venta
