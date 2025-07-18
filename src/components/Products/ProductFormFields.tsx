@@ -5,53 +5,56 @@ type ProductFormProps = {
    errors: FieldErrors<CreateProductForm>;
    register: UseFormRegister<CreateProductForm>;
 };
+
 export default function ProductFormFields({
    errors,
    register,
 }: ProductFormProps) {
+   const priceFields = [
+      { key: "wholesalePrice", label: "Precio Mayorista" },
+      { key: "retailPrice", label: "Precio Minorista" },
+      { key: "mercadoLibrePrice", label: "Precio MercadoLibre" },
+   ] as const;
+
    return (
-      <>
+      <div className="space-y-6">
          <div className="flex flex-col space-y-2">
-            
-            <label htmlFor="name" className="text-xl">
+            <label htmlFor="type" className="text-xl font-semibold">
                Tipo de Producto
             </label>
             <input
+               id="type"
                type="text"
-               id="name"
+               placeholder="Ej: Insecticida"
                className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${
                   errors.type ? "border-l-4 border-red-600" : ""
                }`}
-               placeholder="Tipo de Producto. Ej.: Insecticida"
-               {...register("type", {
-                  required: "Este campo es obligatorio",
-               })}
+               {...register("type", { required: "Este campo es obligatorio" })}
             />
             {errors.type && (
-               <p className="text-red-600">{errors.type.message}</p>
+               <p className="text-red-600 text-sm">{errors.type.message}</p>
             )}
          </div>
-         <div className="flex space-x-2">
-            <div className="flex flex-col space-y-2 w-1/2">
-               
-               <label htmlFor="cost" className="text-xl">
-                  Peso/Volumen
+
+         <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col space-y-2 w-full sm:w-1/2">
+               <label htmlFor="weight" className="text-xl font-semibold">
+                  Peso / Volumen
                </label>
-               <div className="flex w-full">
+               <div className="flex">
                   <input
                      type="number"
-                     id="cost"
-                     className={`p-3 text-xl w-full bg-gray-100 rounded outline-vida-loca-600 ${
+                     id="weight"
+                     placeholder="Cantidad"
+                     className={`p-3 text-xl w-full bg-gray-100 rounded-l outline-vida-loca-600 ${
                         errors.weight ? "border-l-4 border-red-600" : ""
                      }`}
-                     placeholder="Peso o Volumen"
                      {...register("weight", {
                         validate: (value) =>
                            value > 0 || "El valor debe ser mayor a 0",
                      })}
                   />
                   <select
-                     id=""
                      className="p-3 text-xl bg-gray-100 rounded-r outline-vida-loca-600"
                      {...register("haveWeight")}
                   >
@@ -60,110 +63,64 @@ export default function ProductFormFields({
                   </select>
                </div>
                {errors.weight && (
-                  <p className="text-red-600">{errors.weight.message}</p>
+                  <p className="text-red-600 text-sm">
+                     {errors.weight.message}
+                  </p>
                )}
             </div>
 
-            <div className="flex flex-col space-y-2 w-1/2">
-               
-               <label htmlFor="cost" className="text-xl">
+            <div className="flex flex-col space-y-2 w-full sm:w-1/2">
+               <label htmlFor="cost" className="text-xl font-semibold">
                   Costo
                </label>
                <input
                   type="number"
                   id="cost"
+                  placeholder="Costo del producto"
                   className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${
                      errors.cost ? "border-l-4 border-red-600" : ""
                   }`}
-                  placeholder="Costo del Producto"
                   {...register("cost", {
                      validate: (value) =>
                         value > 0 || "El valor debe ser mayor a 0",
                   })}
                />
                {errors.cost && (
-                  <p className="text-red-600">{errors.cost.message}</p>
+                  <p className="text-red-600 text-sm">{errors.cost.message}</p>
                )}
             </div>
          </div>
 
-         <div className="flex space-x-2">
-            <div className="flex flex-col  space-y-2 w-1/3">
-               
-               <label htmlFor="wholesalePrice" className="text-xl">
-                  Precio Mayorista
-               </label>
-               <input
-                  type="number"
-                  id="wholesalePrice"
-                  className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${
-                     errors.price?.wholesalePrice
-                        ? "border-l-4 border-red-600"
-                        : ""
-                  }`}
-                  placeholder="Precio de Venta Mayorista"
-                  {...register("price.wholesalePrice", {
-                     validate: (value) =>
-                        value > 0 || "El valor debe ser mayor a 0",
-                  })}
-               />
-               {errors.price?.wholesalePrice && (
-                  <p className="text-red-600">
-                     {errors.price.wholesalePrice.message}
-                  </p>
-               )}
-            </div>
-
-            <div className="flex flex-col space-y-2 w-1/3">
-               
-               <label htmlFor="retailPrice" className="text-xl">
-                  Precio Minorista
-               </label>
-               <input
-                  type="number"
-                  id="retailPrice"
-                  className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${
-                     errors.price?.retailPrice
-                        ? "border-l-4 border-red-600"
-                        : ""
-                  }`}
-                  placeholder="Precio de Venta Minorista"
-                  {...register("price.retailPrice", {
-                     validate: (value) =>
-                        value > 0 || "El valor debe ser mayor a 0",
-                  })}
-               />
-               {errors.price?.retailPrice && (
-                  <p className="text-red-600">
-                     {errors.price.retailPrice.message}
-                  </p>
-               )}
-            </div>
-            <div className="flex flex-col space-y-2 w-1/3">
-               <label htmlFor="retailPrice" className="text-xl">
-                  Precio MercadoLibre
-               </label>
-               <input
-                  type="number"
-                  id="retailPrice"
-                  className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${
-                     errors.price?.mercadoLibrePrice
-                        ? "border-l-4 border-red-600"
-                        : ""
-                  }`}
-                  placeholder="Precio de Venta ML"
-                  {...register("price.mercadoLibrePrice", {
-                     validate: (value) =>
-                        value > 0 || "El valor debe ser mayor a 0",
-                  })}
-               />
-               {errors.price?.mercadoLibrePrice && (
-                  <p className="text-red-600">
-                     {errors.price.mercadoLibrePrice.message}
-                  </p>
-               )}
-            </div>
+         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {priceFields.map(({ key, label }) => (
+               <div key={key} className="flex flex-col space-y-2">
+                  <label htmlFor={key} className="text-xl font-semibold">
+                     {label}
+                  </label>
+                  <input
+                     type="number"
+                     id={key}
+                     placeholder={`$ ${label}`}
+                     className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${
+                        errors.price?.[key]?.message
+                           ? "border-l-4 border-red-600"
+                           : ""
+                     }`}
+                     {...register(`price.${key}` as `price.${typeof key}`, {
+                        valueAsNumber: true,
+                        validate: (value: number) =>
+                           value > 0 || "El valor debe ser mayor a 0",
+                     })}
+                  />
+                  {errors.price?.[key] &&
+                     typeof errors.price[key] !== "string" && (
+                        <p className="text-red-600 text-sm">
+                           {(errors.price[key] as any).message}
+                        </p>
+                     )}
+               </div>
+            ))}
          </div>
-      </>
+      </div>
    );
 }

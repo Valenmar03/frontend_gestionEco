@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 
 type ModalComponentProps = {
    isOpen: boolean;
@@ -10,21 +11,35 @@ export default function ModalComponent({
    setIsOpen,
    children,
 }: ModalComponentProps) {
+   useEffect(() => {
+      const handleKeyDown = (e: KeyboardEvent) => {
+         if (e.key === "Escape") setIsOpen(false);
+      };
+
+      if (isOpen) {
+         document.addEventListener("keydown", handleKeyDown);
+      }
+
+      return () => {
+         document.removeEventListener("keydown", handleKeyDown);
+      };
+   }, [isOpen, setIsOpen]);
+
+   if (!isOpen) return null;
+
    return (
       <div
-         className={`${isOpen ? "flex justify-center items-center min-h-screen" : "hidden"}`}
+         className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
          onClick={() => setIsOpen(false)}
+         aria-modal="true"
+         role="dialog"
       >
-         {isOpen && (
-            <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-               <div
-                  className="bg-white p-6 rounded-lg shadow-xl max-w-3xl w-full transform scale-95 opacity-100 animate-fade-in relative"
-                  onClick={(e) => e.stopPropagation()}
-               >
-                  {children}
-               </div>
-            </div>
-         )}
+         <div
+            className="bg-white p-6 rounded-lg shadow-xl max-w-3xl w-full relative animate-fade-in transform scale-100"
+            onClick={(e) => e.stopPropagation()}
+         >
+            {children}
+         </div>
       </div>
    );
 }
