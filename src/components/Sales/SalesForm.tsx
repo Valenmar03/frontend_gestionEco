@@ -19,6 +19,9 @@ export default function SalesForm() {
       phoneNumber: "",
       address: "",
       cuil: "",
+      cp:"",
+      province: "",
+      city: ""
    });
    const [iva, setIva] = useState(false);
    const [dto, setDto] = useState(0);
