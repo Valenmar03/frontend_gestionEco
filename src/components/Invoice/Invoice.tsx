@@ -111,28 +111,6 @@ export default function InvoicePDF({ sale }: { sale: Sale }) {
                <Text>Fecha de entrega: {formatDate(sale.createdAt)}</Text>
             </View>
 
-            <View style={styles.tableRow}>
-               <Text style={[styles.tableCell, { flex: 1 }]}>ENCARGADO</Text>
-               <Text style={[styles.tableCell, { flex: 1 }]}>TRABAJO</Text>
-               <Text style={[styles.tableCell, { flex: 1 }]}>
-                  CONDICIONES DE PAGO
-               </Text>
-               <Text style={[styles.tableCell, { flex: 1 }]}>
-                  FECHA DE VENCIMIENTO
-               </Text>
-            </View>
-            <View
-               style={[
-                  styles.tableRow,
-                  { borderWidth: 1, marginBottom: 10, height: 15 },
-               ]}
-            >
-               <Text style={[styles.tableCell, { flex: 1 }]}></Text>
-               <Text style={[styles.tableCell, { flex: 1 }]}></Text>
-               <Text style={[styles.tableCell, { flex: 1 }]}></Text>
-               <Text style={[styles.tableCell, { flex: 1 }]}></Text>
-            </View>
-
             <View style={styles.tableHeader}>
                <Text style={[styles.tableCell, { flex: 0.5 }]}>CANT.</Text>
                <Text style={[styles.tableCell, { flex: 2 }]}>DESCRIPCIÓN</Text>

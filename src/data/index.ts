@@ -33,17 +33,6 @@ export const pages = [
         headerTextColor: 'text-royal-purple-800'
     },
     {
-        title: 'Facturas',
-        url: '/bills',
-        description: 'Crea facturas para tus clientes',
-        textColor: 'text-sapphire-600',
-        borderColor: 'border-sapphire-600',
-        bgFocusColor: 'bg-sapphire-400',
-        bgColor: 'bg-sapphire-200',
-        hoverColor: 'hover:bg-sapphire-300',
-        headerTextColor: 'text-sapphire-800'
-    },
-    {
         title: 'Clientes',
         url:"/clients",
         description: "Administra tus clientes", 
