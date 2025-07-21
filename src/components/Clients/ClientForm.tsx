@@ -14,6 +14,9 @@ export default function ClientForm({ setIsOpen }: ClientFormProps) {
       phoneNumber: "",
       address: "",
       cuil: "",
+      cp: "",
+      province: "",
+      city: ""
    };
 
    const {

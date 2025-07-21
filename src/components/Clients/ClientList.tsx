@@ -47,11 +47,14 @@ export default function ClientList() {
    return (
       <>
          <div className="mt-10">
-            <div className="grid grid-cols-5 w-full border-b-4 border-gray-300 pb-4">
+            <div className="grid grid-cols-8 w-full border-b-4 border-gray-300 pb-4">
                <p className="text-2xl font-bold  text-center">Cliente</p>
                <p className="text-2xl font-bold  text-center">Telefono</p>
                <p className="text-2xl font-bold  text-center">Direccion</p>
                <p className="text-2xl font-bold  text-center">CUIL</p>
+               <p className="text-2xl font-bold  text-center">CP</p>
+               <p className="text-2xl font-bold  text-center">Provincia</p>
+               <p className="text-2xl font-bold  text-center">Ciudad</p>
             </div>
             {data ? (
                data.map((client) => (

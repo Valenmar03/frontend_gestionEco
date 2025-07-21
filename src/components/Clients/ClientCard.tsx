@@ -9,11 +9,14 @@ export default function ClientCard({ client }: ClientCardProps) {
    const navigate = useNavigate();
 
    return (
-      <div className="grid grid-cols-5 w-full p-4 border-b-1 border-gray-200 items-center">
+      <div className="grid grid-cols-8 w-full p-4 border-b-1 border-gray-200 items-center">
          <p className="text-lg  text-center">{client.name}</p>
          <p className="text-lg text-center">{client.phoneNumber}</p>
          <p className="text-lg  text-center">{client.address}</p>
          <p className="text-lg  text-center">{client.cuil}</p>
+         <p className="text-lg  text-center">{client.cp}</p>
+         <p className="text-lg  text-center">{client.province}</p>
+         <p className="text-lg  text-center">{client.city}</p>
          <div className="flex gap-2 items-center">
             <button
                className=" text-flirt-950 text-lg font-semibold mx-auto bg-flirt-500 p-2 rounded-md w-1/2 cursor-pointer hover:scale-105 duration-200"

@@ -46,10 +46,13 @@ export const clientSchema = z.object({
     name: z.string(),
     phoneNumber: z.string(),
     address: z.string(),
-    cuil: z.string()
+    cuil: z.string(),
+    cp: z.string(),
+    province: z.string(),
+    city: z.string()
 })
 export type Client = z.infer<typeof clientSchema>
-export type CreateClientForm = Pick<Client, "name" | "phoneNumber" | "address" | "cuil">
+export type CreateClientForm = Pick<Client, "name" | "phoneNumber" | "address" | "cuil" | "cp" | "province" | "city">
 
 
 
