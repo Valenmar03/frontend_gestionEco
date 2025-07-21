@@ -24,6 +24,17 @@ export async function getClients(){
     }
 }
 
+export async function getClientById(id: string){
+    try {
+        const { data } = await api<Client>(`/client/${id}`)
+        return data
+    } catch (error) {
+        if(isAxiosError(error) && error.response){
+            throw new Error(error.response.data)
+        }
+    }
+}
+
 type UpdateClientType = {
     id: string;
     formData: CreateClientForm;

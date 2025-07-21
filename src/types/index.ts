@@ -65,6 +65,12 @@ export const saleProductSchema = z.object({
 export const saleClientSchema = z.object({
     _id: z.string(),
     name: z.string(),
+    phoneNumber: z.string(),
+    address: z.string(),
+    cuil: z.string(),
+    cp: z.string(),
+    province: z.string(),
+    city: z.string()
 })
 export const saleTypeSchema = z.enum([
     "wholesalePrice",

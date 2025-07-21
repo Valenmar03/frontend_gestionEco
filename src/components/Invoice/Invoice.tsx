@@ -82,13 +82,11 @@ export default function InvoicePDF({ sale }: { sale: Sale }) {
    return (
       <Document>
          <Page size="A4" style={styles.page}>
-            {/* Header */}
             <View style={styles.headerContainer}>
                <Image style={styles.logo} src="/LogoTexto.png" />
                <Text style={styles.title}>PRESUPUESTO</Text>
             </View>
 
-            {/* Datos del remitente */}
             <View style={styles.section}>
                <Text style={styles.bold}>Romina Carla Fodera</Text>
                <Text>Triunvirato 5370, Villa Bosch. Buenos Aires (1682)</Text>
@@ -96,26 +94,23 @@ export default function InvoicePDF({ sale }: { sale: Sale }) {
                <Text>ecorganico.distribuidora@gmail.com</Text>
             </View>
 
-            {/* Datos del receptor */}
             <View style={styles.section}>
                <Text style={styles.bold}>
-                  PARA Empresa: {sale.client.name} (RECIBE {sale.client.name})
+                  PARA Empresa: {sale.client.name}
                </Text>
-               <Text>Dirección: {sale.client.name}</Text>
-               <Text>Localidad: {sale.client.name}</Text>
+               <Text>Dirección: {sale.client.address}</Text>
+               <Text>Localidad: {sale.client.city}</Text>
                <Text>
-                  Provincia: {sale.client.name} CP: {sale.client.name}
+                  Provincia: {sale.client.province} CP: {sale.client.cp}
                </Text>
-               <Text>Teléfono: {sale.client.name}</Text>
+               <Text>Teléfono: {sale.client.phoneNumber}</Text>
             </View>
 
-            {/* Datos del presupuesto */}
             <View style={styles.section}>
                <Text>N° de presupuesto: {sale._id}</Text>
                <Text>Fecha de entrega: {formatDate(sale.createdAt)}</Text>
             </View>
 
-            {/* Tabla auxiliar */}
             <View style={styles.tableRow}>
                <Text style={[styles.tableCell, { flex: 1 }]}>ENCARGADO</Text>
                <Text style={[styles.tableCell, { flex: 1 }]}>TRABAJO</Text>
@@ -138,7 +133,6 @@ export default function InvoicePDF({ sale }: { sale: Sale }) {
                <Text style={[styles.tableCell, { flex: 1 }]}></Text>
             </View>
 
-            {/* Tabla de productos */}
             <View style={styles.tableHeader}>
                <Text style={[styles.tableCell, { flex: 0.5 }]}>CANT.</Text>
                <Text style={[styles.tableCell, { flex: 2 }]}>DESCRIPCIÓN</Text>
@@ -165,7 +159,6 @@ export default function InvoicePDF({ sale }: { sale: Sale }) {
                </View>
             ))}
 
-            {/* Totales */}
             <View style={styles.totalSection}>
                <View style={styles.totalRow}>
                   <Text>SUBTOTAL</Text>

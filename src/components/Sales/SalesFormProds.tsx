@@ -142,9 +142,12 @@ export default function SalesFormProds({
                         key={product._id}
                         onClick={() => handleAddProduct(product._id)}
                         className={`text-center py-2 px-3 border-t border-gray-300 cursor-pointer transition duration-200 ${
-                           isSelected
+                           product.stock > 0 ? (
+
+                              isSelected
                               ? "bg-vida-loca-500/60 hover:bg-vida-loca-500/80 font-medium"
                               : "hover:bg-gray-300"
+                           ) : "bg-red-300/80 hover:bg-red-500/80 font-medium"
                         }`}
                      >
                         {`${product.type} x ${product.weight}${

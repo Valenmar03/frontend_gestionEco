@@ -36,6 +36,9 @@ export default function SalesFormFields({
             phoneNumber: "",
             address: "",
             cuil: "",
+            cp: "",
+            province: "",
+            city: ""
          });
          return;
       }

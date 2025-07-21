@@ -6,7 +6,6 @@ import { formatCurrency, formatDate } from "../../helpers";
 import { PrinterIcon } from "@heroicons/react/20/solid";
 import Invoice from "../Invoice/Invoice";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-
 export default function SaleDetail() {
    const { id } = useParams();
 
@@ -108,7 +107,7 @@ export default function SaleDetail() {
                            ) : (
                               <>
                                  <PrinterIcon className="size-5" />
-                                 Descargar Factura
+                                 Descargar Presupuesto
                               </>
                            )
                         }
