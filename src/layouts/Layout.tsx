@@ -19,10 +19,16 @@ export default function Layout() {
    const [isMobile, setIsMobile] = useState(false);
 
    useEffect(() => {
-      if (window.innerWidth < 640) {
-         setIsMobile(true)
-         setShowNav(false);
-      }
+      const handleResize = () => {
+         const mobile = window.innerWidth < 640;
+         setIsMobile(mobile);
+         if (mobile) setShowNav(false);
+         else setShowNav(true);
+      };
+
+      handleResize();
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
    }, []);
 
    const logOut = () => {
@@ -54,17 +60,23 @@ export default function Layout() {
       <>
          <header className="bg-vida-loca-200 p-4 shadow fixed w-full top-0 z-50">
             <div className="max-w-screen mx-auto flex justify-between items-center px-4 sm:px-10">
-               <div className="flex items-center gap-4 sm:gap-10">
+               <div className="relative flex items-center gap-4 sm:gap-10">
                   <Bars3Icon
                      className="size-10 text-vida-loca-800 cursor-pointer hover:bg-vida-loca-300 p-1 rounded-md"
                      onClick={() => setShowNav(!showNav)}
                   />
                   <img
-                     src={`${ isMobile ? "/Logo.png" : "/LogoTexto.png"}`}
+                     src="/Logo.png"
                      alt="Logo Ecorgánico"
-                     className="w-12 sm:w-52"
+                     className="w-12 sm:hidden"
+                  />
+                  <img
+                     src="/LogoTexto.png"
+                     alt="Logo Ecorgánico con texto"
+                     className="hidden sm:block w-52"
                   />
                </div>
+
                <ArrowRightStartOnRectangleIcon
                   className="w-9 h-9 text-red-500 cursor-pointer"
                   onClick={logOut}
@@ -83,10 +95,10 @@ export default function Layout() {
          <div className="flex pt-20 bg-gray-100 relative">
             <aside
                className={`
-                  fixed sm:static z-40 top-0 left-0 min-h-screen w-64 bg-vida-loca-700 sm:bg-vida-loca-700/90 text-white
-                  transform transition-transform duration-300 ease-in-out
+                  ${showNav ? "fixed sm:static" : "fixed"}
+                  z-40 top-0 left-0 min-h-screen w-64 bg-vida-loca-700 text-white
+                  transform transition-transform duration-500 ease-in-out
                   ${showNav ? "translate-x-0" : "-translate-x-full"}
-                  sm:translate-x-0 sm:block
                `}
             >
                <nav className="flex flex-col mt-20 sm:mt-0">
@@ -97,13 +109,17 @@ export default function Layout() {
                </nav>
             </aside>
 
-            <div className="flex-1 flex flex-col px-6 py-8 sm:px-50">
+            <div
+               className={`flex-1 flex flex-col px-6 py-8 transition-all duration-300 ${
+                  !isMobile && showNav ? "ml-2" : "ml-0"
+               }`}
+            >
                <main className="bg-white p-6 rounded shadow pb-10">
                   <Outlet />
                </main>
 
                <footer className="mt-10 border-t pt-4 text-center text-gray-600 text-sm">
-                  © 2024 Valentín Martinez 
+                  © 2024 Valentín Martinez
                </footer>
             </div>
          </div>
