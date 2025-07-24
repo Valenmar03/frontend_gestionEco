@@ -84,7 +84,7 @@ export default function ProductsView() {
                </p>
                <button
                   onClick={() => setIsOpen(false)}
-                  className="absolute top-2 right-2"
+                  className="absolute top-2 right-2 cursor-pointer"
                   title="Cerrar modal"
                >
                   <XMarkIcon className="size-6 hover:text-red-600 transition duration-200" />

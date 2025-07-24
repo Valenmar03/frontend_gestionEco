@@ -8,41 +8,43 @@ export default function ProductCard(product: Product) {
    const location = useLocation();
 
    return (
-      <>
-         <div className="grid grid-cols-6 w-full p-4 border-b-1 border-gray-200 items-center">
-            <p className="text-lg  text-center">
-               {product.type} x {product.weight}{" "}
-               {product.haveWeight ? "Kg." : "mL."}
-            </p>
-            <p className="text-lg text-center">
-               {formatCurrency(product.cost)}
-            </p>
-            <p className="text-lg  text-center">
-               {formatCurrency(product.price.wholesalePrice)}
-            </p>
-            <p className="text-lg  text-center">
-               {formatCurrency(product.price.retailPrice)}
-            </p>
-            <p className="text-lg  text-center">
-               {formatCurrency(product.price.mercadoLibrePrice)}
-            </p>
-            <div className="flex gap-2 items-center">
+      <tr className="border-b border-gray-300">
+         <td className="px-4 py-3  whitespace-nowrap">
+            {product.type} x {product.weight}{" "}
+            {product.haveWeight ? "Kg." : "mL."}
+         </td>
+         <td className="px-4 py-3  whitespace-nowrap">
+            {formatCurrency(product.cost)}
+         </td>
+         <td className="px-4 py-3  whitespace-nowrap">
+            {formatCurrency(product.price.wholesalePrice)}
+         </td>
+         <td className="px-4 py-3  whitespace-nowrap">
+            {formatCurrency(product.price.retailPrice)}
+         </td>
+         <td className="px-4 py-3  whitespace-nowrap">
+            {formatCurrency(product.price.mercadoLibrePrice)}
+         </td>
+         <td className="px-4 py-3">
+            <div className="flex justify-around gap-2  items-center">
                <button
-                  className=" text-vida-loca-800 text-lg font-semibold mx-auto bg-vida-loca-400 p-2 rounded-md w-1/2 cursor-pointer hover:scale-105 duration-200"
-                  onClick={() => {
-                     navigate(location.pathname + `?productId=${product._id}`);
-                  }}
+                  className="bg-vida-loca-400 hover:bg-vida-loca-500 text-white font-semibold px-4 py-2 rounded transition duration-200 cursor-pointer"
+                  onClick={() =>
+                     navigate(`${location.pathname}?productId=${product._id}`)
+                  }
                >
                   Editar
                </button>
                <TrashIcon
-                  className="size-9 text-red-500 cursor-pointer hover:scale-110 duration-200"
-                  onClick={() => {
-                     navigate(location.pathname + `?confirmDelete=${product._id}`);
-                  }}
+                  className="size-8 text-red-500 cursor-pointer hover:scale-110 transition"
+                  onClick={() =>
+                     navigate(
+                        `${location.pathname}?confirmDelete=${product._id}`
+                     )
+                  }
                />
             </div>
-         </div>
-      </>
+         </td>
+      </tr>
    );
 }

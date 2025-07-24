@@ -47,6 +47,64 @@ export default function ProductList() {
 
    if (isLoading) return <Spinner />;
    if (isError) return <p>Error al cargar los productos</p>;
+
+   return (
+      <>
+         <div className="w-full overflow-x-auto">
+            <table className="min-w-[700px] sm:min-w-full text-lg text-left">
+               <thead className="bg-gray-100 text-xl">
+                  <tr>
+                     <th className="px-4 py-2">Producto</th>
+                     <th className="px-4 py-2">Costo</th>
+                     <th className="px-4 py-2">Precio Mayorista</th>
+                     <th className="px-4 py-2">Precio Minorista</th>
+                     <th className="px-4 py-2">Precio ML</th>
+                     <th className="px-4 py-2 text-center">Acciones</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {data ? (
+                     data.map((product) => (
+                        <ProductCard key={product._id} {...product} />
+                     ))
+                  ) : (
+                     <p>No hay productos</p>
+                  )}
+               </tbody>
+            </table>
+         </div>
+         <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
+            {productId && (
+               <>
+                  <h2 className="text-3xl font-bold text-vida-loca-500">
+                     Editar Producto
+                  </h2>
+                  <p className="text-vida-loca-500/80">
+                     Ingrese todos los datos necesarios para editar el producto
+                  </p>
+                  <button
+                     onClick={() => setIsOpen(false)}
+                     className="absolute top-2 right-2"
+                  >
+                     <XMarkIcon className="size-6 cursor-pointer hover:text-red-600 duration-200" />
+                  </button>
+                  <UpdateProductForm
+                     product={productData!}
+                     setIsOpen={setIsOpen}
+                  />
+               </>
+            )}
+            {confirmDelete && (
+               <>
+                  <DeleteProductModal
+                     product={productData!}
+                     setIsOpen={setIsOpen}
+                  />
+               </>
+            )}
+         </ModalComponent>
+      </>
+   );
    return (
       <>
          <div className="mt-10">
@@ -59,12 +117,10 @@ export default function ProductList() {
                <p className="text-2xl font-bold  text-center">
                   Precio Minorista
                </p>
-               <p className="text-2xl font-bold  text-center">
-                  Precio ML
-               </p>
+               <p className="text-2xl font-bold  text-center">Precio ML</p>
             </div>
             {data ? (
-               data.map((product) => (
+               data!.map((product) => (
                   <ProductCard key={product._id} {...product} />
                ))
             ) : (
@@ -75,7 +131,9 @@ export default function ProductList() {
          <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
             {productId && (
                <>
-                  <h2 className="text-3xl font-bold text-vida-loca-500">Editar Producto</h2>
+                  <h2 className="text-3xl font-bold text-vida-loca-500">
+                     Editar Producto
+                  </h2>
                   <p className="text-vida-loca-500/80">
                      Ingrese todos los datos necesarios para editar el producto
                   </p>
