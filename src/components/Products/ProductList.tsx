@@ -63,7 +63,7 @@ export default function ProductList() {
 
    return (
       <>
-         <div className="flex items-center mb-2 divide-x-2 divide-gray-300">
+         <div className="flex items-center mb-2 divide-x-2 divide-gray-300 justify-end">
             <input type="text" className=" bg-gray-200 p-3 rounded-l-md" value={search}
                onChange={(e) => setSearch(e.target.value)}/>
             <MagnifyingGlassIcon className="size-12 text-gray-500 bg-gray-200 p-2 rounded-r-md"/>
