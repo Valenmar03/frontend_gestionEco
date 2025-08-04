@@ -9,10 +9,13 @@ import { AddStockForm } from "../types";
 import MasiveStockForm from "../components/Stock/MasiveStockForm";
 import Spinner from "../components/Spinner";
 import { pages } from "../data";
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
 export default function StockManagmentView() {
    const page = pages.filter((page) => page.title === "Control de Stock")[0];
    const [isOpen, setIsOpen] = useState(false);
+   const [search, setSearch] = useState("");
+
 
    const { data, isError, isLoading } = useQuery({
       queryKey: ["products"],
@@ -48,6 +51,12 @@ export default function StockManagmentView() {
       }));
       mutate(products);
    };
+
+   const filteredProducts = data?.filter((product) =>
+      `${product.type} x ${product.weight}`
+         .toLowerCase()
+         .includes(search.toLowerCase())
+   );
 
    return (
       <>
@@ -87,6 +96,15 @@ export default function StockManagmentView() {
             <p className="text-orange-500/80">
                Ingrese que cantidad (en unidades) de cada producto pidió
             </p>
+            <div className="flex items-center mb-2 divide-x-2 divide-gray-300 mt-10">
+               <input
+                  type="text"
+                  className=" bg-gray-200 p-3 rounded-l-md"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+               />
+               <MagnifyingGlassIcon className="size-12 text-gray-500 bg-gray-200 p-2 rounded-r-md" />
+            </div>
             <form
                className=" mt-3 grid grid-cols-2 gap-3"
                onSubmit={handleSubmit(handleForm)}
@@ -95,7 +113,7 @@ export default function StockManagmentView() {
                {data && (
                   <MasiveStockForm
                      register={register}
-                     data={data}
+                     data={filteredProducts!}
                      errors={errors}
                   />
                )}

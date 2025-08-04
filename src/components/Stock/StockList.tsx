@@ -3,12 +3,14 @@ import { Product } from "../../types";
 import ModalComponent from "../ModalComponent";
 import StockCard from "./StockCard";
 import { useEffect, useState } from "react";
-import { XMarkIcon } from "@heroicons/react/20/solid";
+import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import IndividualStockForm from "./IndividualStockForm";
 
 export default function StockList({ data }: { data: Product[] }) {
    const [isOpen, setIsOpen] = useState(false);
    const [productData, setProductData] = useState<Product>();
+   const [search, setSearch] = useState("");
+
 
    const navigate = useNavigate();
    const location = useLocation();
@@ -27,9 +29,24 @@ export default function StockList({ data }: { data: Product[] }) {
       }
    }, [isOpen]);
 
+   const filteredProducts = data?.filter((product) =>
+      `${product.type} x ${product.weight}`
+         .toLowerCase()
+         .includes(search.toLowerCase())
+   );
+
    return (
       <>
-         <div className="w-full overflow-x-auto mt-10">
+         <div className="flex items-center mb-2 divide-x-2 divide-gray-300 mt-10">
+            <input
+               type="text"
+               className=" bg-gray-200 p-3 rounded-l-md"
+               value={search}
+               onChange={(e) => setSearch(e.target.value)}
+            />
+            <MagnifyingGlassIcon className="size-12 text-gray-500 bg-gray-200 p-2 rounded-r-md" />
+         </div>
+         <div className="w-full overflow-x-auto">
             <table className="min-w-[700px] sm:min-w-full text-lg text-left">
                <thead className="bg-gray-100 text-xl">
                   <tr>
@@ -41,7 +58,7 @@ export default function StockList({ data }: { data: Product[] }) {
                </thead>
                <tbody>
                   {data ? (
-                     data.map((product) => (
+                     filteredProducts!.map((product) => (
                         <StockCard key={product._id} {...product} />
                      ))
                   ) : (
