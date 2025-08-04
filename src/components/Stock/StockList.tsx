@@ -1,4 +1,3 @@
-
 import { useLocation, useNavigate } from "react-router-dom";
 import { Product } from "../../types";
 import ModalComponent from "../ModalComponent";
@@ -7,8 +6,7 @@ import { useEffect, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import IndividualStockForm from "./IndividualStockForm";
 
-export default function StockList({data} : {data: Product[]}) {
-   
+export default function StockList({ data }: { data: Product[] }) {
    const [isOpen, setIsOpen] = useState(false);
    const [productData, setProductData] = useState<Product>();
 
@@ -29,25 +27,33 @@ export default function StockList({data} : {data: Product[]}) {
       }
    }, [isOpen]);
 
-
    return (
       <>
-         <div className="mt-10">
-            <div className="grid grid-cols-4 w-full border-b-4 border-gray-300 pb-4">
-               <p className="text-2xl font-bold  text-center">Producto</p>
-               <p className="text-2xl font-bold  text-center">Stock</p>
-               <p className="text-2xl font-bold  text-center">Estado</p>
-            </div>
-            {data ? (
-               data.map((product) => (
-                  <StockCard key={product._id} {...product} />
-               ))
-            ) : (
-               <p>No hay productos</p>
-            )}
+         <div className="w-full overflow-x-auto mt-10">
+            <table className="min-w-[700px] sm:min-w-full text-lg text-left">
+               <thead className="bg-gray-100 text-xl">
+                  <tr>
+                     <th className="px-4 py-2">Producto</th>
+                     <th className="px-4 py-2">Stock</th>
+                     <th className="px-4 py-2">Estado</th>
+                     <th className="px-4 py-2">Acciones</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {data ? (
+                     data.map((product) => (
+                        <StockCard key={product._id} {...product} />
+                     ))
+                  ) : (
+                     <p>No hay productos</p>
+                  )}
+               </tbody>
+            </table>
          </div>
          <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
-            <h2 className="text-3xl font-bold text-orange-500">Editar Producto</h2>
+            <h2 className="text-3xl font-bold text-orange-500">
+               Editar Producto
+            </h2>
             <p className="text-orange-500/80">
                Ingrese el stock que quedará del producto
             </p>
