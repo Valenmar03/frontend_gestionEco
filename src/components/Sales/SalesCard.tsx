@@ -7,7 +7,7 @@ export default function SalesCard({ sale }: { sale: Sale }) {
       <>
          <Link
             to={`/sales/${sale._id}`}
-            className="flex flex-col justify-between p-3 bg-white shadow-md rounded-lg col-span-1 hover:scale-105 duration-300 cursor-pointer"
+            className="flex flex-col justify-between p-3 bg-gray-50 shadow-md rounded-lg col-span-1 hover:scale-105 duration-300 cursor-pointer"
          >
             <div>
                <p className="text-sm text-right text-royal-purple-700">
