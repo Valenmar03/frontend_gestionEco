@@ -6,13 +6,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Spinner from "../Spinner";
 import ClientCard from "./ClientCard";
 import ModalComponent from "../ModalComponent";
-import { XMarkIcon } from "@heroicons/react/20/solid";
+import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import UpdateClientForm from "./UpdateClientForm";
 import DeleteClientModal from "./DeleteClientModal";
 
 export default function ClientList() {
    const [isOpen, setIsOpen] = useState(false);
    const [client, setClient] = useState<Client>();
+   const [search, setSearch] = useState("");
 
    const navigate = useNavigate();
    const location = useLocation();
@@ -42,28 +43,45 @@ export default function ClientList() {
       }
    }, [isOpen]);
 
+
+   const filteredClients = data?.filter((client) =>
+      `${client.name}`
+         .toLowerCase()
+         .includes(search.toLowerCase())
+   );
+
    if (isLoading) return <Spinner />;
    if (isError) return <p>Error al cargar los productos</p>;
    return (
       <>
-         <div className="mt-10">
-            <div className="grid grid-cols-8 w-full border-b-4 border-gray-300 pb-4">
-               <p className="text-2xl font-bold  text-center">Cliente</p>
-               <p className="text-2xl font-bold  text-center">Telefono</p>
-               <p className="text-2xl font-bold  text-center">Direccion</p>
-               <p className="text-2xl font-bold  text-center">CUIL</p>
-               <p className="text-2xl font-bold  text-center">CP</p>
-               <p className="text-2xl font-bold  text-center">Provincia</p>
-               <p className="text-2xl font-bold  text-center">Ciudad</p>
-            </div>
-            {data ? (
-               data.map((client) => (
-                  <ClientCard key={client._id} client={client} />
-               ))
-            ) : (
-               <p>No hay clientes</p>
-            )}
+      <div className="flex items-center mb-2 divide-x-2 divide-gray-300 justify-end mt-10">
+            <input type="text" className=" bg-gray-200 p-3 rounded-l-md" value={search}
+               onChange={(e) => setSearch(e.target.value)}/>
+            <MagnifyingGlassIcon className="size-12 text-gray-500 bg-gray-200 p-2 rounded-r-md"/>
          </div>
+         <table className="min-w-[700px] sm:min-w-full text-lg text-left mt-4">
+            <thead className="bg-gray-100 text-xl">
+               <tr>
+                  <th className="px-4 py-2">Cliente</th>
+                  <th className="px-4 py-2">Telefono</th>
+                  <th className="px-4 py-2">Direccion</th>
+                  <th className="px-4 py-2">CUIL</th>
+                  <th className="px-4 py-2">CP</th>
+                  <th className="px-4 py-2">Provincia</th>
+                  <th className="px-4 py-2">Ciudad</th>
+                  <th className="px-4 py-2">Acciones</th>
+               </tr>
+            </thead>
+            <tbody>
+               {data ? (
+                  filteredClients!.map((client) => (
+                     <ClientCard key={client._id} client={client} />
+                  ))
+               ) : (
+                  <p>No hay clientes</p>
+               )}
+            </tbody>
+         </table>
          <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
             {clientId && (
                <>
