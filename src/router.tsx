@@ -11,6 +11,7 @@ import ClientsView from "./views/ClientsView";
 import SalesForm from "./components/Sales/SalesForm";
 import SalesList from "./components/Sales/SalesList";
 import SaleDetail from "./components/Sales/SaleDetail";
+import FinancesView from "./views/FinancesView";
 
 export default function Router() {
 
@@ -28,6 +29,7 @@ export default function Router() {
                     <Route path="/bills" element={<BillsViews/>}  />
                     <Route path="/products" element={<ProductsView/>}  />
                     <Route path="/clients" element={<ClientsView/>}  />
+                    <Route path="/finances" element={<FinancesView/>}  />
                 </Route>
                 <Route element={<AuthLayout/>}>
                     <Route path="/auth/login" element={<LoginView/>}/>

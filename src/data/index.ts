@@ -42,5 +42,16 @@ export const pages = [
         bgColor: 'bg-flirt-200',
         hoverColor: 'hover:bg-flirt-300',
         headerTextColor: 'text-flirt-800'
+    },
+    {
+        title: 'Resumen Financiero',
+        url:"/finances",
+        description: "Revisá entradas y salidas", 
+        textColor: 'text-monza-600',
+        borderColor: 'border-monza-600',
+        bgFocusColor: 'bg-monza-400',
+        bgColor: 'bg-monza-200',
+        hoverColor: 'hover:bg-monza-300',
+        headerTextColor: 'text-monza-800'
     }
 ]

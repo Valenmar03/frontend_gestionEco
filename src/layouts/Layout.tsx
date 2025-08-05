@@ -119,7 +119,7 @@ export default function Layout() {
                </main>
 
                <footer className="mt-10 border-t pt-4 text-center text-gray-600 text-sm">
-                  © 2024 Valentín Martinez
+                  © 2025 Valentín Martinez
                </footer>
             </div>
          </div>

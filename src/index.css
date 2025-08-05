@@ -58,7 +58,17 @@
    --color-flirt-800: #86226b;
    --color-flirt-900: #6e2157;
    --color-flirt-950: #480a35;
-}
+   --color-monza-50: #fef2f2;
+   --color-monza-100: #fee2e2;
+   --color-monza-200: #fecaca;
+   --color-monza-300: #fda4a4;
+   --color-monza-400: #f97070;
+   --color-monza-500: #f04343;
+   --color-monza-600: #cf2020;
+   --color-monza-700: #ba1b1b;
+   --color-monza-800: #9a1a1a;
+   --color-monza-900: #801c1c;
+   --color-monza-950: #450a0a;}
 @keyframes coin-flip {
    0%,
    100% {
