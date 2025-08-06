@@ -27,14 +27,14 @@ export const productSchema = z.object({
     weight: z.number(),
     stock: z.number(),
     cost: z.number(),
-    price: z.object({
-        wholesalePrice: z.number(),
-        retailPrice: z.number(),
-        mercadoLibrePrice: z.number()
+    revenuePercentage: z.object({
+        wholesale: z.number(),
+        retail: z.number(),
+        mercadoLibre: z.number()
     }),
 })
 export type Product = z.infer<typeof productSchema>
-export type CreateProductForm = Pick<Product, "type" | "haveWeight" | "weight" | "cost" | "price">
+export type CreateProductForm = Pick<Product, "type" | "haveWeight" | "weight" | "cost" | "revenuePercentage">
 export type AddStockForm = {
     [key: string]: number
 }
@@ -73,9 +73,9 @@ export const saleClientSchema = z.object({
     city: z.string()
 })
 export const saleTypeSchema = z.enum([
-    "wholesalePrice",
-    "retailPrice",
-    "mercadoLibrePrice"
+    "wholesale",
+    "retail",
+    "mercadoLibre"
 ]);
 export const saleSchema = z.object({
     _id: z.string(),

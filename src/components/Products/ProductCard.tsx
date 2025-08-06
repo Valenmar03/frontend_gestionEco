@@ -17,13 +17,23 @@ export default function ProductCard(product: Product) {
             {formatCurrency(product.cost)}
          </td>
          <td className="px-4 py-3  whitespace-nowrap">
-            {formatCurrency(product.price.wholesalePrice)}
+            {formatCurrency(
+               product.revenuePercentage.wholesale * product.cost + product.cost
+            )} 
+            <strong> (%{product.revenuePercentage.wholesale * 100})</strong>
          </td>
          <td className="px-4 py-3  whitespace-nowrap">
-            {formatCurrency(product.price.retailPrice)}
+            {formatCurrency(
+               product.revenuePercentage.retail * product.cost + product.cost
+            )}
+            <strong> (%{product.revenuePercentage.retail * 100})</strong>
          </td>
          <td className="px-4 py-3  whitespace-nowrap">
-            {formatCurrency(product.price.mercadoLibrePrice)}
+            {formatCurrency(
+               product.revenuePercentage.mercadoLibre * product.cost +
+                  product.cost
+            )}{" "}
+            <strong> (%{product.revenuePercentage.mercadoLibre * 100})</strong>
          </td>
          <td className="px-4 py-3">
             <div className="flex justify-around gap-2  items-center">

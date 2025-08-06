@@ -11,9 +11,9 @@ export default function ProductFormFields({
    register,
 }: ProductFormProps) {
    const priceFields = [
-      { key: "wholesalePrice", label: "Precio Mayorista" },
-      { key: "retailPrice", label: "Precio Minorista" },
-      { key: "mercadoLibrePrice", label: "Precio MercadoLibre" },
+      { key: "wholesale", label: "Porcentaje Ganancia Mayorista" },
+      { key: "retail", label: "Porcentaje Ganancia Minorista" },
+      { key: "mercadoLibre", label: "Porcentaje Ganancia MercadoLibre" },
    ] as const;
 
    return (
@@ -100,22 +100,25 @@ export default function ProductFormFields({
                   <input
                      type="number"
                      id={key}
-                     placeholder={`$ ${label}`}
+                     placeholder={`Ej.: 100`}
                      className={`p-3 text-xl bg-gray-100 rounded outline-vida-loca-600 ${
-                        errors.price?.[key]?.message
+                        errors.revenuePercentage?.[key]?.message
                            ? "border-l-4 border-red-600"
                            : ""
                      }`}
-                     {...register(`price.${key}` as `price.${typeof key}`, {
-                        valueAsNumber: true,
-                        validate: (value: number) =>
-                           value > 0 || "El valor debe ser mayor a 0",
-                     })}
+                     {...register(
+                        `revenuePercentage.${key}` as `revenuePercentage.${typeof key}`,
+                        {
+                           valueAsNumber: true,
+                           validate: (value: number) =>
+                              value > 0 || "El valor debe ser mayor a 0",
+                        }
+                     )}
                   />
-                  {errors.price?.[key] &&
-                     typeof errors.price[key] !== "string" && (
+                  {errors.revenuePercentage?.[key] &&
+                     typeof errors.revenuePercentage[key] !== "string" && (
                         <p className="text-red-600 text-sm">
-                           {(errors.price[key] as any).message}
+                           {(errors.revenuePercentage[key] as any).message}
                         </p>
                      )}
                </div>

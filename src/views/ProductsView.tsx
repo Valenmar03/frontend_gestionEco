@@ -19,10 +19,10 @@ export default function ProductsView() {
       haveWeight: true,
       weight: 0,
       cost: 0,
-      price: {
-         wholesalePrice: 0,
-         retailPrice: 0,
-         mercadoLibrePrice: 0,
+      revenuePercentage: {
+         wholesale: 0,
+         retail: 0,
+         mercadoLibre: 0,
       },
    };
 
@@ -48,7 +48,13 @@ export default function ProductsView() {
       },
    });
 
-   const handleForm = (formData: CreateProductForm) => mutate(formData);
+   const handleForm = (formData: CreateProductForm) => {
+      formData.revenuePercentage.mercadoLibre = formData.revenuePercentage.mercadoLibre/100
+      formData.revenuePercentage.retail = formData.revenuePercentage.retail/100
+      formData.revenuePercentage.wholesale = formData.revenuePercentage.wholesale/100
+      
+      mutate(formData)
+   };
 
    return (
       <>

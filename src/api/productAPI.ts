@@ -35,6 +35,7 @@ export async function updateProduct({id, formData}: UpdateProductType){
         return data
     } catch (error) {
         if(isAxiosError(error) && error.response){
+            console.log(error)
             throw new Error(error.response.data)
         }
     }

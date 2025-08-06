@@ -34,6 +34,7 @@ export default function UpdateProductForm({
       },
       onError: (error) => {
          toast.error(error.message);
+         console.log(error)
       },
    });
 
