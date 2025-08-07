@@ -1,13 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getSaleById } from "../../api/SalesAPI";
 import Spinner from "../Spinner";
 import { formatCurrency, formatDate } from "../../helpers";
 import { PrinterIcon } from "@heroicons/react/20/solid";
 import Invoice from "../Invoice/Invoice";
 import { PDFDownloadLink } from "@react-pdf/renderer";
+import { TrashIcon } from "@heroicons/react/24/solid";
+import { useEffect, useState } from "react";
+import ModalComponent from "../ModalComponent";
+import DeleteSaleModal from "./DeleteSaleModal";
 export default function SaleDetail() {
    const { id } = useParams();
+   const navigate = useNavigate();
+   const location = useLocation();
+   const [isOpen, setIsOpen] = useState(false);
 
    const {
       data: sale,
@@ -18,6 +25,15 @@ export default function SaleDetail() {
       queryFn: () => getSaleById(id!),
    });
 
+   const queryParams = new URLSearchParams(location.search);
+   const confirmDelete = queryParams.get("confirmDelete");
+
+   useEffect(() => {
+      if (!isOpen) {
+         navigate("", { replace: true });
+      }
+   }, [isOpen]);
+
    if (isLoading) return <Spinner />;
    if (isError) return <p>Error al cargar las ventas</p>;
    if (sale) {
@@ -25,8 +41,17 @@ export default function SaleDetail() {
          <>
             <div className=" w-4/5 mx-auto bg-white shadow-md rounded-xl p-8 mt-10">
                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-3xl font-bold text-royal-purple-700">
+                  <h2 className="text-3xl font-bold text-royal-purple-700 flex gap-3 items-center">
                      Venta #{sale._id.slice(-6).toUpperCase()}
+                     <TrashIcon
+                        className="size-6 text-red-500 cursor-pointer hover:scale-110 transition"
+                        onClick={() => {
+                           setIsOpen(true);
+                           navigate(
+                              `${location.pathname}?confirmDelete=${sale._id}`
+                           );
+                        }}
+                     />
                   </h2>
                   <p className="text-gray-500 text-sm">
                      Fecha: {formatDate(sale.createdAt)}
@@ -88,9 +113,9 @@ export default function SaleDetail() {
                      Tipo de precio:
                   </p>
                   <p className="font-bold">
-                     {sale.type === "wholesalePrice"
+                     {sale.type === "wholesale"
                         ? "Mayorista"
-                        : sale.type === "retailPrice"
+                        : sale.type === "retail"
                         ? "Minorista"
                         : "Mercado Libre"}
                   </p>
@@ -119,6 +144,11 @@ export default function SaleDetail() {
                   </div>
                </div>
             </div>
+            <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
+               {confirmDelete && (
+                  <DeleteSaleModal sale={sale} setIsOpen={setIsOpen} />
+               )}
+            </ModalComponent>
          </>
       );
    }
