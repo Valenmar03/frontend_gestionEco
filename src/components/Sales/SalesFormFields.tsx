@@ -38,7 +38,7 @@ export default function SalesFormFields({
             cuil: "",
             cp: "",
             province: "",
-            city: ""
+            city: "",
          });
          return;
       }
@@ -75,7 +75,11 @@ export default function SalesFormFields({
                   --Seleccione un cliente--
                </option>
                {clients?.map((client) => (
-                  <option key={client._id} value={client._id} className="bg-white">
+                  <option
+                     key={client._id}
+                     value={client._id}
+                     className="bg-white"
+                  >
                      {client.name}
                   </option>
                ))}
@@ -98,8 +102,12 @@ export default function SalesFormFields({
                   className="bg-gray-200/50 p-2 rounded-lg text-lg"
                   onChange={(e) => setIva(e.target.value === "true")}
                >
-                  <option value="false" className="bg-white">No</option>
-                  <option value="true" className="bg-white">Sí</option>
+                  <option value="false" className="bg-white">
+                     No
+                  </option>
+                  <option value="true" className="bg-white">
+                     Sí
+                  </option>
                </select>
             </div>
 
@@ -117,7 +125,9 @@ export default function SalesFormFields({
                      placeholder="%"
                      onChange={(e) => setDto(+e.target.value)}
                   />
-                  <span className="absolute right-3 top-2 text-gray-500 text-xl">%</span>
+                  <span className="absolute right-3 top-2 text-gray-500 text-xl">
+                     %
+                  </span>
                </div>
                {errors.dto && (
                   <p className="text-base text-red-500">{errors.dto}</p>
@@ -136,9 +146,15 @@ export default function SalesFormFields({
                   }`}
                   onChange={(e) => setType(e.target.value as SaleType)}
                >
-                  <option value="wholesalePrice" className="bg-white">Mayorista</option>
-                  <option value="retailPrice" className="bg-white">Minorista</option>
-                  <option value="mercadoLibrePrice" className="bg-white">Mercado Libre</option>
+                  <option value="wholesale" className="bg-white">
+                     Mayorista
+                  </option>
+                  <option value="retail" className="bg-white">
+                     Minorista
+                  </option>
+                  <option value="mercadoLibre" className="bg-white">
+                     Mercado Libre
+                  </option>
                </select>
                {errors.type && (
                   <p className="text-base text-red-500">{errors.type}</p>

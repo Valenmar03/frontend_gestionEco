@@ -7,9 +7,9 @@ export function formatCurrency(price: number) {
 }
 
 export const translateType = (type: SaleType) => {
-    if(type === "wholesalePrice") return "Mayorista"
-    if(type === "retailPrice") return "Minorista"
-    if(type === "mercadoLibrePrice") return "Mercado Libre"
+    if(type === "wholesale") return "Mayorista"
+    if(type === "retail") return "Minorista"
+    if(type === "mercadoLibre") return "Mercado Libre"
 }
 
 export const formatDate = (date: string) => {

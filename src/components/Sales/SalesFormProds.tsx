@@ -93,7 +93,7 @@ export default function SalesFormProds({
                            }`}
                         </p>
                         <p className="col-span-2 text-center">
-                           {formatCurrency(product.price[type])}
+                           {formatCurrency((product.revenuePercentage[type] * product.cost) + product.cost)}
                         </p>
                         <input
                            type="number"

@@ -19,13 +19,13 @@ export default function SalesForm() {
       phoneNumber: "",
       address: "",
       cuil: "",
-      cp:"",
+      cp: "",
       province: "",
-      city: ""
+      city: "",
    });
    const [iva, setIva] = useState(false);
    const [dto, setDto] = useState(0);
-   const [type, setType] = useState<SaleType>("wholesalePrice");
+   const [type, setType] = useState<SaleType>("wholesale");
    const [prodArray, setProdArray] = useState<prodArrayType[]>([]);
 
    const emptyErrors = {
@@ -42,7 +42,12 @@ export default function SalesForm() {
 
    useEffect(() => {
       const subtotal = prodArray.reduce((acc, prod) => {
-         return acc + prod.product.price[type] * prod.quantity;
+         return (
+            acc +
+            (prod.product.revenuePercentage[type] * prod.product.cost +
+               prod.product.cost) *
+               prod.quantity
+         );
       }, 0);
       setSubTotal(subtotal);
       const discount = (subtotal * dto) / 100;
@@ -56,9 +61,9 @@ export default function SalesForm() {
 
       if (!client._id) newErrors.client = "Debe ingresar un cliente";
       if (dto >= 100 || dto < 0) newErrors.dto = "Revise el descuento";
-      if (client.name === "Mercado Libre" && type !== "mercadoLibrePrice")
+      if (client.name === "Mercado Libre" && type !== "mercadoLibre")
          newErrors.type = "El cliente es Mercado Libre";
-      if (client.name !== "Mercado Libre" && type === "mercadoLibrePrice")
+      if (client.name !== "Mercado Libre" && type === "mercadoLibre")
          newErrors.type = "El cliente NO es Mercado Libre";
       if (prodArray.find((prod) => prod.quantity <= 0))
          newErrors.product = "Los productos deben tener más de 0 unidades";
@@ -73,13 +78,21 @@ export default function SalesForm() {
             const products = prodArray.map((prod) => ({
                product: prod.product._id,
                quantity: prod.quantity,
-               unitPrice: prod.product.price[type],
+               unitPrice:
+                  prod.product.revenuePercentage[type] * prod.product.cost +
+                  prod.product.cost,
             }));
             const sale = {
                type,
-               client:{
+               client: {
                   _id: client._id,
-                  name: client.name
+                  name: client.name,
+                  phoneNumber: client.phoneNumber,
+                  address: client.address,
+                  cuil: client.cuil,
+                  cp: client.cp,
+                  province: client.province,
+                  city: client.city,
                },
                products,
                iva,
@@ -125,9 +138,7 @@ export default function SalesForm() {
                </p>
                <p className="text-xl">
                   Total:{" "}
-                  <span className="font-semibold">
-                     {formatCurrency(total)}
-                  </span>
+                  <span className="font-semibold">{formatCurrency(total)}</span>
                </p>
                {iva && (
                   <p className="text-sm text-gray-500 mt-1 italic">
