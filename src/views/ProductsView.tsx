@@ -49,9 +49,9 @@ export default function ProductsView() {
    });
 
    const handleForm = (formData: CreateProductForm) => {
-      formData.revenuePercentage.mercadoLibre = formData.revenuePercentage.mercadoLibre/100
-      formData.revenuePercentage.retail = formData.revenuePercentage.retail/100
-      formData.revenuePercentage.wholesale = formData.revenuePercentage.wholesale/100
+      formData.revenuePercentage.mercadoLibre /= 100;
+      formData.revenuePercentage.retail /= 100;
+      formData.revenuePercentage.wholesale /= 100;
       
       mutate(formData)
    };

@@ -13,15 +13,20 @@ export default function UpdateProductForm({
    product,
    setIsOpen,
 }: UpdateProductFormProps) {
-
-   const initalValues: CreateProductForm = product
+   const initialValues: CreateProductForm = {
+      ...product,
+      revenuePercentage: { ...product.revenuePercentage },
+   };
+   initialValues.revenuePercentage.mercadoLibre *= 100;
+   initialValues.revenuePercentage.retail *= 100;
+   initialValues.revenuePercentage.wholesale *= 100;
 
    const {
       register,
       handleSubmit,
       formState: { errors },
       reset,
-   } = useForm({ defaultValues: initalValues });
+   } = useForm({ defaultValues: initialValues });
 
    const queryClient = useQueryClient();
    const { mutate } = useMutation({
@@ -34,11 +39,14 @@ export default function UpdateProductForm({
       },
       onError: (error) => {
          toast.error(error.message);
-         console.log(error)
+         console.log(error);
       },
    });
 
    const handleForm = (formData: CreateProductForm) => {
+      formData.revenuePercentage.mercadoLibre /= 100;
+      formData.revenuePercentage.retail /= 100;
+      formData.revenuePercentage.wholesale /= 100;
       mutate({
          id: product._id,
          formData,
