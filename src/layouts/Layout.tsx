@@ -2,10 +2,11 @@ import { Outlet, Navigate, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import HeaderLinks from "../components/HeaderLinks";
-import { pages } from "../data";
+import { Page, pages } from "../data";
 import {
    ArrowRightStartOnRectangleIcon,
    Bars3Icon,
+   HomeIcon
 } from "@heroicons/react/20/solid";
 import { useAuth } from "../hooks/useAuth";
 import Spinner from "../components/Spinner";
@@ -36,10 +37,11 @@ export default function Layout() {
       navigate("/auth/login");
    };
 
-   const homePage = {
+   const homePage : Page = {
       title: "Inicio",
       url: "/",
       description: "Página principal",
+      icon: HomeIcon,
       textColor: "text-slate-600",
       borderColor: "border-slate-600",
       bgFocusColor: "bg-slate-400",
@@ -102,9 +104,9 @@ export default function Layout() {
                `}
             >
                <nav className="flex flex-col mt-20 sm:mt-0">
-                  <HeaderLinks page={homePage} />
-                  {pages.map((page) => (
-                     <HeaderLinks key={page.title} page={page} />
+                  <HeaderLinks title={homePage.title} url={homePage.url} icon={homePage.icon} />
+                  {pages.map(({title, url, icon}) => (
+                     <HeaderLinks key={title} title={title} url={url} icon={icon} />
                   ))}
                </nav>
             </aside>

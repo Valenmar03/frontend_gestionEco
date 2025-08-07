@@ -11,18 +11,19 @@ export default function DashboardView() {
             Gestioná tu negocio
          </h2>
          <div className="flex flex-wrap justify-center">
-            {pages.map((page) => (
+            {pages.map(({title, url, borderColor, textColor, icon: Icon, description}) => (
                <Link
-                  to={page.url}
-                  key={page.title}
-                  className={`p-5 shadow-xl m-10 w-1/4 rounded-md bg-white border-l-4 ${page.borderColor} hover:scale-105 duration-300`}
+                  to={url}
+                  key={title}
+                  className={`p-5 shadow-xl m-10 w-1/4 rounded-md bg-white border-l-4 ${borderColor} hover:scale-105 duration-300`}
                >
                   <h3
-                     className={`text-3xl font-bold ${page.textColor} duration-150`}
+                     className={`text-3xl font-bold ${textColor} duration-150 flex items-center gap-3`}
                   >
-                     {page.title}
+                     <Icon className="size-6"/>
+                     {title}
                   </h3>
-                  <p className="text-lg">{page.description}</p>
+                  <p className="text-lg">{description}</p>
                </Link>
             ))}
          </div>
