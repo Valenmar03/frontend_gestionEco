@@ -4,6 +4,7 @@ import {
    CurrencyDollarIcon,
    UserGroupIcon,
    ChartBarIcon,
+   BanknotesIcon 
 } from "@heroicons/react/24/solid";
 
 import type { ComponentType, SVGProps } from "react";
@@ -71,6 +72,18 @@ export const pages : Page[] = [
       bgColor: "bg-flirt-200",
       hoverColor: "hover:bg-flirt-300",
       headerTextColor: "text-flirt-800",
+   },
+   {
+      title: "Gastos",
+      url: "/expenses",
+      description: "Registrá y controlá tus gastos",
+      icon: BanknotesIcon,
+      textColor: "text-caribbean-green-600",
+      borderColor: "border-caribbean-green-600",
+      bgFocusColor: "bg-caribbean-green-400",
+      bgColor: "bg-caribbean-green-200",
+      hoverColor: "hover:bg-caribbean-green-300",
+      headerTextColor: "text-caribbean-green-800",
    },
    {
       title: "Resumen Financiero",

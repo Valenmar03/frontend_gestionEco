@@ -68,7 +68,19 @@
    --color-monza-700: #ba1b1b;
    --color-monza-800: #9a1a1a;
    --color-monza-900: #801c1c;
-   --color-monza-950: #450a0a;}
+   --color-monza-950: #450a0a;
+   --color-caribbean-green-50: #ebfef7;
+   --color-caribbean-green-100: #d0fbea;
+   --color-caribbean-green-200: #a5f5d9;
+   --color-caribbean-green-300: #6aebc6;
+   --color-caribbean-green-400: #27cea3;
+   --color-caribbean-green-500: #0bbe96;
+   --color-caribbean-green-600: #019a7b;
+   --color-caribbean-green-700: #017b65;
+   --color-caribbean-green-800: #036251;
+   --color-caribbean-green-900: #045044;
+   --color-caribbean-green-950: #012d28;
+}
 @keyframes coin-flip {
    0%,
    100% {
