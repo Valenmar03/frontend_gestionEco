@@ -2,6 +2,9 @@ import { Expense } from "../../types";
 import { format } from "date-fns";
 
 export function ExpensesList({ expenses }: { expenses: Expense[] }) {
+
+    console.log(expenses)
+
   if (!expenses?.length) return <p className="text-sm">No hay gastos cargados este mes.</p>;
   return (
     <div className="overflow-x-auto">

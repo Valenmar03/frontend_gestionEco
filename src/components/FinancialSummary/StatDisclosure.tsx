@@ -1,6 +1,7 @@
 // components/StatDisclosure.tsx
 import { useState, ReactNode } from "react"; 
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { formatCurrency } from "../../helpers";
 
 type Tone = "green" | "red" | "blue" | "purple";
 const toneMap: Record<Tone, string> = {
@@ -12,10 +13,11 @@ const toneMap: Record<Tone, string> = {
 
 type StatDisclosureProps = {
   title: string;
-  value: number | string;
+  value: number;
   tone?: Tone;
   children: ReactNode;   // contenido del “detalle”
   initiallyOpen?: boolean;
+  format?: boolean
 };
 
 export default function StatDisclosure({
@@ -24,6 +26,7 @@ export default function StatDisclosure({
   tone = "blue",
   children,
   initiallyOpen = false,
+  format = true
 }: StatDisclosureProps) {
   const [open, setOpen] = useState(initiallyOpen);
   const toggle = () => setOpen((s) => !s);
@@ -41,7 +44,7 @@ export default function StatDisclosure({
         <div className="text-left">
           <p className="text-sm font-medium">{title}</p>
           <p className="text-3xl font-bold leading-none mt-1">
-            {typeof value === "number" ? value.toLocaleString("es-AR", { style: "currency", currency: "ARS" }) : value}
+            {format ? formatCurrency(value) : value}
           </p>
         </div>
         <ChevronDownIcon

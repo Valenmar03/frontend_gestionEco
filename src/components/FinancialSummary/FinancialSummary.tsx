@@ -42,7 +42,7 @@ export default function FinancialSummary() {
           </div>
         </StatDisclosure>
 
-        <StatDisclosure title="Cantidad de Ventas" value={cantVentas} tone="purple">
+        <StatDisclosure title="Cantidad de Ventas" value={cantVentas} tone="purple" format={false} >
           <ul className="text-sm list-disc pl-5">
             <li>Total de ventas: <b>{cantVentas}</b></li>
             <li>Ticket promedio: <b>{(cantVentas ? totalIngresos / cantVentas : 0).toLocaleString("es-AR", { style: "currency", currency: "ARS" })}</b></li>
