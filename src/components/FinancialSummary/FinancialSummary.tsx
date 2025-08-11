@@ -1,5 +1,4 @@
 // components/FinancialSummary.tsx
-import { useState } from "react";
 import { useFinancialSummary } from "../../hooks/useFinancialSummary";
 import Spinner from "../Spinner";
 import { ExpensesList } from "./ExpenseList";
@@ -10,8 +9,6 @@ export default function FinancialSummary() {
    const now = new Date();
    const month = now.getMonth() + 1;
    const year = now.getFullYear();
-
-   const [open, setOpen] = useState(false);
 
    const { data, isLoading, error } = useFinancialSummary(month, year);
 
@@ -24,12 +21,12 @@ export default function FinancialSummary() {
       const cantVentas = sales!.length
 
       return (
-      <div className="flex gap-5 flex-wrap mt-10">
-        <StatDisclosure title="Ingresos Totales" value={totalIngresos} tone="green" open={open} setOpen={setOpen}>
+      <div className="flex gap-5 flex-wrap mt-10 justify-center">
+        <StatDisclosure title="Ingresos Totales" value={totalIngresos} tone="green">
           <SalesList sales={sales!} />
         </StatDisclosure>
 
-        <StatDisclosure title="Gastos Mensuales" value={totalGastos} tone="red" open={open} setOpen={setOpen}>
+        <StatDisclosure title="Gastos Mensuales" value={totalGastos} tone="red" >
           <ExpensesList expenses={expenses} />
         </StatDisclosure>
 
@@ -37,18 +34,16 @@ export default function FinancialSummary() {
           title="Ganancia Neta"
           value={gananciaNeta}
           tone={gananciaNeta >= 0 ? "green" : "red"}
-          open={open}
-          setOpen={setOpen}
         >
-          <div className="text-sm space-y-1">
+          <div className=" space-y-1">
             <p><span className="font-semibold">Ingresos:</span> {totalIngresos.toLocaleString("es-AR", { style: "currency", currency: "ARS" })}</p>
             <p><span className="font-semibold">Gastos:</span> {totalGastos.toLocaleString("es-AR", { style: "currency", currency: "ARS" })}</p>
             <p className="border-t pt-2"><span className="font-semibold">Ganancia Neta:</span> {gananciaNeta.toLocaleString("es-AR", { style: "currency", currency: "ARS" })}</p>
           </div>
         </StatDisclosure>
 
-        <StatDisclosure title="Cantidad de Ventas" value={cantVentas} tone="purple" format={false} open={open} setOpen={setOpen} >
-          <ul className="text-sm list-disc pl-5">
+        <StatDisclosure title="Cantidad de Ventas" value={cantVentas} tone="purple" format={false}>
+          <ul className="list-disc pl-5">
             <li>Total de ventas: <b>{cantVentas}</b></li>
             <li>Ticket promedio: <b>{(cantVentas ? totalIngresos / cantVentas : 0).toLocaleString("es-AR", { style: "currency", currency: "ARS" })}</b></li>
           </ul>

@@ -8,7 +8,7 @@ export function ExpensesList({ expenses }: { expenses: Expense[] }) {
   if (!expenses?.length) return <p className="text-sm">No hay gastos cargados este mes.</p>;
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full text-sm">
+      <table className="min-w-full">
         <thead className="text-gray-600">
           <tr>
             <th className="py-2 pr-4 text-left">Fecha</th>
