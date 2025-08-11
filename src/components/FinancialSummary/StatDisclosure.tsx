@@ -1,5 +1,5 @@
 // components/StatDisclosure.tsx
-import { useState, ReactNode } from "react"; 
+import { ReactNode } from "react"; 
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { formatCurrency } from "../../helpers";
 
