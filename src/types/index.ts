@@ -92,3 +92,16 @@ export const saleSchema = z.object({
 export type Sale = z.infer<typeof saleSchema>
 export type CreateSaleForm = Pick<Sale, 'client' | 'discount' | 'iva' | 'products' | 'type' >
 export type SaleType = z.infer<typeof saleTypeSchema>
+
+
+
+//EXPENSES
+export const expenseSchema = z.object({
+    _id: z.string(),
+    description: z.string(),
+    amount: z.number(),
+    date: z.string(),
+    category: z.string(),
+    notes: z.string()
+})
+export type Expense = z.infer<typeof expenseSchema>

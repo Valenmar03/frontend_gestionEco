@@ -1,48 +1,59 @@
-import { isAxiosError } from "axios"
-import api from "../lib/axios"
-import { CreateSaleForm, Sale } from "../types"
+import { isAxiosError } from "axios";
+import api from "../lib/axios";
+import { CreateSaleForm, Sale } from "../types";
 
-
-export async function createSale(formData: CreateSaleForm){
-    try {
-        const { data } = await api.post("/sales", formData)
-        return data
-    } catch (error) {
-        if(isAxiosError(error) && error.response){
-            throw new Error(error.response.data)
-        }
-    }
+export async function createSale(formData: CreateSaleForm) {
+   try {
+      const { data } = await api.post("/sales", formData);
+      return data;
+   } catch (error) {
+      if (isAxiosError(error) && error.response) {
+         throw new Error(error.response.data);
+      }
+   }
 }
 
-export async function getSales(){
-    try {
-        const { data } = await api<Sale[]>("/sales")
-        return data
-    } catch (error) {
-        if(isAxiosError(error) && error.response){
-            throw new Error(error.response.data)
-        }
-    }
+export async function getSales() {
+   try {
+      const { data } = await api<Sale[]>("/sales");
+      return data;
+   } catch (error) {
+      if (isAxiosError(error) && error.response) {
+         throw new Error(error.response.data);
+      }
+   }
 }
 
-export async function getSaleById(id : string){
-    try {
-        const { data } = await api<Sale>(`/sales/${id}`)
-        return data
-    } catch (error) {
-        if(isAxiosError(error) && error.response){
-            throw new Error(error.response.data)
-        }
-    }
+export async function getSaleById(id: string) {
+   try {
+      const { data } = await api<Sale>(`/sales/${id}`);
+      return data;
+   } catch (error) {
+      if (isAxiosError(error) && error.response) {
+         throw new Error(error.response.data);
+      }
+   }
 }
 
-export async function deleteSale({id} : {id: string}){
-    try {
-        const { data } = await api.delete(`/sales/${id}`)
-        return data
-    } catch (error) {
-        if(isAxiosError(error) && error.response){
-            throw new Error(error.response.data)
-        }
-    }
+export async function getSalesByMonth(month: number, year: number) {
+   try {
+      const monthString = String(month).padStart(2, "0");
+      const { data } = await api<Sale[]>(`/sales?month=${year}-${monthString}`);
+      return data;
+   } catch (error) {
+      if (isAxiosError(error) && error.response) {
+         throw new Error(error.response.data);
+      }
+   }
+}
+
+export async function deleteSale({ id }: { id: string }) {
+   try {
+      const { data } = await api.delete(`/sales/${id}`);
+      return data;
+   } catch (error) {
+      if (isAxiosError(error) && error.response) {
+         throw new Error(error.response.data);
+      }
+   }
 }
