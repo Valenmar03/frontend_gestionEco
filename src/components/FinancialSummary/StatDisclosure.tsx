@@ -16,8 +16,9 @@ type StatDisclosureProps = {
   value: number;
   tone?: Tone;
   children: ReactNode;   // contenido del “detalle”
-  initiallyOpen?: boolean;
-  format?: boolean
+  format?: boolean;
+  open: boolean
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 export default function StatDisclosure({
@@ -25,10 +26,10 @@ export default function StatDisclosure({
   value,
   tone = "blue",
   children,
-  initiallyOpen = false,
-  format = true
+  format = true,
+  open, 
+  setOpen
 }: StatDisclosureProps) {
-  const [open, setOpen] = useState(initiallyOpen);
   const toggle = () => setOpen((s) => !s);
 
   return (
