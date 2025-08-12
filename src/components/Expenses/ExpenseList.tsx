@@ -1,43 +1,44 @@
-import { useQuery } from "@tanstack/react-query";
-import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
-import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import ModalComponent from "../ModalComponent";
-import { getProducts } from "../../api/productAPI";
-import ProductCard from "./ProductCard";
-import UpdateProductForm from "./UpdateProductForm";
-import { Product } from "../../types";
-import Spinner from "../Spinner";
-import DeleteProductModal from "./DeleteProductModal";
+import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { useLocation, useNavigate } from "react-router-dom";
+import { getExpenses, getExpensesByMonth } from "../../api/expensesAPI";
+import { useQuery } from "@tanstack/react-query";
+import { Expense } from "../../types";
+import ExpenseRow from "./ExpenseRow";
 
-export default function ProductList() {
+export default function ExpenseList() {
    const [isOpen, setIsOpen] = useState(false);
-   const [productData, setProductData] = useState<Product>();
    const [search, setSearch] = useState("");
+   const [expenseData, setExpenseData] = useState<Expense>();
+
+   const now = new Date();
+   const month = now.getMonth() + 1;
+   const year = now.getFullYear();
 
    const navigate = useNavigate();
    const location = useLocation();
 
    const {
-      data: products,
+      data: expenses,
       isError,
       isLoading,
    } = useQuery({
-      queryKey: ["products"],
-      queryFn: getProducts,
+      queryKey: ["expenses"],
+      queryFn: getExpenses,
    });
 
    const queryParams = new URLSearchParams(location.search);
-   const productId = queryParams.get("productId");
+   const expenseId = queryParams.get("expenseId");
    const confirmDelete = queryParams.get("confirmDelete");
 
    useEffect(() => {
-      if (productId || confirmDelete) {
+      if (expenseId || confirmDelete) {
          setIsOpen(true);
-         const id = productId ?? confirmDelete ?? "";
-         setProductData(products?.find((p) => p._id === id));
+         const id = expenseId ?? confirmDelete ?? "";
+         setExpenseData(expenses?.find((e) => e._id === id));
       }
-   }, [productId, confirmDelete, products]);
+   }, [expenseId, confirmDelete, expenses]);
 
    useEffect(() => {
       if (!isOpen) {
@@ -45,18 +46,13 @@ export default function ProductList() {
       }
    }, [isOpen]);
 
-   const filteredProducts = useMemo(
+   const filteredExpenses = useMemo(
       () =>
-         (products ?? []).filter((p) =>
-            `${p.type} x ${p.weight}`
-               .toLowerCase()
-               .includes(search.toLowerCase())
+         (expenses ?? []).filter((e) =>
+            `${e.description}`.toLowerCase().includes(search.toLowerCase())
          ),
-      [products, search]
+      [expenses, search]
    );
-
-   if (isLoading) return <Spinner />;
-   if (isError) return <p>Error al cargar los productos</p>;
 
    return (
       <>
@@ -66,7 +62,7 @@ export default function ProductList() {
                className=" bg-gray-200 p-3 rounded-l-md"
                value={search}
                onChange={(e) => setSearch(e.target.value)}
-               placeholder="Busqueda por producto"
+               placeholder="Busqueda por descripcion"
             />
             <MagnifyingGlassIcon className="size-12 text-gray-500 bg-gray-200 p-2 rounded-r-md" />
          </div>
@@ -74,18 +70,18 @@ export default function ProductList() {
             <table className="min-w-[700px] sm:min-w-full text-lg text-left">
                <thead className="bg-gray-100 text-xl">
                   <tr>
-                     <th className="px-4 py-2">Producto</th>
-                     <th className="px-4 py-2">Costo</th>
-                     <th className="px-4 py-2">Precio Mayorista</th>
-                     <th className="px-4 py-2">Precio Minorista</th>
-                     <th className="px-4 py-2">Precio ML</th>
+                     <th className="px-4 py-2">Descripcion</th>
+                     <th className="px-4 py-2">Categoria</th>
+                     <th className="px-4 py-2">Monto</th>
+                     <th className="px-4 py-2">Notas</th>
+                     <th className="px-4 py-2">Fecha</th>
                      <th className="px-4 py-2 text-center">Acciones</th>
                   </tr>
                </thead>
                <tbody>
-                  {products ? (
-                     filteredProducts!.map((product) => (
-                        <ProductCard key={product._id} {...product} />
+                  {expenses ? (
+                     filteredExpenses!.map((expense) => (
+                        <ExpenseRow key={expense._id} {...expense} />
                      ))
                   ) : (
                      <tr>
@@ -93,7 +89,7 @@ export default function ProductList() {
                            colSpan={6}
                            className="px-4 py-6 text-center text-gray-500"
                         >
-                           No hay productos que coincidan con la búsqueda
+                           No hay gastos que coincidan con la búsqueda
                         </td>
                      </tr>
                   )}
@@ -101,13 +97,13 @@ export default function ProductList() {
             </table>
          </div>
          <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
-            {productId && (
+            {expenseId && (
                <>
-                  <h2 className="text-3xl font-bold text-vida-loca-500">
-                     Editar Producto
+                  <h2 className="text-3xl font-bold text-caribbean-green-500">
+                     Editar Gasto
                   </h2>
-                  <p className="text-vida-loca-500/80">
-                     Ingrese todos los datos necesarios para editar el producto
+                  <p className="text-caribbean-green-500/80">
+                     Ingrese todos los datos necesarios para editar el gasto
                   </p>
                   <button
                      onClick={() => setIsOpen(false)}
@@ -115,18 +111,18 @@ export default function ProductList() {
                   >
                      <XMarkIcon className="size-6 cursor-pointer hover:text-red-600 duration-200" />
                   </button>
-                  <UpdateProductForm
+                  {/* <UpdateProductForm
                      product={productData!}
                      setIsOpen={setIsOpen}
-                  />
+                  /> */}
                </>
             )}
             {confirmDelete && (
                <>
-                  <DeleteProductModal
+                  {/* <DeleteProductModal
                      product={productData!}
                      setIsOpen={setIsOpen}
-                  />
+                  /> */}
                </>
             )}
          </ModalComponent>

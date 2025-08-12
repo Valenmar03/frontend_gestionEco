@@ -2,6 +2,7 @@ import { useState } from "react";
 import { pages } from "../data";
 import ModalComponent from "../components/ModalComponent";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import ExpenseList from "../components/Expenses/ExpenseList";
 
 export default function ExpensesView() {
 
@@ -28,15 +29,16 @@ export default function ExpensesView() {
             </button>
          </div>
 
+         <ExpenseList/>
 
          <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
             <div className="relative">
                <h2 className="text-3xl font-bold text-caribbean-green-500">
-                  Agregar Producto
+                  Agregar Gasto
                </h2>
                <p className="text-caribbean-green-500/80">
                   Ingrese todos los datos necesarios para poder agregar el
-                  producto
+                  gasto
                </p>
                <button
                   onClick={() => setIsOpen(false)}

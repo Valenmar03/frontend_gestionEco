@@ -1,10 +1,11 @@
 // api/ExpensesAPI.ts
 import api from "../lib/axios";
 import { isAxiosError } from "axios";
+import { Expense } from "../types";
 
 export async function getExpenses() {
   try {
-    const { data } = await api(`/expenses`);
+    const { data } = await api<Expense[]>(`/expenses`);
     console.log(data)
     return data;
   } catch (error) {
@@ -18,7 +19,7 @@ export async function getExpenses() {
 export async function getExpensesByMonth(month: number, year: number) {
   try {
     const monthString = String(month).padStart(2, "0");
-    const { data } = await api(`/expenses?month=${year}-${monthString}`);
+    const { data } = await api<Expense[]>(`/expenses?month=${year}-${monthString}`);
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
