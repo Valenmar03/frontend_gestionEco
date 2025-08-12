@@ -72,7 +72,6 @@ export default function ClientFormsFields({
 
          <div className="flex flex-wrap gap-3 w-full mt-4">
             <div className="flex flex-col space-y-2 flex-1 min-w-[200px]">
-               {errors.address && <p className="text-red-600">{errors.address.message}</p>}
                <label htmlFor="address" className="text-xl">Dirección</label>
                <input
                   type="text"
@@ -84,7 +83,8 @@ export default function ClientFormsFields({
                   {...register("address", {
                      required: "Este campo es obligatorio",
                   })}
-               />
+                  />
+                  {errors.address && <p className="text-red-600">{errors.address.message}</p>}
             </div>
 
             <div className="flex flex-col space-y-2 flex-1 min-w-[150px]">
