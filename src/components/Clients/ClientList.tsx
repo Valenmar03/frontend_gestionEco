@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getClients } from "../../api/clientAPI";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Client } from "../../types";
 import { useLocation, useNavigate } from "react-router-dom";
 import Spinner from "../Spinner";
@@ -43,21 +43,27 @@ export default function ClientList() {
       }
    }, [isOpen]);
 
-
-   const filteredClients = data?.filter((client) =>
-      `${client.name}`
-         .toLowerCase()
-         .includes(search.toLowerCase())
+   const filteredClients = useMemo(
+      () =>
+         (data ?? []).filter((client) =>
+            `${client.name}`.toLowerCase().includes(search.toLowerCase())
+         ),
+      [data, search]
    );
 
    if (isLoading) return <Spinner />;
    if (isError) return <p>Error al cargar los productos</p>;
    return (
       <>
-      <div className="flex items-center mb-2 divide-x-2 divide-gray-300 justify-end mt-10">
-            <input type="text" className=" bg-gray-200 p-3 rounded-l-md" value={search}
-               onChange={(e) => setSearch(e.target.value)}/>
-            <MagnifyingGlassIcon className="size-12 text-gray-500 bg-gray-200 p-2 rounded-r-md"/>
+         <div className="flex items-center mb-2 divide-x-2 divide-gray-300 justify-end mt-10">
+            <input
+               type="text"
+               className=" bg-gray-200 p-3 rounded-l-md"
+               value={search}
+               onChange={(e) => setSearch(e.target.value)}
+               placeholder="Busqueda por nombre"
+            />
+            <MagnifyingGlassIcon className="size-12 text-gray-500 bg-gray-200 p-2 rounded-r-md" />
          </div>
          <table className="min-w-[700px] sm:min-w-full text-lg text-left mt-4">
             <thead className="bg-gray-100 text-xl">
@@ -101,11 +107,9 @@ export default function ClientList() {
                   <UpdateClientForm client={client!} setIsOpen={setIsOpen} />
                </>
             )}
-            {
-               confirmDelete && (
-                  <DeleteClientModal client={client!} setIsOpen={setIsOpen} />
-               )
-            }
+            {confirmDelete && (
+               <DeleteClientModal client={client!} setIsOpen={setIsOpen} />
+            )}
          </ModalComponent>
       </>
    );

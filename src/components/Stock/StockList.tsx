@@ -46,6 +46,7 @@ export default function StockList({ data }: { data: Product[] }) {
                className=" bg-gray-200 p-3 rounded-l-md"
                value={search}
                onChange={(e) => setSearch(e.target.value)}
+               placeholder="Busqueda por producto"
             />
             <MagnifyingGlassIcon className="size-12 text-gray-500 bg-gray-200 p-2 rounded-r-md" />
          </div>
