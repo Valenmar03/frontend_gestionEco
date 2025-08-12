@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import ModalComponent from "../components/ModalComponent";
 import StockList from "../components/Stock/StockList";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -15,7 +15,6 @@ export default function StockManagmentView() {
    const page = pages.filter((page) => page.title === "Control de Stock")[0];
    const [isOpen, setIsOpen] = useState(false);
    const [search, setSearch] = useState("");
-
 
    const { data, isError, isLoading } = useQuery({
       queryKey: ["products"],
@@ -52,10 +51,14 @@ export default function StockManagmentView() {
       mutate(products);
    };
 
-   const filteredProducts = data?.filter((product) =>
-      `${product.type} x ${product.weight}`
-         .toLowerCase()
-         .includes(search.toLowerCase())
+   const filteredProducts = useMemo(
+      () =>
+         (data ?? []).filter((p) =>
+            `${p.type} x ${p.weight}`
+               .toLowerCase()
+               .includes(search.toLowerCase())
+         ),
+      [data, search]
    );
 
    return (

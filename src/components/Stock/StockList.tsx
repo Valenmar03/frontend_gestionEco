@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Product } from "../../types";
 import ModalComponent from "../ModalComponent";
 import StockCard from "./StockCard";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import IndividualStockForm from "./IndividualStockForm";
 
@@ -10,7 +10,6 @@ export default function StockList({ data }: { data: Product[] }) {
    const [isOpen, setIsOpen] = useState(false);
    const [productData, setProductData] = useState<Product>();
    const [search, setSearch] = useState("");
-
 
    const navigate = useNavigate();
    const location = useLocation();
@@ -29,10 +28,14 @@ export default function StockList({ data }: { data: Product[] }) {
       }
    }, [isOpen]);
 
-   const filteredProducts = data?.filter((product) =>
-      `${product.type} x ${product.weight}`
-         .toLowerCase()
-         .includes(search.toLowerCase())
+   const filteredProducts = useMemo(
+      () =>
+         (data ?? []).filter((p) =>
+            `${p.type} x ${p.weight}`
+               .toLowerCase()
+               .includes(search.toLowerCase())
+         ),
+      [data, search]
    );
 
    return (

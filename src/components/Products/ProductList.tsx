@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import ModalComponent from "../ModalComponent";
 import { getProducts } from "../../api/productAPI";
@@ -30,21 +30,14 @@ export default function ProductList() {
    const queryParams = new URLSearchParams(location.search);
    const productId = queryParams.get("productId");
    const confirmDelete = queryParams.get("confirmDelete");
+   
    useEffect(() => {
       if (productId || confirmDelete) {
          setIsOpen(true);
-         if (productId) {
-            setProductData(
-               products?.find((product) => product._id === productId)
-            );
-         }
-         if (confirmDelete) {
-            setProductData(
-               products?.find((product) => product._id === confirmDelete)
-            );
-         }
+         const id = productId ?? confirmDelete ?? "";
+         setProductData(products?.find((p) => p._id === id));
       }
-   }, [productId, confirmDelete]);
+   }, [productId, confirmDelete, products]);
 
    useEffect(() => {
       if (!isOpen) {
@@ -52,10 +45,14 @@ export default function ProductList() {
       }
    }, [isOpen]);
 
-   const filteredProducts = products?.filter((product) =>
-      `${product.type} x ${product.weight}`
-         .toLowerCase()
-         .includes(search.toLowerCase())
+   const filteredProducts = useMemo(
+      () =>
+         (products ?? []).filter((p) =>
+            `${p.type} x ${p.weight}`
+               .toLowerCase()
+               .includes(search.toLowerCase())
+         ),
+      [products, search]
    );
 
    if (isLoading) return <Spinner />;
@@ -64,9 +61,13 @@ export default function ProductList() {
    return (
       <>
          <div className="flex items-center mb-2 divide-x-2 divide-gray-300 justify-end">
-            <input type="text" className=" bg-gray-200 p-3 rounded-l-md" value={search}
-               onChange={(e) => setSearch(e.target.value)}/>
-            <MagnifyingGlassIcon className="size-12 text-gray-500 bg-gray-200 p-2 rounded-r-md"/>
+            <input
+               type="text"
+               className=" bg-gray-200 p-3 rounded-l-md"
+               value={search}
+               onChange={(e) => setSearch(e.target.value)}
+            />
+            <MagnifyingGlassIcon className="size-12 text-gray-500 bg-gray-200 p-2 rounded-r-md" />
          </div>
          <div className="w-full overflow-x-auto">
             <table className="min-w-[700px] sm:min-w-full text-lg text-left">
