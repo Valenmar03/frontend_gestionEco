@@ -41,3 +41,14 @@ export async function getExpensesSummary(month: number, year: number) {
     throw error;
   }
 }
+
+export async function deleteExpense({id} : {id: Expense["_id"]}){
+  try {
+        const { data } = await api.delete(`/expenses/${id}`)
+        return data
+    } catch (error) {
+        if(isAxiosError(error) && error.response){
+            throw new Error(error.response.data)
+        }
+    }
+}
