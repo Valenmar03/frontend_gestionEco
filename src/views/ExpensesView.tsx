@@ -1,3 +1,4 @@
+// views/ExpensesView.tsx
 import { useState } from "react";
 import { pages } from "../data";
 import ModalComponent from "../components/ModalComponent";
@@ -9,18 +10,23 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { CreateExpenseForm } from "../types";
 import { createExpense } from "../api/expensesAPI";
+import MonthYearPicker from "../components/MonthYearPicker";
 
 export default function ExpensesView() {
-
    const page = pages.find((p) => p.title === "Gastos");
    const [isOpen, setIsOpen] = useState(false);
+
+   const now = new Date();
+   const [monthKey, setMonthKey] = useState(
+      `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`
+   );
 
    const initialValues: CreateExpenseForm = {
       description: "",
       amount: 0,
       date: "",
       category: "",
-      notes: ""
+      notes: "",
    };
 
    const {
@@ -37,7 +43,8 @@ export default function ExpensesView() {
       onSuccess: (data) => {
          toast.success(data);
          setIsOpen(false);
-         queryClient.invalidateQueries({ queryKey: ["expenses"] });
+         // refrescamos la query del mes seleccionado
+         queryClient.invalidateQueries({ queryKey: ["expenses", monthKey] });
          reset();
       },
       onError: (error: any) => {
@@ -46,13 +53,15 @@ export default function ExpensesView() {
    });
 
    const handleForm = (formData: CreateExpenseForm) => {
-      mutate(formData)
+      mutate(formData);
    };
 
-  return (
-    <>
-         <div className="relative mb-10">
-            <div className="text-center">
+   return (
+      <>
+         {/* Header */}
+         <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <MonthYearPicker value={monthKey} onChange={setMonthKey} />
+            <div className="text-center sm:text-left">
                <h1 className="text-4xl sm:text-6xl font-bold text-caribbean-green-600">
                   {page?.title}
                </h1>
@@ -61,25 +70,28 @@ export default function ExpensesView() {
                </h2>
             </div>
 
-            <button
-               onClick={() => setIsOpen(true)}
-               className="absolute right-0 top-1/2 -translate-y-1/2 px-5 py-2 bg-caribbean-green-500 rounded-lg hover:bg-caribbean-green-500/80 transition duration-200"
-               title="Agregar producto"
-            >
-               <PlusIcon className="size-10 text-white" />
-            </button>
+            <div className="flex items-center gap-3 self-end sm:self-auto">
+               <button
+                  onClick={() => setIsOpen(true)}
+                  className="px-5 py-2 bg-caribbean-green-500 rounded-lg hover:bg-caribbean-green-500/80 transition duration-200"
+                  title="Agregar gasto"
+               >
+                  <PlusIcon className="size-10 text-white" />
+               </button>
+            </div>
          </div>
 
-         <ExpenseList/>
+         {/* Lista filtrada por mes */}
+         <ExpenseList date={monthKey} />
 
+         {/* Modal alta */}
          <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
             <div className="relative">
                <h2 className="text-3xl font-bold text-caribbean-green-500">
                   Agregar Gasto
                </h2>
                <p className="text-caribbean-green-500/80">
-                  Ingrese todos los datos necesarios para poder agregar el
-                  gasto
+                  Ingrese todos los datos necesarios para poder agregar el gasto
                </p>
                <button
                   onClick={() => setIsOpen(false)}
@@ -95,9 +107,9 @@ export default function ExpensesView() {
                   noValidate
                >
                   <ExpenseForm register={register} errors={errors} />
-               </form> 
+               </form>
             </div>
          </ModalComponent>
       </>
-  )
+   );
 }

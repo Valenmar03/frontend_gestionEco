@@ -10,22 +10,19 @@ import Spinner from "../Spinner";
 import DeleteExpenseModal from "./DeleteExpenseModal";
 import UpdateExpenseForm from "./UpdateExpenseForm";
 
-export default function ExpenseList() {
+export default function ExpenseList({ date } : {date: string}) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [expenseData, setExpenseData] = useState<Expense | null>(null);
 
-  const now = new Date();
-  const month = now.getMonth() + 1;
-  const year = now.getFullYear();
+  const [ year, month ] = date.split("-")
 
   const navigate = useNavigate();
   const location = useLocation();
 
   const { data: expenses = [], isError, isLoading } = useQuery({
-    queryKey: ["expenses"],
-    //queryFn: getExpenses,
-    queryFn: () => getExpensesByMonth(month, year),
+    queryKey: ["expenses", date],
+    queryFn: () => getExpensesByMonth(+month, +year),
   });
 
   const queryParams = new URLSearchParams(location.search);
