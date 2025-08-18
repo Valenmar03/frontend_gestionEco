@@ -1,6 +1,5 @@
 import { formatCurrency, formatYMD } from "../../helpers";
 import { Expense } from "../../types";
-import { format } from "date-fns";
 
 export function ExpensesList({ expenses }: { expenses: Expense[] }) {
    if (!expenses?.length)

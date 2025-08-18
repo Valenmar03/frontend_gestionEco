@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import ModalComponent from "../ModalComponent";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getExpenses, getExpensesByMonth } from "../../api/expensesAPI";
+import { getExpensesByMonth } from "../../api/expensesAPI";
 import { useQuery } from "@tanstack/react-query";
 import { Expense } from "../../types";
 import ExpenseRow from "./ExpenseRow";

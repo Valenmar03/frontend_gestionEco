@@ -2,7 +2,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Expense } from "../../types";
 import { formatCurrency, formatYMD } from "../../helpers";
 import { TrashIcon } from "@heroicons/react/24/solid";
-import { format } from "date-fns";
 
 export default function ExpenseRow(expense: Expense) {
   const navigate = useNavigate();
