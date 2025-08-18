@@ -1,18 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
-import { getSales } from "../../api/SalesAPI";
+import { getSalesByMonth } from "../../api/SalesAPI";
 import Spinner from "../Spinner";
 import SalesCard from "./SalesCard";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { useMemo, useState } from "react";
+import { useOutletContext } from "react-router-dom";
 
 export default function SalesList() {
    const [search, setSearch] = useState("");
+   const date = useOutletContext<String>();
+   const [ year, month ] = date.split("-")
 
    const { data, isError, isLoading } = useQuery({
-      queryKey: ["sales"],
-      queryFn: getSales,
+      queryKey: ["sales", month],
+      queryFn: () => getSalesByMonth(+month, +year),
    });
-
+   
    const filteredSales = useMemo(
       () =>
          (data ?? []).filter((sale) =>

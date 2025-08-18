@@ -57,7 +57,6 @@ export default function ExpensesView() {
 
    return (
       <>
-         {/* Header */}
          <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <MonthYearPicker value={dateKey} onChange={setDateKey} />
             <div className="text-center sm:text-left">
@@ -80,10 +79,8 @@ export default function ExpensesView() {
             </div>
          </div>
 
-         {/* Lista filtrada por mes */}
          <ExpenseList date={dateKey} />
 
-         {/* Modal alta */}
          <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
             <div className="relative">
                <h2 className="text-3xl font-bold text-caribbean-green-500">
