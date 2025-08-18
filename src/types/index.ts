@@ -105,3 +105,4 @@ export const expenseSchema = z.object({
     notes: z.string()
 })
 export type Expense = z.infer<typeof expenseSchema>
+export type CreateExpenseForm = Pick<Expense, "description" | "amount" | "category" | "date" | "notes">

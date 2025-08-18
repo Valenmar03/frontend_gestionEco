@@ -3,11 +3,52 @@ import { pages } from "../data";
 import ModalComponent from "../components/ModalComponent";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import ExpenseList from "../components/Expenses/ExpenseList";
+import ExpenseForm from "../components/Expenses/ExpenseForm";
+import { toast } from "react-toastify";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import { CreateExpenseForm } from "../types";
+import { createExpense } from "../api/expensesAPI";
 
 export default function ExpensesView() {
 
-    const page = pages.find((p) => p.title === "Gastos");
-       const [isOpen, setIsOpen] = useState(false);
+   const page = pages.find((p) => p.title === "Gastos");
+   const [isOpen, setIsOpen] = useState(false);
+
+   const initialValues: CreateExpenseForm = {
+      description: "",
+      amount: 0,
+      date: "",
+      category: "",
+      notes: ""
+   };
+
+   const {
+      register,
+      handleSubmit,
+      formState: { errors },
+      reset,
+   } = useForm({ defaultValues: initialValues });
+
+   const queryClient = useQueryClient();
+
+   const { mutate } = useMutation({
+      mutationFn: createExpense,
+      onSuccess: (data) => {
+         toast.success(data);
+         setIsOpen(false);
+         queryClient.invalidateQueries({ queryKey: ["expenses"] });
+         reset();
+      },
+      onError: (error: any) => {
+         toast.error(error.message);
+      },
+   });
+
+   const handleForm = (formData: CreateExpenseForm) => {
+      mutate(formData)
+   };
+
   return (
     <>
          <div className="relative mb-10">
@@ -48,13 +89,13 @@ export default function ExpensesView() {
                   <XMarkIcon className="size-6 hover:text-red-600 transition duration-200" />
                </button>
 
-               {/* <form
+               <form
                   className="space-y-5 mt-5"
                   onSubmit={handleSubmit(handleForm)}
                   noValidate
                >
-                  <ProductForm register={register} errors={errors} />
-               </form> */}
+                  <ExpenseForm register={register} errors={errors} />
+               </form> 
             </div>
          </ModalComponent>
       </>
