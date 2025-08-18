@@ -57,6 +57,17 @@ export async function getExpensesSummary(month: number, year: number) {
    }
 }
 
+export async function updateExpense({ id, formData }: { id: Expense["_id"], formData: CreateExpenseForm }) {
+   try {
+      const { data } = await api.patch(`/expenses/${id}`, formData);
+      return data;
+   } catch (error) {
+      if (isAxiosError(error) && error.response) {
+         throw new Error(error.response.data);
+      }
+   }
+}
+
 export async function deleteExpense({ id }: { id: Expense["_id"] }) {
    try {
       const { data } = await api.delete(`/expenses/${id}`);

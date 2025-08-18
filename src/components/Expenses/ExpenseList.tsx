@@ -8,6 +8,7 @@ import { Expense } from "../../types";
 import ExpenseRow from "./ExpenseRow";
 import Spinner from "../Spinner";
 import DeleteExpenseModal from "./DeleteExpenseModal";
+import UpdateExpenseForm from "./UpdateExpenseForm";
 
 export default function ExpenseList() {
   const [isOpen, setIsOpen] = useState(false);
@@ -114,7 +115,7 @@ export default function ExpenseList() {
               <>
                 <h2 className="text-3xl font-bold text-caribbean-green-500">Editar Gasto</h2>
                 <p className="text-caribbean-green-500/80">Ingrese todos los datos necesarios para editar el gasto</p>
-                {/* TODO: colocar <UpdateExpenseForm expense={expenseData!} setIsOpen={setIsOpen} /> */}
+                <UpdateExpenseForm expense={expenseData!} setIsOpen={setIsOpen} />
               </>
             )}
 
