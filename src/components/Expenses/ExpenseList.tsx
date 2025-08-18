@@ -23,8 +23,8 @@ export default function ExpenseList() {
 
   const { data: expenses = [], isError, isLoading } = useQuery({
     queryKey: ["expenses"],
-    queryFn: getExpenses,
-    //queryFn: () => getExpensesByMonth(month, year),
+    //queryFn: getExpenses,
+    queryFn: () => getExpensesByMonth(month, year),
   });
 
   const queryParams = new URLSearchParams(location.search);

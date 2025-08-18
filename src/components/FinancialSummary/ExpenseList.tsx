@@ -1,3 +1,4 @@
+import { formatCurrency, formatYMD } from "../../helpers";
 import { Expense } from "../../types";
 import { format } from "date-fns";
 
@@ -19,15 +20,12 @@ export function ExpensesList({ expenses }: { expenses: Expense[] }) {
                {expenses.map((e) => (
                   <tr key={e._id} className="border-t border-gray-200">
                      <td className="py-2 pr-4">
-                        {format(new Date(e.date), "dd MMM")}
+                        {formatYMD(e.date)}
                      </td>
                      <td className="py-2 pr-4">{e.description}</td>
                      <td className="py-2 pr-4">{e.category ?? "—"}</td>
                      <td className="py-2 pr-0 text-right font-semibold">
-                        {e.amount.toLocaleString("es-AR", {
-                           style: "currency",
-                           currency: "ARS",
-                        })}
+                        {formatCurrency(e.amount)}
                      </td>
                   </tr>
                ))}

@@ -1,4 +1,5 @@
 // components/FinancialSummary.tsx
+import { formatCurrency } from "../../helpers";
 import { useFinancialSummary } from "../../hooks/useFinancialSummary";
 import Spinner from "../Spinner";
 import { ExpensesList } from "./ExpenseList";
@@ -36,16 +37,16 @@ export default function FinancialSummary() {
           tone={gananciaNeta >= 0 ? "green" : "red"}
         >
           <div className=" space-y-1">
-            <p><span className="font-semibold">Ingresos:</span> {totalIngresos.toLocaleString("es-AR", { style: "currency", currency: "ARS" })}</p>
-            <p><span className="font-semibold">Gastos:</span> {totalGastos.toLocaleString("es-AR", { style: "currency", currency: "ARS" })}</p>
-            <p className="border-t pt-2"><span className="font-semibold">Ganancia Neta:</span> {gananciaNeta.toLocaleString("es-AR", { style: "currency", currency: "ARS" })}</p>
+            <p><span className="font-semibold">Ingresos:</span> {formatCurrency(totalIngresos)}</p>
+            <p><span className="font-semibold">Gastos:</span> {formatCurrency(totalGastos)}</p>
+            <p className="border-t pt-2"><span className="font-semibold">Ganancia Neta:</span> {formatCurrency(gananciaNeta)}</p>
           </div>
         </StatDisclosure>
 
         <StatDisclosure title="Cantidad de Ventas" value={cantVentas} tone="purple" format={false}>
           <ul className="list-disc pl-5">
             <li>Total de ventas: <b>{cantVentas}</b></li>
-            <li>Ticket promedio: <b>{(cantVentas ? totalIngresos / cantVentas : 0).toLocaleString("es-AR", { style: "currency", currency: "ARS" })}</b></li>
+            <li>Ticket promedio: <b>{formatCurrency(cantVentas ? totalIngresos / cantVentas : 0)}</b></li>
           </ul>
         </StatDisclosure>
       </div>

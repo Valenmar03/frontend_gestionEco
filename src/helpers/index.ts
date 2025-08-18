@@ -21,3 +21,10 @@ export const formatDate = (date: string) => {
     const dateObj = new Date(date);
     return dateObj.toLocaleDateString('es-AR', options);
 }
+
+const MONTHS = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+
+export function formatYMD(ymd: string) {
+  const [y, m, d] = ymd.split("-");
+  return `${d.padStart(2, "0")} ${MONTHS[Number(m) - 1]}`;
+}

@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { Expense } from "../../types";
-import { formatCurrency } from "../../helpers";
+import { formatCurrency, formatYMD } from "../../helpers";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { format } from "date-fns";
 
@@ -23,7 +23,7 @@ export default function ExpenseRow(expense: Expense) {
             {expense.notes}
          </td>
          <td className="px-4 py-3  whitespace-nowrap">
-            {format(new Date(expense.date), "dd/MMM")}
+            {formatYMD(expense.date)}
          </td>
          <td className="px-4 py-3">
             <div className="flex justify-around gap-2  items-center">
