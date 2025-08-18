@@ -6,12 +6,10 @@ import { ExpensesList } from "./ExpenseList";
 import { SalesList } from "./SaleList";
 import StatDisclosure from "./StatDisclosure";
 
-export default function FinancialSummary() {
-   const now = new Date();
-   const month = now.getMonth() + 1;
-   const year = now.getFullYear();
+export default function FinancialSummary({ date } : {date: string}) {
+   const [ year, month ] = date.split("-")
 
-   const { data, isLoading, error } = useFinancialSummary(month, year);
+   const { data, isLoading, error } = useFinancialSummary(+month, +year);
 
    if (isLoading) return <Spinner></Spinner>;
    if (error || !data) return <p>Error al cargar</p>;

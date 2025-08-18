@@ -17,7 +17,7 @@ export default function ExpensesView() {
    const [isOpen, setIsOpen] = useState(false);
 
    const now = new Date();
-   const [monthKey, setMonthKey] = useState(
+   const [dateKey, setDateKey] = useState(
       `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`
    );
 
@@ -43,8 +43,7 @@ export default function ExpensesView() {
       onSuccess: (data) => {
          toast.success(data);
          setIsOpen(false);
-         // refrescamos la query del mes seleccionado
-         queryClient.invalidateQueries({ queryKey: ["expenses", monthKey] });
+         queryClient.invalidateQueries({ queryKey: ["expenses", dateKey] });
          reset();
       },
       onError: (error: any) => {
@@ -60,7 +59,7 @@ export default function ExpensesView() {
       <>
          {/* Header */}
          <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <MonthYearPicker value={monthKey} onChange={setMonthKey} />
+            <MonthYearPicker value={dateKey} onChange={setDateKey} />
             <div className="text-center sm:text-left">
                <h1 className="text-4xl sm:text-6xl font-bold text-caribbean-green-600">
                   {page?.title}
@@ -82,7 +81,7 @@ export default function ExpensesView() {
          </div>
 
          {/* Lista filtrada por mes */}
-         <ExpenseList date={monthKey} />
+         <ExpenseList date={dateKey} />
 
          {/* Modal alta */}
          <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
