@@ -15,7 +15,7 @@ export default function DashboardView() {
                <Link
                   to={url}
                   key={title}
-                  className={`p-5 shadow-xl m-10 w-1/4 rounded-md bg-white border-l-4 ${borderColor} hover:scale-105 duration-300`}
+                  className={`p-5 shadow-xl m-5 lg:m-8 w-full md:w-3/4 lg:w-1/4 rounded-md bg-white border-l-4 ${borderColor} hover:scale-105 duration-300`}
                >
                   <h3
                      className={`text-3xl font-bold ${textColor} duration-150 flex items-center gap-3`}
