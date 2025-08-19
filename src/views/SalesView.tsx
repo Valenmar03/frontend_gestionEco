@@ -21,7 +21,9 @@ export default function SalesView() {
          <div className="mx-auto mb-10">
             <div className="grid gap-4 grid-cols-1 sm:grid-cols-[auto_1fr_auto] sm:items-center">
                <div className="order-2 sm:order-1 justify-self-start">
-                  <MonthYearPicker value={dateKey} onChange={setDateKey} />
+                  {(!isAddSale && !isDetail) && (
+                     <MonthYearPicker value={dateKey} onChange={setDateKey} />
+                  )}
                </div>
 
                <div className="order-1 sm:order-2 text-center sm:justify-self-center">
