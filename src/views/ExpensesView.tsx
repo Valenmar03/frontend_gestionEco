@@ -57,7 +57,7 @@ export default function ExpensesView() {
 
    return (
       <>
-         <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+         <div className="mb-10 flex gap-4 items-center justify-between">
             <MonthYearPicker value={dateKey} onChange={setDateKey} />
             <div className="text-center sm:text-left">
                <h1 className="text-4xl sm:text-6xl font-bold text-caribbean-green-600">
