@@ -56,7 +56,7 @@ export default function StockList({ data }: { data: Product[] }) {
                   <tr>
                      <th className="px-4 py-2">Producto</th>
                      <th className="px-4 py-2">Stock</th>
-                     <th className="px-4 py-2">Estado</th>
+                     <th className="px-4 py-2 hidden md:table-cell">Estado</th>
                      <th className="px-4 py-2">Acciones</th>
                   </tr>
                </thead>

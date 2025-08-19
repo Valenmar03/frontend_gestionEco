@@ -63,8 +63,8 @@ export default function StockManagmentView() {
 
    return (
       <>
-         <div className="grid grid-cols-3">
-            <div className=" col-span-1 col-start-2">
+         <div className="flex flex-col md:flex-row md:justify-end items-center gap-5">
+            <div className="mx-auto">
                <h1 className="text-center text-6xl font-bold text-orange-400">
                   {page.title}
                </h1>
@@ -72,7 +72,7 @@ export default function StockManagmentView() {
                   {page.description}
                </h2>
             </div>
-            <div className="col-span-1 col-start-3 my-auto ml-auto">
+            <div className="">
                <button
                   onClick={() => setIsOpen(true)}
                   className={`px-6 py-2 text-2xl bg-orange-400 text-white font-semibold rounded-lg hover:bg-orange-400/80 cursor-pointer duration-200 ${
