@@ -9,13 +9,13 @@ import { useOutletContext } from "react-router-dom";
 export default function SalesList() {
    const [search, setSearch] = useState("");
    const date = useOutletContext<String>();
-   const [ year, month ] = date.split("-")
+   const [year, month] = date.split("-");
 
    const { data, isError, isLoading } = useQuery({
       queryKey: ["sales", month],
       queryFn: () => getSalesByMonth(+month, +year),
    });
-   
+
    const filteredSales = useMemo(
       () =>
          (data ?? []).filter((sale) =>
@@ -29,17 +29,42 @@ export default function SalesList() {
    if (data)
       return (
          <>
-            <div className="flex items-center mb-2 divide-x-2 divide-gray-300 justify-end">
-               <input
-                  type="text"
-                  className=" bg-gray-200 p-3 rounded-l-md"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Busqueda por cliente"
-               />
-               <MagnifyingGlassIcon className="size-12 text-gray-500 bg-gray-200 p-2 rounded-r-md" />
+            {/* Search */}
+            <div className="mb-4">
+               <form
+                  role="search"
+                  className="flex w-full sm:w-auto sm:justify-end"
+                  onSubmit={(e) => e.preventDefault()}
+               >
+                  <div className="flex w-full sm:w-[360px]">
+                     <input
+                        type="text"
+                        className="w-full bg-gray-200 p-3 rounded-l-md placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-royal-purple-400"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        placeholder="Búsqueda por cliente"
+                     />
+                     <button
+                        type="submit"
+                        aria-label="Buscar"
+                        className="shrink-0 bg-gray-200 px-3 rounded-r-md hover:bg-gray-300 transition"
+                     >
+                        <MagnifyingGlassIcon className="size-6 text-gray-600" />
+                     </button>
+                  </div>
+               </form>
             </div>
-            <div className="grid grid-cols-4 gap-4 mt-10">
+
+            {/* Grid */}
+            <div
+               className="
+                  grid gap-4 mt-6
+                  grid-cols-1
+                  sm:grid-cols-2
+                  lg:grid-cols-3
+                  xl:grid-cols-4
+               "
+            >
                {filteredSales!.map((sale) => (
                   <SalesCard sale={sale} key={sale._id} />
                ))}
