@@ -63,10 +63,7 @@ export default function IndividualStockForm({
                id="stock"
                type="number"
                className="text-lg col-span-2 p-2"
-               {...register("remainingStock", {
-                  validate: (value) =>
-                     value > 0 || "El valor debe ser mayor a 0",
-               })}
+               {...register("remainingStock")}
             />
          </div>
          {errors.remainingStock && <p className="text-red-500">El stock debe ser mayor a 0</p>}
