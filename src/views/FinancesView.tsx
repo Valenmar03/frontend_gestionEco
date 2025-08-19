@@ -11,7 +11,7 @@ export default function FinancesView() {
    );
 
    return (
-      <div className="mb-10 max-w-5xl mx-auto px-4 overflow-x-hidden">
+      <div className="mb-10 mx-auto px-4 overflow-x-hidden">
          <div className="mb-8 flex flex-col-reverse sm:flex-row items-center sm:justify-between gap-4 w-full">
             <MonthYearPicker value={dateKey} onChange={setDateKey} />
             <div className="text-center">
