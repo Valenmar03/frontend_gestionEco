@@ -39,9 +39,9 @@ export default function SaleDetail() {
    if (sale) {
       return (
          <>
-            <div className=" w-4/5 mx-auto bg-white shadow-md rounded-xl p-8 mt-10">
-               <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-3xl font-bold text-royal-purple-700 flex gap-3 items-center">
+            <div className="w-full max-w-5xl mx-auto bg-white shadow-md rounded-xl p-4 sm:p-6 lg:p-8 mt-6">
+               <div className="flex flex-col sm:flex-row justify-between gap-2 sm:gap-4 items-start sm:items-center mb-6">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-royal-purple-700 flex gap-3 items-center">
                      Venta #{sale._id.slice(-6).toUpperCase()}
                      <TrashIcon
                         className="size-6 text-red-500 cursor-pointer hover:scale-110 transition"
@@ -53,37 +53,46 @@ export default function SaleDetail() {
                         }}
                      />
                   </h2>
-                  <p className="text-gray-500 text-sm">
+                  <p className="text-gray-500 text-sm sm:text-base">
                      Fecha: {formatDate(sale.createdAt)}
                   </p>
                </div>
 
                <div className="mb-6">
-                  <h2 className="text-xl font-semibold text-royal-purple-600 mb-2">
+                  <h3 className="text-lg sm:text-xl font-semibold text-royal-purple-600 mb-1">
                      Cliente
-                  </h2>
-                  <p className="text-gray-700 text-3xl font-bold">
+                  </h3>
+                  <p className="text-gray-700 text-2xl sm:text-3xl font-bold break-words">
                      {sale.client.name}
                   </p>
                </div>
 
                <div className="mb-6">
-                  <h2 className="text-xl font-semibold text-royal-purple-600 mb-2">
+                  <h3 className="text-lg sm:text-xl font-semibold text-royal-purple-600 mb-2">
                      Productos
-                  </h2>
+                  </h3>
                   <div className="border border-gray-200 rounded-lg overflow-hidden">
                      {sale.products.map((prod) => (
                         <div
                            key={prod.product}
-                           className="grid grid-cols-3 px-4 py-2 border-b last:border-b-0 border-gray-300"
+                           className="
+                              grid gap-2 items-center
+                              grid-cols-2 sm:grid-cols-3
+                              px-3 sm:px-4 py-2 border-b last:border-b-0 border-gray-300
+                           "
                         >
-                           <p className="font-medium col-span-1">
+                           {/* Nombre */}
+                           <p className="font-medium col-span-2 sm:col-span-1">
                               {prod.product}
                            </p>
-                           <p className="col-span-1 mx-auto">
+
+                           {/* Cantidad x Precio */}
+                           <p className="text-center sm:text-left">
                               {prod.quantity} x {formatCurrency(prod.unitPrice)}
                            </p>
-                           <p className="font-semibold col-span-1 ml-auto">
+
+                           {/* Total por renglón */}
+                           <p className="font-semibold text-right">
                               {formatCurrency(prod.quantity * prod.unitPrice)}
                            </p>
                         </div>
@@ -91,28 +100,24 @@ export default function SaleDetail() {
                   </div>
                </div>
 
-               <div className="grid grid-cols-5 gap-4 text-right text-royal-purple-700 font-medium text-lg">
-                  <p className="col-span-1 col-start-4 text-left ">
-                     Subtotal:{" "}
+               <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-2 text-royal-purple-700 font-medium text-base sm:text-lg">
+                  <p className="text-left">Subtotal:</p>
+                  <p className="text-right font-bold">
+                     {formatCurrency(sale.subtotal)}
                   </p>
-                  <p className="font-bold">{formatCurrency(sale.subtotal)}</p>
 
-                  <p className="col-span-1 col-start-4 text-left ">
-                     Descuento:{" "}
-                  </p>
-                  <span className="font-bold">
+                  <p className="text-left">Descuento:</p>
+                  <p className="text-right font-bold">
                      {formatCurrency(sale.discount)}
-                  </span>
+                  </p>
 
-                  <p className="col-span-1 col-start-4 text-left ">IVA: </p>
-                  <p className="font-bold">
+                  <p className="text-left">IVA:</p>
+                  <p className="text-right font-bold">
                      {sale.iva ? "Incluido" : "No incluido"}
                   </p>
 
-                  <p className="col-span-1 col-start-4 text-left ">
-                     Tipo de precio:
-                  </p>
-                  <p className="font-bold">
+                  <p className="text-left">Tipo de precio:</p>
+                  <p className="text-right font-bold">
                      {sale.type === "wholesale"
                         ? "Mayorista"
                         : sale.type === "retail"
@@ -120,30 +125,31 @@ export default function SaleDetail() {
                         : "Mercado Libre"}
                   </p>
 
-                  <div className="col-span-5 border-t pt-5 flex flex-col md:flex-row justify-between items-center gap-4">
+                  <div className="md:col-span-4 col-span-2 border-t mt-2 pt-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
                      <PDFDownloadLink
                         document={<Invoice sale={sale} />}
                         fileName={`Factura_${sale._id}.pdf`}
-                        className="flex items-center justify-center gap-3 px-5 py-3 bg-royal-purple-600 hover:bg-royal-purple-700 text-white text-lg font-medium rounded-md transition duration-200"
+                        className="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 bg-royal-purple-600 hover:bg-royal-purple-700 text-white text-base sm:text-lg font-medium rounded-md transition"
                      >
                         {({ loading }) =>
                            loading ? (
                               "Generando PDF..."
                            ) : (
                               <>
-                                 <PrinterIcon className="size-5" />
-                                 Descargar Presupuesto
+                                 <PrinterIcon className="size-5" /> Descargar
+                                 Presupuesto
                               </>
                            )
                         }
                      </PDFDownloadLink>
 
-                     <p className="text-xl font-bold text-center md:text-right">
+                     <p className="text-lg sm:text-xl font-bold text-center md:text-right">
                         Total: {formatCurrency(sale.total)}
                      </p>
                   </div>
                </div>
             </div>
+
             <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
                {confirmDelete && (
                   <DeleteSaleModal sale={sale} setIsOpen={setIsOpen} />
