@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 export default function AuthLayout() {
    return (
       <>
-         <header className="p-5 bg-white mb-3">
+         <header className="p-5 bg-vida-loca-200 mb-3">
             <div className="max-w-4/5 mx-auto">
                <img
                   src="/LogoTexto.png"
