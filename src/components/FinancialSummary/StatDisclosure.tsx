@@ -15,7 +15,7 @@ type StatDisclosureProps = {
    title: string;
    value: number;
    tone?: Tone;
-   children: ReactNode; // contenido del “detalle”
+   children: ReactNode;
    format?: boolean;
 };
 
@@ -27,23 +27,21 @@ export default function StatDisclosure({
    format = true,
 }: StatDisclosureProps) {
    const [open, setOpen] = useState(false);
-   const toggle = () => setOpen((s) => !s);
 
    return (
       <div
          className={`rounded-xl shadow border border-black/5 ${toneMap[tone]}`}
       >
-         {/* Header */}
          <button
             type="button"
-            onClick={toggle}
+            onClick={() => setOpen((s) => !s)}
             className="w-full flex items-center justify-between gap-3 px-4 py-3"
             aria-expanded={open}
             aria-controls={`panel-${title}`}
          >
             <div className="text-left">
                <p className="text-lg font-medium">{title}</p>
-               <p className="text-3xl font-bold leading-none mt-1">
+               <p className="text-2xl sm:text-3xl font-bold leading-none mt-1">
                   {format ? formatCurrency(value) : value}
                </p>
             </div>
@@ -55,14 +53,13 @@ export default function StatDisclosure({
             />
          </button>
 
-         {/* Panel (animado con max-height) */}
          <div
             id={`panel-${title}`}
             className={`overflow-hidden transition-all duration-300 ${
                open ? "max-h-[540px]" : "max-h-0"
             }`}
          >
-            <div className="px-4 pb-4 pt-0">
+            <div className="px-4 pb-4">
                <div className="rounded-lg bg-white/70 backdrop-blur p-3 text-gray-800">
                   {children}
                </div>

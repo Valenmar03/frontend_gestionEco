@@ -11,8 +11,8 @@ export default function FinancesView() {
    );
 
    return (
-      <div className="relative mb-10 ">
-         <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between w-6/7">
+      <div className="mb-10 max-w-5xl mx-auto px-4 overflow-x-hidden">
+         <div className="mb-8 flex flex-col-reverse sm:flex-row items-center sm:justify-between gap-4 w-full">
             <MonthYearPicker value={dateKey} onChange={setDateKey} />
             <div className="text-center">
                <h1 className="text-4xl sm:text-6xl font-bold text-monza-500">
@@ -22,11 +22,10 @@ export default function FinancesView() {
                   {page?.description}
                </h2>
             </div>
-            <div className="flex items-center gap-3 self-end sm:self-auto">
-               
-            </div>
+            <div className="flex items-center gap-3 self-end sm:self-auto" />
          </div>
-         <FinancialSummary date={dateKey}/>
+
+         <FinancialSummary date={dateKey} />
       </div>
    );
 }
