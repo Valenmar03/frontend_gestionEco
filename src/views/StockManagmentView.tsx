@@ -110,7 +110,7 @@ export default function StockManagmentView() {
                <MagnifyingGlassIcon className="size-12 text-gray-500 bg-gray-200 p-2 rounded-r-md" />
             </div>
             <form
-               className=" mt-3 grid grid-cols-2 gap-3"
+               className=" mt-3 flex flex-col sm:grid sm:grid-cols-2 gap-3"
                onSubmit={handleSubmit(handleForm)}
                noValidate
             >

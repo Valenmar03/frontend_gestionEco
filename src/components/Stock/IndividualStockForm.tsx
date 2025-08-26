@@ -51,10 +51,10 @@ export default function IndividualStockForm({
          noValidate
          onSubmit={handleSubmit(handleForm)}
       >
-         <div className="grid grid-cols-8 bg-gray-200 rounded">
+         <div className="bg-gray-100 rounded mt-3 grid grid-cols-12 w-full items-center">
             <label
                htmlFor="stock"
-               className="text-lg col-span-6 border-b-2 border-gray-200 p-2"
+               className="text-lg col-span-10 border-r-2 border-gray-400 p-2"
             >
                {product.type} x {product.weight}{" "}
                {product.haveWeight ? "Kg." : "mL."}
