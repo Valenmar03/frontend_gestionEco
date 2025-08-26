@@ -11,7 +11,7 @@ export default function ClientsView() {
 
    return (
       <>
-         <div className="grid grid-cols-3">
+         <div className="flex flex-col gap-3  md:grid md:grid-cols-3">
             <div className=" col-span-1 col-start-2">
                <h1 className="text-center text-6xl font-bold text-flirt-600">
                   {page.title}
@@ -20,7 +20,7 @@ export default function ClientsView() {
                   {page.description}
                </h2>
             </div>
-            <div className="col-span-1 col-start-3 my-auto ml-auto">
+            <div className="col-span-1 col-start-3 my-auto mx-auto md:ml-auto">
                <button
                   onClick={() => setIsOpen(true)}
                   className={`px-6 py-2 text-2xl bg-flirt-600 text-white font-semibold rounded-lg hover:bg-flirt-600/80 cursor-pointer duration-200`}

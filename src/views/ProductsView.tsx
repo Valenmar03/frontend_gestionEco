@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 import { createProduct } from "../api/productAPI";
 import ModalComponent from "../components/ModalComponent";
 import ProductForm from "../components/Products/ProductForm";
@@ -58,7 +58,7 @@ export default function ProductsView() {
 
    return (
       <>
-         <div className="relative mb-10">
+         <div className="flex flex-col gap-3 md:relative mb-10">
             <div className="text-center">
                <h1 className="text-4xl sm:text-6xl font-bold text-vida-loca-600">
                   {page?.title}
@@ -70,10 +70,10 @@ export default function ProductsView() {
 
             <button
                onClick={() => setIsOpen(true)}
-               className="absolute right-0 top-1/2 -translate-y-1/2 px-5 py-2 bg-vida-loca-500 rounded-lg hover:bg-vida-loca-500/80 transition duration-200"
+               className="md:absolute md:right-0 md:top-1/2 md:-translate-y-1/2 px-5 py-2 bg-vida-loca-500 rounded-lg hover:bg-vida-loca-500/80 transition duration-200 text-xl text-white"
                title="Agregar producto"
             >
-               <PlusIcon className="size-10 text-white" />
+               Agregar Producto
             </button>
          </div>
 

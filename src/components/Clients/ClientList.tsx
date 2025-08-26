@@ -65,29 +65,31 @@ export default function ClientList() {
             />
             <MagnifyingGlassIcon className="size-12 text-gray-500 bg-gray-200 p-2 rounded-r-md" />
          </div>
-         <table className="min-w-[700px] sm:min-w-full text-lg text-left mt-4">
-            <thead className="bg-gray-100 text-xl">
-               <tr>
-                  <th className="px-4 py-2">Cliente</th>
-                  <th className="px-4 py-2">Telefono</th>
-                  <th className="px-4 py-2">Direccion</th>
-                  <th className="px-4 py-2">CUIL</th>
-                  <th className="px-4 py-2">CP</th>
-                  <th className="px-4 py-2">Provincia</th>
-                  <th className="px-4 py-2">Ciudad</th>
-                  <th className="px-4 py-2">Acciones</th>
-               </tr>
-            </thead>
-            <tbody>
-               {data ? (
-                  filteredClients!.map((client) => (
-                     <ClientCard key={client._id} client={client} />
-                  ))
-               ) : (
-                  <p>No hay clientes</p>
-               )}
-            </tbody>
-         </table>
+         <div className="w-full overflow-x-auto">
+            <table className="min-w-[700px] sm:min-w-full text-lg text-left mt-4">
+               <thead className="bg-gray-100 text-xl">
+                  <tr>
+                     <th className="px-4 py-2">Cliente</th>
+                     <th className="px-4 py-2">Telefono</th>
+                     <th className="px-4 py-2">Direccion</th>
+                     <th className="px-4 py-2">CUIL</th>
+                     <th className="px-4 py-2">CP</th>
+                     <th className="px-4 py-2">Provincia</th>
+                     <th className="px-4 py-2">Ciudad</th>
+                     <th className="px-4 py-2">Acciones</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {data ? (
+                     filteredClients!.map((client) => (
+                        <ClientCard key={client._id} client={client} />
+                     ))
+                  ) : (
+                     <p>No hay clientes</p>
+                  )}
+               </tbody>
+            </table>
+         </div>
          <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen}>
             {clientId && (
                <>

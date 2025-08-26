@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { pages } from "../data";
 import ModalComponent from "../components/ModalComponent";
-import { PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 import ExpenseList from "../components/Expenses/ExpenseList";
 import ExpenseForm from "../components/Expenses/ExpenseForm";
 import { toast } from "react-toastify";
@@ -57,25 +57,28 @@ export default function ExpensesView() {
 
    return (
       <>
-         <div className="mb-10 flex gap-4 items-center justify-between">
-            <MonthYearPicker value={dateKey} onChange={setDateKey} />
-            <div className="text-center sm:text-left">
+         <div className="mb-10 flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
+            <div className="order-1 sm:order-2 text-center sm:text-left">
                <h1 className="text-4xl sm:text-6xl font-bold text-caribbean-green-600">
                   {page?.title}
                </h1>
-               <h2 className="text-xl sm:text-2xl mt-2 text-caribbean-green-600/80">
+               <h2 className="text-xl sm:text-2xl mt-2 items text-caribbean-green-600/80">
                   {page?.description}
                </h2>
             </div>
 
-            <div className="flex items-center gap-3 self-end sm:self-auto">
+            <div className="order-2 sm:order-3 self-center sm:self-auto">
                <button
                   onClick={() => setIsOpen(true)}
-                  className="px-5 py-2 bg-caribbean-green-500 rounded-lg hover:bg-caribbean-green-500/80 transition duration-200"
+                  className="px-5 py-2 bg-caribbean-green-500 rounded-lg text-xl text-white hover:bg-caribbean-green-500/80 transition duration-200"
                   title="Agregar gasto"
                >
-                  <PlusIcon className="size-10 text-white" />
+                  Agregar Gasto
                </button>
+            </div>
+
+            <div className="order-3 sm:order-1 mx-auto sm:mx-0 sm:w-auto">
+               <MonthYearPicker value={dateKey} onChange={setDateKey} />
             </div>
          </div>
 
