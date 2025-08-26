@@ -64,11 +64,14 @@ export default function Layout() {
                <div className="flex items-center gap-4 sm:gap-6">
                   <Bars3Icon
                      className="size-10 text-vida-loca-800 cursor-pointer hover:bg-vida-loca-300 p-1 rounded-md"
-                     onClick={() =>
-                        isMobile
-                           ? setIsMobileOpen((v) => !v)
-                           : setIsCollapsed((v) => !v)
-                     }
+                     onClick={() => {
+                        if (isMobile) {
+                           setIsMobileOpen((v) => !v);
+                           setIsCollapsed(false);
+                        } else {
+                           setIsCollapsed((v) => !v);
+                        }
+                     }}
                   />
                   <Link to="/">
                      <img
