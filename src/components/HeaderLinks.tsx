@@ -16,7 +16,7 @@ export default function HeaderLinks({ title, url, icon: Icon }: HeaderLinksProps
                ${isFocus ? "bg-vida-loca-500" : ""}
          `}
       >
-         <Icon className="w-5 h-5" />
+         <Icon className="size-6" />
          {title}
       </Link>
    );
