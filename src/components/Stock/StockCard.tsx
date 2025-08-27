@@ -29,7 +29,7 @@ export default function StockCard(product: Product) {
          </td>
          <td className="px-4 py-3">
             <button
-               className="w-full md:w-auto text-orange-700 font-semibold text-base md:text-lg bg-orange-400/70 px-3 py-2 rounded-md hover:scale-105 transition duration-200"
+               className="w-full md:w-auto text-orange-700 font-semibold text-base md:text-lg bg-orange-400/70 px-3 py-2 rounded-md hover:scale-105 transition duration-200 cursor-pointer"
                onClick={() => {
                   navigate(location.pathname + `?productId=${_id}`);
                }}

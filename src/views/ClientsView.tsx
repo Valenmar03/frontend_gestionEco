@@ -23,7 +23,7 @@ export default function ClientsView() {
             <div className="col-span-1 col-start-3 my-auto mx-auto md:ml-auto">
                <button
                   onClick={() => setIsOpen(true)}
-                  className={`px-6 py-2 text-2xl bg-flirt-600 text-white font-semibold rounded-lg hover:bg-flirt-600/80 cursor-pointer duration-200`}
+                  className={`px-6 py-2 text-2xl bg-flirt-500 text-flirt-800 font-semibold rounded-lg hover:bg-flirt-500/80 cursor-pointer duration-200`}
                >
                   Añadir Cliente
                </button>

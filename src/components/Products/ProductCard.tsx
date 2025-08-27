@@ -38,7 +38,7 @@ export default function ProductCard(product: Product) {
          <td className="px-4 py-3">
             <div className="flex justify-around gap-2  items-center">
                <button
-                  className="bg-vida-loca-400 hover:bg-vida-loca-500 text-white font-semibold px-4 py-2 rounded transition duration-200 cursor-pointer"
+                  className="bg-vida-loca-400 hover:scale-105 transition duration-200 text-vida-loca-700 font-semibold px-4 py-2 rounded cursor-pointer"
                   onClick={() =>
                      navigate(`${location.pathname}?productId=${product._id}`)
                   }

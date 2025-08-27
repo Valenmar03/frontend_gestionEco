@@ -35,7 +35,7 @@ export default function StatDisclosure({
          <button
             type="button"
             onClick={() => setOpen((s) => !s)}
-            className="w-full flex items-center justify-between gap-3 px-4 py-3"
+            className="w-full flex items-center justify-between gap-3 px-4 py-3 cursor-pointer"
             aria-expanded={open}
             aria-controls={`panel-${title}`}
          >

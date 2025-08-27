@@ -70,7 +70,7 @@ export default function ExpensesView() {
             <div className="order-2 sm:order-3 self-center sm:self-auto">
                <button
                   onClick={() => setIsOpen(true)}
-                  className="px-5 py-2 bg-caribbean-green-500 rounded-lg text-xl text-white hover:bg-caribbean-green-500/80 transition duration-200"
+                  className="px-5 py-2 bg-caribbean-green-400 rounded-lg text-xl text-caribbean-green-800 font-bold hover:bg-caribbean-green-400/80 transition duration-200 cursor-pointer"
                   title="Agregar gasto"
                >
                   Agregar Gasto

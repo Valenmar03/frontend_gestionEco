@@ -27,7 +27,7 @@ export default function ExpenseRow(expense: Expense) {
          <td className="px-4 py-3">
             <div className="flex justify-around gap-2  items-center">
                <button
-                  className="bg-caribbean-green-500 hover:bg-caribbean-green-600 text-white font-semibold px-4 py-2 rounded transition duration-200 cursor-pointer"
+                  className="bg-caribbean-green-400 hover:scale-105 text-caribbean-green-800 font-semibold px-4 py-2 rounded transition duration-200 cursor-pointer"
                   onClick={() =>
                      navigate(`${location.pathname}?expenseId=${expense._id}`)
                   }

@@ -70,7 +70,7 @@ export default function ProductsView() {
 
             <button
                onClick={() => setIsOpen(true)}
-               className="md:absolute md:right-0 md:top-1/2 md:-translate-y-1/2 px-5 py-2 bg-vida-loca-500 rounded-lg hover:bg-vida-loca-500/80 transition duration-200 text-xl text-white"
+               className="md:absolute md:right-0 md:top-1/2 md:-translate-y-1/2 px-5 py-2 text-vida-loca-700 bg-vida-loca-400 rounded-lg hover:bg-vida-loca-400/80 transition duration-200 text-xl font-bold cursor-pointer"
                title="Agregar producto"
             >
                Agregar Producto

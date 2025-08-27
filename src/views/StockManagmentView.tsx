@@ -75,7 +75,7 @@ export default function StockManagmentView() {
             <div className="">
                <button
                   onClick={() => setIsOpen(true)}
-                  className={`px-6 py-2 text-2xl bg-orange-400 text-white font-semibold rounded-lg hover:bg-orange-400/80 cursor-pointer duration-200 ${
+                  className={`px-6 py-2 text-2xl bg-orange-400/70 text-orange-700 font-semibold rounded-lg hover:bg-orange-400/80 cursor-pointer duration-200 ${
                      isLoading || (isError && "disabled disabled:opacity-55")
                   }`}
                >
