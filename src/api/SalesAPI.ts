@@ -47,6 +47,33 @@ export async function getSalesByMonth(month: number, year: number) {
    }
 }
 
+export type saleByTypeTotal = {
+  wholesale: {
+    qty: number,
+    total: number
+  },
+  retail: {
+    qty: number,
+    total: number
+  },
+  mercadoLibre: {
+    qty: number,
+    total: number
+  }
+}
+
+export async function getSalesByType(month: number, year: number) {
+   try {
+      const monthString = String(month).padStart(2, "0");
+      const { data } = await api<saleByTypeTotal>(`/sales/type?month=${year}-${monthString}`);
+      return data;
+   } catch (error) {
+      if (isAxiosError(error) && error.response) {
+         throw new Error(error.response.data);
+      }
+   }
+}
+
 export async function deleteSale({ id }: { id: string }) {
    try {
       const { data } = await api.delete(`/sales/${id}`);

@@ -16,7 +16,10 @@ export default function FinancialSummary({ date }: { date: string }) {
 
    const { totalIngresos, totalGastos, gananciaNeta, sales, expenses } = data;
 
-   const cantVentas = sales!.length;
+   const cantVentas = Object.values(sales!).reduce(
+      (acc, { qty }) => acc + qty,
+      0
+   );
 
    return (
       <div className="grid grid-cols-1 lg:grid lg:grid-cols-2 xl:grid-cols-3 gap-5 mt-6">
@@ -25,7 +28,11 @@ export default function FinancialSummary({ date }: { date: string }) {
             value={totalIngresos}
             tone="green"
          >
-            <SalesList sales={sales!} />
+            {cantVentas === 0 ? (
+               <p className="text-sm">No hay ventas este mes.</p>
+            ) : (
+               <SalesList sales={sales!} />
+            )}
          </StatDisclosure>
 
          <StatDisclosure
