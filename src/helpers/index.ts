@@ -26,5 +26,6 @@ const MONTHS = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov
 
 export function formatYMD(ymd: string) {
   const [y, m, d] = ymd.split("-");
+  void y;
   return `${d.padStart(2, "0")} ${MONTHS[Number(m) - 1]}`;
 }
