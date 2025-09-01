@@ -20,7 +20,7 @@ export default function MasiveStockForm({
                   <div className="bg-gray-100 rounded mt-3 grid grid-cols-12 w-full items-center">
                      <label
                         htmlFor={inputId}
-                        className="text-lg col-span-10 border-r-2 border-gray-400 p-2 whitespace-normal break-words"
+                        className="text-lg col-span-9 border-r-2 border-gray-400 p-2 whitespace-normal break-words"
                      >
                         {product.type} x {product.weight}{" "}
                         {product.haveWeight ? "Kg." : "mL."}
@@ -30,7 +30,7 @@ export default function MasiveStockForm({
                         id={inputId}
                         type="number"
                         defaultValue={0}
-                        className="text-lg outline-0 p-2 col-span-2 w-full min-w-0 text-center"
+                        className="text-lg outline-0 p-2 col-span-3 w-full min-w-0 text-center"
                         {...register(product._id, {
                            validate: (value) =>
                               value >= 0 || "El valor debe ser mayor a 0",

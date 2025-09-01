@@ -54,7 +54,7 @@ export default function IndividualStockForm({
          <div className="bg-gray-100 rounded mt-3 grid grid-cols-12 w-full items-center">
             <label
                htmlFor="stock"
-               className="text-lg col-span-10 border-r-2 border-gray-400 p-2"
+               className="text-lg col-span-9 border-r-2 border-gray-400 p-2"
             >
                {product.type} x {product.weight}{" "}
                {product.haveWeight ? "Kg." : "mL."}
@@ -62,7 +62,7 @@ export default function IndividualStockForm({
             <input
                id="stock"
                type="number"
-               className="text-lg col-span-2 p-2"
+               className="text-lg col-span-3 p-2"
                {...register("remainingStock")}
             />
          </div>
