@@ -26,7 +26,7 @@ export default function FinancialSummary({ date }: { date: string }) {
          <StatDisclosure
             title="Ingresos Brutos"
             value={totalIngresosBrutos}
-            tone="green"
+            tone="blue"
          >
             {cantVentas === 0 ? (
                <p className="text-sm">No hay ventas este mes.</p>
