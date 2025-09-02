@@ -29,9 +29,14 @@ export default function SalesCard({ sale }: { sale: Sale }) {
                   </div>
                ))}
             </div>
-            <p className="text-2xl font-bold text-royal-purple-600 mt-4">
-               Total: {formatCurrency(sale.total)}
-            </p>
+            <div>
+               <p className="text-2xl font-bold text-royal-purple-600 mt-4">
+                  Total Neto: {formatCurrency(sale.total.net)}
+               </p>
+               <p className="text-2xl font-bold text-royal-purple-600">
+                  Total Bruto: {formatCurrency(sale.total.gross)}
+               </p>
+            </div>
          </Link>
       </>
    );

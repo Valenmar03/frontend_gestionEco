@@ -7,24 +7,26 @@ export function useFinancialSummary(month: number, year: number) {
   return useQuery({
     queryKey: ["financialSummary", month, year],
     queryFn: async () => {
-      const [sales, expenses, expensesData] = await Promise.all([
+      const [salesByType, expenses, expensesData] = await Promise.all([
         getSalesByType(month, year),
         getExpensesByMonth(month, year),
         getExpensesSummary(month, year)
       ]);
       
-      const totalIngresos = Object.values(sales!).reduce((acc, { total }) => acc + total, 0);
+      const totalIngresosBrutos = Object.values(salesByType!).reduce((acc, { total }) => acc + total.gross, 0);
+      const totalIngresosNetos = Object.values(salesByType!).reduce((acc, { total }) => acc + total.net, 0);
 
       const totalGastos = expensesData.totalGastos;
-      const gananciaNeta = totalIngresos - totalGastos;
+      const gananciaNeta = totalIngresosNetos - totalGastos;
 
       return {
         month,
         year,
-        totalIngresos,
+        totalIngresosBrutos,
+        totalIngresosNetos,
         totalGastos,
         gananciaNeta,
-        sales,
+        salesByType,
         expenses
       };
     },

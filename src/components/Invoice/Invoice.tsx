@@ -140,17 +140,17 @@ export default function InvoicePDF({ sale }: { sale: Sale }) {
             <View style={styles.totalSection}>
                <View style={styles.totalRow}>
                   <Text>SUBTOTAL</Text>
-                  <Text>{formatCurrency(sale.subtotal)}</Text>
+                  <Text>{formatCurrency(sale.subtotal.gross)}</Text>
                </View>
                <View style={styles.totalRow}>
                   <Text>IVA 21%</Text>
                   <Text>
-                     {sale.iva ? formatCurrency(sale.subtotal * 1.21) : ""}
+                     {sale.iva ? formatCurrency(sale.subtotal.gross * 1.21) : ""}
                   </Text>
                </View>
                <View style={[styles.totalRow, { borderBottomWidth: 0 }]}>
                   <Text style={styles.bold}>TOTAL</Text>
-                  <Text style={styles.bold}>{formatCurrency(sale.total)}</Text>
+                  <Text style={styles.bold}>{formatCurrency(sale.total.gross)}</Text>
                </View>
             </View>
 

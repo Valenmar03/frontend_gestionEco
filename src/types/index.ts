@@ -83,8 +83,14 @@ export const saleSchema = z.object({
     products: z.array(saleProductSchema),
     iva: z.boolean(),
     discount: z.number(),
-    subtotal: z.number(),
-    total: z.number(),
+    subtotal: z.object({
+        gross: z.number(),
+        net: z.number()
+    }),
+    total: z.object({
+        gross: z.number(),
+        net: z.number()
+    }),    
     type: saleTypeSchema,
     createdAt: z.string(),
     updatedAt: z.string(),

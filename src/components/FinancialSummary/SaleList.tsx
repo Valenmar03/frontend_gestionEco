@@ -1,7 +1,7 @@
 import { saleByTypeTotal } from "../../api/SalesAPI";
 import { formatCurrency } from "../../helpers";
 
-export function SalesList({ sales }: { sales: saleByTypeTotal }) {
+export function SalesList({ sales, type }: { sales: saleByTypeTotal, type: "gross" | "net" }) {
 
    return (
       <div className="overflow-x-auto">
@@ -20,7 +20,7 @@ export function SalesList({ sales }: { sales: saleByTypeTotal }) {
                         </td>
                         <td className="py-2 pr-4">{sales.wholesale.qty}</td>
                         <td className="py-2 pr-0 text-right font-semibold">
-                           {formatCurrency(sales.wholesale.total)}
+                           {formatCurrency(sales.wholesale.total[type])}
                         </td>
                      </tr>
                      <tr key="retail" className="border-t border-gray-200">
@@ -29,7 +29,7 @@ export function SalesList({ sales }: { sales: saleByTypeTotal }) {
                         </td>
                         <td className="py-2 pr-4">{sales.retail.qty}</td>
                         <td className="py-2 pr-0 text-right font-semibold">
-                           {formatCurrency(sales.retail.total)}
+                           {formatCurrency(sales.retail.total[type])}
                         </td>
                      </tr>
                      <tr key="mercadoLibre" className="border-t border-gray-200">
@@ -38,7 +38,7 @@ export function SalesList({ sales }: { sales: saleByTypeTotal }) {
                         </td>
                         <td className="py-2 pr-4">{sales.mercadoLibre.qty}</td>
                         <td className="py-2 pr-0 text-right font-semibold">
-                           {formatCurrency(sales.mercadoLibre.total)}
+                           {formatCurrency(sales.mercadoLibre.total[type])}
                         </td>
                      </tr>
             </tbody>

@@ -84,7 +84,6 @@ export default function SalesForm() {
         px-4 py-5 sm:px-6 sm:py-7 lg:px-10 lg:py-10
       "
     >
-      {/* FILA 1: Campos (izq) */}
       <div className="md:col-span-12">
         <SalesFormFields
           setClient={setClient}
@@ -95,10 +94,8 @@ export default function SalesForm() {
         />
       </div>
 
-      {/* FILA 1: (espacio para que IVA/DTO/Tipo queden a la derecha) */}
       <div className="md:col-span-6" />
 
-      {/* FILA 2: Productos (seleccionados / agregar) */}
       <div className="md:col-span-12">
         <SalesFormProds
           prodArray={prodArray}
@@ -108,7 +105,6 @@ export default function SalesForm() {
         />
       </div>
 
-      {/* FILA 3: Totales (izq) */}
       <div className="md:col-span-6">
         <aside className="bg-gray-100 p-4 rounded-lg">
           <p className="text-lg sm:text-xl">
@@ -123,7 +119,6 @@ export default function SalesForm() {
         </aside>
       </div>
 
-      {/* FILA 3: CTA (der) */}
       <div className="md:col-span-6 flex md:justify-end items-center">
         <input
           type="submit"
@@ -134,6 +129,7 @@ export default function SalesForm() {
             bg-royal-purple-600 text-white font-semibold
             px-6 sm:px-10 py-3 rounded-md
             hover:bg-royal-purple-500 transition
+            cursor-pointer
           "
         />
       </div>

@@ -14,9 +14,9 @@ export default function FinancialSummary({ date }: { date: string }) {
    if (isLoading) return <Spinner></Spinner>;
    if (error || !data) return <p>Error al cargar</p>;
 
-   const { totalIngresos, totalGastos, gananciaNeta, sales, expenses } = data;
+   const { totalIngresosBrutos, totalIngresosNetos, totalGastos, gananciaNeta, salesByType, expenses } = data;
 
-   const cantVentas = Object.values(sales!).reduce(
+   const cantVentas = Object.values(salesByType!).reduce(
       (acc, { qty }) => acc + qty,
       0
    );
@@ -24,14 +24,26 @@ export default function FinancialSummary({ date }: { date: string }) {
    return (
       <div className="grid grid-cols-1 lg:grid lg:grid-cols-2 xl:grid-cols-3 gap-5 mt-6">
          <StatDisclosure
-            title="Ingresos Totales"
-            value={totalIngresos}
+            title="Ingresos Brutos"
+            value={totalIngresosBrutos}
             tone="green"
          >
             {cantVentas === 0 ? (
                <p className="text-sm">No hay ventas este mes.</p>
             ) : (
-               <SalesList sales={sales!} />
+               <SalesList sales={salesByType!} type="gross" />
+            )}
+         </StatDisclosure>
+
+         <StatDisclosure
+            title="Ingresos Netos"
+            value={totalIngresosNetos}
+            tone="green"
+         >
+            {cantVentas === 0 ? (
+               <p className="text-sm">No hay ventas este mes.</p>
+            ) : (
+               <SalesList sales={salesByType!} type="net" />
             )}
          </StatDisclosure>
 
@@ -51,7 +63,7 @@ export default function FinancialSummary({ date }: { date: string }) {
             <div className="space-y-1">
                <p>
                   <span className="font-semibold">Ingresos:</span>{" "}
-                  {formatCurrency(totalIngresos)}
+                  {formatCurrency(totalIngresosBrutos)}
                </p>
                <p>
                   <span className="font-semibold">Gastos:</span>{" "}
@@ -78,7 +90,7 @@ export default function FinancialSummary({ date }: { date: string }) {
                   Ticket promedio:{" "}
                   <b>
                      {formatCurrency(
-                        cantVentas ? totalIngresos / cantVentas : 0
+                        cantVentas ? totalIngresosBrutos / cantVentas : 0
                      )}
                   </b>
                </li>

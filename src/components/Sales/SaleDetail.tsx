@@ -103,7 +103,7 @@ export default function SaleDetail() {
                <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-2 text-royal-purple-700 font-medium text-base sm:text-lg">
                   <p className="text-left">Subtotal:</p>
                   <p className="text-right font-bold">
-                     {formatCurrency(sale.subtotal)}
+                     {formatCurrency(sale.subtotal.gross)}
                   </p>
 
                   <p className="text-left">Descuento:</p>
@@ -125,7 +125,7 @@ export default function SaleDetail() {
                         : "Mercado Libre"}
                   </p>
 
-                  <div className="md:col-span-4 col-span-2 border-t mt-2 pt-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+                  <div className="md:col-span-4 col-span-2 border-t mt-2 pt-4 flex flex-col-reverse md:flex-row items-stretch md:items-center justify-between gap-3">
                      <PDFDownloadLink
                         document={<Invoice sale={sale} />}
                         fileName={`Factura_${sale._id}.pdf`}
@@ -143,9 +143,14 @@ export default function SaleDetail() {
                         }
                      </PDFDownloadLink>
 
-                     <p className="text-lg sm:text-xl font-bold text-center md:text-right">
-                        Total: {formatCurrency(sale.total)}
-                     </p>
+                     <div>
+                        <p className="text-lg sm:text-xl font-bold text-center md:text-right">
+                           Total Neto: {formatCurrency(sale.total.gross)}
+                        </p>
+                        <p className="text-lg sm:text-xl font-bold text-center md:text-right">
+                           Total Bruto: {formatCurrency(sale.total.gross)}
+                        </p>
+                     </div>
                   </div>
                </div>
             </div>
