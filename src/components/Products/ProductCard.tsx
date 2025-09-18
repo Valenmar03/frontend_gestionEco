@@ -8,7 +8,7 @@ export default function ProductCard(product: Product) {
    const location = useLocation();
 
    return (
-      <tr className="border-b border-gray-300">
+      <tr className="border-b border-gray-300 odd:bg-white even:bg-vida-loca-100">
          <td className="px-4 py-3  whitespace-nowrap">
             {product.type} x {product.weight}{" "}
             {product.haveWeight ? "Kg." : "mL."}

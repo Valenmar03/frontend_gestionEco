@@ -9,7 +9,7 @@ export default function ClientCard({ client }: ClientCardProps) {
    const navigate = useNavigate();
 
    return (
-      <tr className="border-b border-gray-300">
+      <tr className="border-b border-gray-300 odd:bg-white even:bg-flirt-100">
          <td className="px-4 py-3  whitespace-nowrap">{client.name}</td>
          <td className="px-4 py-3  whitespace-nowrap">{client.phoneNumber}</td>
          <td className="px-4 py-3  whitespace-nowrap">{client.address}</td>

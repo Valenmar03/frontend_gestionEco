@@ -8,7 +8,7 @@ export default function ExpenseRow(expense: Expense) {
    const location = useLocation();
 
    return (
-      <tr className="border-b border-gray-300">
+      <tr className="border-b border-gray-300 odd:bg-white even:bg-caribbean-green-50">
          <td className="px-4 py-3  whitespace-nowrap">
             {expense.description}
          </td>
