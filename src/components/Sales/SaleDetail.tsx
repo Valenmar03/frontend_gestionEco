@@ -145,7 +145,7 @@ export default function SaleDetail() {
 
                      <div>
                         <p className="text-lg sm:text-xl font-bold text-center md:text-right">
-                           Total Neto: {formatCurrency(sale.total.gross)}
+                           Total Neto: {formatCurrency(sale.total.net)}
                         </p>
                         <p className="text-lg sm:text-xl font-bold text-center md:text-right">
                            Total Bruto: {formatCurrency(sale.total.gross)}
