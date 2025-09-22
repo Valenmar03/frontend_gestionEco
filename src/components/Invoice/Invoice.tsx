@@ -95,9 +95,7 @@ export default function InvoicePDF({ sale }: { sale: Sale }) {
             </View>
 
             <View style={styles.section}>
-               <Text style={styles.bold}>
-                  PARA Empresa: {sale.client.name}
-               </Text>
+               <Text style={styles.bold}>PARA Empresa: {sale.client.name}</Text>
                <Text>Dirección: {sale.client.address}</Text>
                <Text>Localidad: {sale.client.city}</Text>
                <Text>
@@ -141,21 +139,27 @@ export default function InvoicePDF({ sale }: { sale: Sale }) {
                   <Text>SUBTOTAL</Text>
                   <Text>{formatCurrency(sale.subtotal.gross)}</Text>
                </View>
-               <View style={styles.totalRow}>
-                  <Text>IVA 21%</Text>
-                  <Text>
-                     {sale.iva ? formatCurrency(sale.subtotal.gross * 0.21) : ""}
-                  </Text>
-               </View>
-               <View style={styles.totalRow}>
-                  <Text>Descuento {sale.discount}</Text>
-                  <Text>
-                     {sale.discount ? formatCurrency(sale.subtotal.gross * ( sale.discount/100 )) : ""}
-                  </Text>
-               </View>
+               {sale.iva && (
+                  <View style={styles.totalRow}>
+                     <Text>IVA 21%</Text>
+                     <Text>{formatCurrency(sale.subtotal.gross * 0.21)}</Text>
+                  </View>
+               )}
+               {sale.discount && (
+                  <View style={styles.totalRow}>
+                     <Text>Descuento {sale.discount}</Text>
+                     <Text>
+                        {formatCurrency(
+                           sale.subtotal.gross * (sale.discount / 100)
+                        )}
+                     </Text>
+                  </View>
+               )}
                <View style={[styles.totalRow, { borderBottomWidth: 0 }]}>
                   <Text style={styles.bold}>TOTAL</Text>
-                  <Text style={styles.bold}>{formatCurrency(sale.total.gross)}</Text>
+                  <Text style={styles.bold}>
+                     {formatCurrency(sale.total.gross)}
+                  </Text>
                </View>
             </View>
 
