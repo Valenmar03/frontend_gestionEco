@@ -108,7 +108,7 @@ export default function SaleDetail() {
 
                   <p className="text-left">Descuento:</p>
                   <p className="text-right font-bold">
-                     %{sale.discount}
+                     {sale.discount}%
                   </p>
 
                   <p className="text-left">IVA:</p>

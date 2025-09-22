@@ -147,7 +147,7 @@ export default function InvoicePDF({ sale }: { sale: Sale }) {
                )}
                {sale.discount && (
                   <View style={styles.totalRow}>
-                     <Text>Descuento {sale.discount}</Text>
+                     <Text>Descuento - {sale.discount}%</Text>
                      <Text>
                         {formatCurrency(
                            sale.subtotal.gross * (sale.discount / 100)
