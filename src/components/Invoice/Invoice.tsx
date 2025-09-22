@@ -107,7 +107,6 @@ export default function InvoicePDF({ sale }: { sale: Sale }) {
             </View>
 
             <View style={styles.section}>
-               <Text>N° de presupuesto: {sale._id}</Text>
                <Text>Fecha de entrega: {formatDate(sale.createdAt)}</Text>
             </View>
 
