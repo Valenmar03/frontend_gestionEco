@@ -7,7 +7,7 @@ import {
    StyleSheet,
    Image,
 } from "@react-pdf/renderer";
-import { formatCurrency, formatDate } from "../../helpers";
+import { formatCurrency, formatDateDate } from "../../helpers";
 import { Sale } from "../../types"; // Asegurate de que incluya client, products, subtotal, iva, total, etc.
 
 const styles = StyleSheet.create({
@@ -105,7 +105,7 @@ export default function InvoicePDF({ sale }: { sale: Sale }) {
             </View>
 
             <View style={styles.section}>
-               <Text>Fecha de entrega: {formatDate(sale.createdAt)}</Text>
+               <Text>Fecha de entrega: {formatDateDate(new Date())}</Text>
             </View>
 
             <View style={styles.tableHeader}>

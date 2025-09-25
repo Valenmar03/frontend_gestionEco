@@ -22,6 +22,15 @@ export const formatDate = (date: string) => {
     return dateObj.toLocaleDateString('es-AR', options);
 }
 
+export const formatDateDate = (date: Date) => {
+    const options: Intl.DateTimeFormatOptions = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+    };
+    return date.toLocaleDateString('es-AR', options);
+}
+
 const MONTHS = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
 
 export function formatYMD(ymd: string) {
